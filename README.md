@@ -1,29 +1,52 @@
-# README #
+Home Account -Magda
+metody:
+addIncoming
+addExpense
+addInvestment
+removeIncoming
+removeExpense
+removeInvestemnt
+getBalance
+addUser
+removeUser
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
+User:
+pola:
+homeAccount
+personalBalance
+password
+login
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+metody:
+addIncoming
+addExpense
+addInvestment
+removeIncoming
+removeExpense
+removeInvestemnt
+getBalance
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+Income:
+amount
+date
+id
 
-### Contribution guidelines ###
+Expense
+amount
+category
+id
+-NonRecurringExpense
+date
+-RecurringExpense:
+dateRange
 
-* Writing tests
-* Code review
-* Other guidelines
+Investment:
+amount
+id
+date
 
-### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+
+
