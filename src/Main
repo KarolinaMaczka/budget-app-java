@@ -1,8 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        NonRecurringExpense nonRecurringExpense = new NonRecurringExpense(2137);
-        RecurringExpense expense = new RecurringExpense(2115);
-        System.out.println(nonRecurringExpense);
-        System.out.println(expense);
+        
     }
 }
