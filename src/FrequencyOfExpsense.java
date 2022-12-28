@@ -1,8 +1,8 @@
 public enum FrequencyOfExpsense {
-    DAILY(1),
-    WEEKLY(2),
-    MONTHLY(3),
-    YEARLY(4);
+    DAILY(0),
+    WEEKLY(1),
+    MONTHLY(2),
+    YEARLY(3);
 
     int id;
 
