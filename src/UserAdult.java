@@ -4,6 +4,11 @@ import java.util.List;
 
 public class UserAdult extends User{
     protected List<Investment> investments;
+    protected HomeAccount homeAccount;
+    protected String password;
+    protected String login;
+    protected List<Expense> expenses;
+    protected List<Income> incomings;
 
     public UserAdult(HomeAccount homeAccount, String password, String login) {
         super(homeAccount, password, login);
@@ -22,37 +27,52 @@ public class UserAdult extends User{
     }
 
     @Override
-    public void addIncoming(Income income) {
-        super.addIncoming(income);
+    public void addIncoming(Income income){
+        this.homeAccount.addIncoming(income);
+        this.incomings.add(income);
     }
 
     @Override
-    public void addExpense(Expense expense) {
-        super.addExpense(expense);
+    public void addExpense(Expense expense){
+        this.homeAccount.addExpense(expense);
+        this.expenses.add(expense);
     }
-
     @Override
-    public void addRecurringExpense(RecurringExpense expense) {
-        super.addRecurringExpense(expense);
+    public void addRecurringExpense(RecurringExpense expense){
+        for (Expense e : expense.pastExpenses()){
+            this.homeAccount.addExpense(e);
+            this.expenses.add(e);}
     }
-
     @Override
     public void removeIncoming(Income income) {
-        super.removeIncoming(income);
+        this.homeAccount.removeIncoming(income);
+        this.incomings.remove(income);
     }
-
     @Override
     public void removeExpense(Expense expense) {
-        super.removeExpense(expense);
+        this.homeAccount.removeExpense(expense);
+        this.expenses.remove(expense);
     }
-
     @Override
-    public void removeRecurringExpense(RecurringExpense expense) {
-        super.removeRecurringExpense(expense);
+    public void removeRecurringExpense(RecurringExpense expense){
+        for (Expense e : expense.pastExpenses()){
+            this.homeAccount.removeExpense(e);
+            this.expenses.remove(e);}
     }
 
     @Override
     public double getPersonalBalance(LocalDate date) {
-        return super.getPersonalBalance(date);
+        double personalBalance=0;
+        for(Expense e :expenses){
+            if(e.getDate().isBefore(date)){
+                personalBalance-=e.getAmount();
+            }
+        }
+        for(Income i :incomings){
+            if(i.getDate().isBefore(date)){
+                personalBalance+=i.getAmount();
+            }
+        }
+        return personalBalance;
     }
 }
