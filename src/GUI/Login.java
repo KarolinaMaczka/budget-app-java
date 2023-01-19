@@ -8,8 +8,6 @@ import System.HomeAccount;
 import System.User;
 import System.UserAdult;
 
-
-
 public class Login extends JFrame {
     public static final int W_FRAME = 540;
     public static final int H_FRAME = 360;
@@ -35,7 +33,14 @@ public class Login extends JFrame {
         setVisible(true);
         insets = this.getInsets();
         homeAccount=ha;
+
+        //TODO
+        //FirtLoginGUI();
+        //tworzymy konto domowe - tworzymy homeaccount(tylko raz)
+        // dodajemy wszystkich użytkowników i randomowe hasłą
+
         LoginGUI();
+
 
     }
 
