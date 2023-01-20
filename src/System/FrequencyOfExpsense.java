@@ -1,6 +1,8 @@
 package System;
 
-public enum FrequencyOfExpsense {
+import java.io.Serializable;
+
+public enum FrequencyOfExpsense implements Serializable {
     DAILY(0),
     WEEKLY(1),
     MONTHLY(2),
