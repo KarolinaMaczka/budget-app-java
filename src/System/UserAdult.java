@@ -8,8 +8,8 @@ public class UserAdult extends User{
     protected List<Investment> investments;
     protected HomeAccount homeAccount;
 
-    public UserAdult(HomeAccount homeAccount, String password, String login) {
-        super(homeAccount, password, login);
+    public UserAdult(HomeAccount homeAccount, String password, String login,String firstName,String surname) {
+        super(homeAccount, password, login,firstName,surname);
         investments = new ArrayList<>();
     }
 
@@ -74,4 +74,16 @@ public class UserAdult extends User{
         }
         return personalBalance;
     }
+
+
+    //TODO
+    // do usunięcia
+    @Override
+    public String toString() {
+        return "UserAdult{" +
+                "password='" + password + '\'' +
+                ", login='" + login + '\'' +
+                '}';
+    }
+
 }

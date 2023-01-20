@@ -3,8 +3,8 @@ package System;
 import java.time.LocalDate;
 
 public class UserChild extends User{
-    public UserChild(HomeAccount homeAccount, String password, String login) {
-        super(homeAccount, password, login);
+    public UserChild(HomeAccount homeAccount, String password, String login,String firstName,String surname) {
+        super(homeAccount, password, login,firstName,surname);
     }
 
     @Override
