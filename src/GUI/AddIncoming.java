@@ -71,7 +71,7 @@ public class AddIncoming extends JFrame {
                 try{
                     int number = Integer.parseInt(textAmount.getText());
                     user.addIncoming(new Income(number));
-                    HomeAccount.addIncoming(new Income(number));
+                    homeAccount.addIncoming(new Income(number));
                 }
                 catch (NumberFormatException ex){
                     ex.printStackTrace();
