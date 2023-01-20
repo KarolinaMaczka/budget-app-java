@@ -13,17 +13,21 @@ public abstract class User {
     protected HomeAccount homeAccount;
     protected String password;
     protected String login;
+    protected String firstName;
+    protected String surname;
     protected List<Expense> expenses;
     protected List<Income> incomings;
 
 
-    public User(HomeAccount homeAccount, String password, String login) {
+    public User(HomeAccount homeAccount, String password, String login,String firstName,String surname) {
         this.homeAccount = homeAccount;
         this.homeAccount.addUser(this);
         this.password = password;
         this.login = login;
         this.expenses = new ArrayList<>();
         this.incomings = new ArrayList<>();
+        this.firstName=firstName;
+        this.surname=surname;
     }
 
     public String getLogin() {
