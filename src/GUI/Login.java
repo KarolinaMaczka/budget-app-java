@@ -131,7 +131,7 @@ public class Login extends JFrame {
 
             //test
             HomeAccount homeAccount=new HomeAccount();
-            UserAdult u = new UserAdult(homeAccount,"sda","sfa");
+            UserAdult u = new UserAdult(homeAccount,"sda","sfa", "Magdalena", "Jeczen");
             //end of test
 
             @Override
