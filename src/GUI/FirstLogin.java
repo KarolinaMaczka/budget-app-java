@@ -175,7 +175,6 @@ public class FirstLogin extends JFrame {
                     try {
                         o.writeObject(homeAccount);;
                         o.close();
-                        saveHomeAccount(homeAccount);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -254,13 +253,5 @@ public class FirstLogin extends JFrame {
         }
         labelErrorText.setText("");
         return true;
-    }
-
-    private void saveHomeAccount(HomeAccount ha) throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("users.out"));
-        for (int i = 0; i < ha.getUsers().size(); i++) {
-            oos.writeObject(ha.getUsers().get(i));
-        }
-        oos.close();
     }
 }
