@@ -1,10 +1,11 @@
 package System;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class HomeAccount {
+public class HomeAccount implements Serializable {
     private static List<Expense> expenses;
     private static List<Income> incomings;
     private static List<Investment> investments;
@@ -63,4 +64,5 @@ public class HomeAccount {
             return null;
         }
     }
+
 }

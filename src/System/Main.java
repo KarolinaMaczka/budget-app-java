@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Dziala");
         HomeAccount ha= new HomeAccount();
-        UserAdult u = new UserAdult(ha,"sda","sfa");
+        UserAdult u = new UserAdult(ha,"sda","sfa","nem","smkd");
         System.out.println(ha.getUsers());
         System.out.println(ha.containsLogin("sfa"));
 

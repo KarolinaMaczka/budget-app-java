@@ -1,10 +1,11 @@
 package System;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecurringExpense {
+public class RecurringExpense implements Serializable {
 //    private class
 //    protected FrequencyOfExpsense frequency;
 //    protected int numberOfTimes;

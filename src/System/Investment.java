@@ -1,8 +1,9 @@
 package System;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Investment {
+public class Investment implements Serializable {
     private LocalDate date;
     private double amount;
     private String id;
