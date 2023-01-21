@@ -34,6 +34,7 @@ public class FirstLogin extends JFrame {
 
         setVisible(true);
         insets = this.getInsets();
+        FirstLoginGUI();
 
     }
 
