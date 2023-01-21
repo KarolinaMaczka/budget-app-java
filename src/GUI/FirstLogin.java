@@ -8,7 +8,7 @@ import java.io.*;
 
 import System.*;
 
-public class AddUser extends JFrame {
+public class FirstLogin extends JFrame {
     public static final int W_FRAME = 700;
     public static final int H_FRAME = 350;
     private JPanel contentPaneFL;
@@ -20,12 +20,9 @@ public class AddUser extends JFrame {
     private Insets insets;
     private HomeAccount homeAccount;
     private JLabel title;
-    private JCheckBox childCheckbox;
-    private User u;
 
-    public AddUser(HomeAccount homeAccount) {
+    public FirstLogin() {
         super("login");
-        this.homeAccount =homeAccount;
         setResizable(false);
         setLayout(null);
         setSize(W_FRAME, H_FRAME);
@@ -36,11 +33,11 @@ public class AddUser extends JFrame {
 
         setVisible(true);
         insets = this.getInsets();
-        AddUserGUI();
+        FirstLoginGUI();
 
     }
 
-    private void AddUserGUI(){
+    private void FirstLoginGUI(){
         this.setTitle("Creating home account");
         contentPaneFL = new JPanel();
 
@@ -153,14 +150,6 @@ public class AddUser extends JFrame {
         labelErrorText.setSize(70,20);
         labelErrorText.setForeground(Color.RED);
 
-        childCheckbox =new JCheckBox("Child User");
-        childCheckbox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                childCheckbox.setSelected(true);
-            }
-        });
-
         newAccountButton=new JButton("Create Account");
         newAccountButton.setSize(70,20);
         newAccountButton.addActionListener(new ActionListener() {
@@ -169,12 +158,9 @@ public class AddUser extends JFrame {
                 if (checkDataCorrectness(textFieldFirstName.getText(),textFieldSurname.getText(),textFieldUsername.getText(),textFieldPassword.getText())){
                     labelErrorText.setForeground(Color.GREEN);
                     labelErrorText.setText("Tworzenie konta");
-                    if (childCheckbox.isSelected()){
-                        u=new UserChild(homeAccount,textFieldPassword.getText(),textFieldUsername.getText(),textFieldFirstName.getText(),textFieldSurname.getText());
-                    }else {
-                        u = new UserAdult(homeAccount, textFieldPassword.getText(), textFieldUsername.getText(), textFieldFirstName.getText(), textFieldSurname.getText());
-                    }
-                    System.out.println(u);
+                    homeAccount = new HomeAccount();
+                    User u1=new UserAdult(homeAccount,textFieldPassword.getText(),textFieldUsername.getText(),textFieldFirstName.getText(),textFieldSurname.getText());
+                    System.out.println(u1);
                     System.out.println(homeAccount.getUsers());
 
                     ObjectOutputStream o = null;
@@ -193,7 +179,8 @@ public class AddUser extends JFrame {
                     EventQueue.invokeLater(new Runnable() {
                         @Override
                         public void run() {
-                            AddUser.this.dispose();
+                            FirstLogin.this.dispose();
+                            new Login();
                         }
                     });
                 }
@@ -213,7 +200,6 @@ public class AddUser extends JFrame {
                                 .addComponent(errorPassword)
                                 .addComponent(labelPassword,GroupLayout.Alignment.TRAILING)
                                 .addComponent(labelErrorText)
-                                .addComponent(childCheckbox)
                         )
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addComponent(textFieldFirstName)
@@ -247,7 +233,6 @@ public class AddUser extends JFrame {
                                 .addComponent(labelPassword)
                                 .addComponent(textFieldPassword)
                         )
-                        .addComponent(childCheckbox)
                         .addComponent(labelErrorText)
                         .addComponent(newAccountButton)
         );
@@ -265,41 +250,5 @@ public class AddUser extends JFrame {
         }
         labelErrorText.setText("");
         return true;
-    }
-
-    public static void main(String[] args) {
-
-        File homeAccountFile= new File("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount");
-
-        if (homeAccountFile.length()==0){
-            System.out.println("pusty");
-        }else {
-            ObjectInputStream in = null;
-            try {
-                in = new ObjectInputStream(new FileInputStream(homeAccountFile));
-            } catch (IOException e) {
-                System.out.println("zła ścieżka");
-            }
-
-            try {
-                HomeAccount homeAccount =(HomeAccount) in.readObject();
-                System.out.println(homeAccount);
-                System.out.println(homeAccount.getUsers());
-                EventQueue.invokeLater(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        new AddUser(homeAccount);
-
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
     }
 }

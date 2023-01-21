@@ -41,12 +41,15 @@ public class Expense implements Serializable {
         return isRecurring;
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
-        return "Expense{" +
-                "date=" + date +
-                ", amount=" + amount +
-                ", id='" + id + '\'' +
-                '}';
+        return "Expense " +
+                " " + date +
+                " " + amount +
+                " " + categoryOfExpense;
     }
 }
