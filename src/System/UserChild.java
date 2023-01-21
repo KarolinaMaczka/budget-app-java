@@ -15,29 +15,24 @@ public class UserChild extends User{
 
     @Override
     public void addExpense(Expense expense){
-        this.homeAccount.addExpense(expense);
         this.expenses.add(expense);
     }
     @Override
     public void addRecurringExpense(RecurringExpense expense){
         for (Expense e : expense.pastExpenses()){
-            this.homeAccount.addExpense(e);
             this.expenses.add(e);}
     }
     @Override
     public void removeIncoming(Income income) {
-        this.homeAccount.removeIncoming(income);
         this.incomings.remove(income);
     }
     @Override
     public void removeExpense(Expense expense) {
-        this.homeAccount.removeExpense(expense);
         this.expenses.remove(expense);
     }
     @Override
     public void removeRecurringExpense(RecurringExpense expense){
         for (Expense e : expense.pastExpenses()){
-            this.homeAccount.removeExpense(e);
             this.expenses.remove(e);}
     }
 
