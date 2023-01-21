@@ -242,7 +242,7 @@ public class LongHistory extends JFrame {
             ArrayList<Expense> listExpense = new ArrayList<>();
 
             for(Expense e : user.getExpenses()){
-                if (e.getDate().isAfter(startingDate) && e.getDate().isBefore(endDate)){
+                if ((e.getDate().isAfter(startingDate) || e.getDate().isEqual(startingDate)) && (e.getDate().isBefore(endDate) || e.getDate().isEqual(endDate))){
                     listExpense.add(e);
                 }
             }
@@ -250,7 +250,7 @@ public class LongHistory extends JFrame {
             int i =0;
             Object[][] data=new Object[listExpense.size()][3];
             for (Expense expense: listExpense){
-                if (expense.getDate().isAfter(startingDate) && expense.getDate().isBefore(endDate)){
+                if ((expense.getDate().isAfter(startingDate) || expense.getDate().isEqual(startingDate)) && (expense.getDate().isBefore(endDate) || expense.getDate().isEqual(endDate))){
                     data[i][0] = expense.getCategoryOfExpense();
                     data[i][1] = expense.getDate();
                     data[i][2] = expense.getAmount();
@@ -310,7 +310,7 @@ public class LongHistory extends JFrame {
             ArrayList<Income> listIncome = new ArrayList<>();
 
             for(Income e : user.getIncomings()){
-                if (e.getDate().isAfter(startingDate) && e.getDate().isBefore(endDate)){
+                if ((e.getDate().isAfter(startingDate) || e.getDate().isEqual(startingDate)) && (e.getDate().isBefore(endDate) || e.getDate().isEqual(endDate))){
                     listIncome.add(e);
                 }
             }
@@ -318,7 +318,7 @@ public class LongHistory extends JFrame {
             int j =0;
             Object[][] data1=new Object[listIncome.size()][2];
             for (Income in: listIncome){
-                if (in.getDate().isAfter(startingDate) && in.getDate().isBefore(endDate)){
+                if ((in.getDate().isAfter(startingDate) || in.getDate().isEqual(startingDate)) && (in.getDate().isBefore(endDate) || in.getDate().isEqual(endDate))){
                     data1[j][0] = in.getDate();
                     data1[j][1] = in.getAmount();
                     j++;
