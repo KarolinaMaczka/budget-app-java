@@ -1,8 +1,6 @@
 package System;
 
-import java.io.Serializable;
-
-public enum CategoryOfExpense implements Serializable {
+public enum CategoryOfExpense {
     GROCERIES(0),
     HYGIENE(1),
     FUEL(2),

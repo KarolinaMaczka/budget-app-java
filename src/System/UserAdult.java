@@ -1,60 +1,61 @@
 package System;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserAdult extends User implements Serializable {
+public class UserAdult extends User{
     protected List<Investment> investments;
 
     public UserAdult(HomeAccount homeAccount, String password, String login,String firstName,String surname) {
         super(homeAccount, password, login,firstName,surname);
-        this.investments = new ArrayList<>();
+        investments = new ArrayList<>();
     }
 
+
+
     public void addInvestment(Investment investment){
-        this.homeAccount.addInvestment(investment);
-        this.investments.add(investment);
+        homeAccount.addInvestment(investment);
+        investments.add(investment);
     }
 
     public void removeInvestment(Investment investment) {
-        this.homeAccount.removeInvestment(investment);
-        this.investments.remove(investment);
+        homeAccount.removeInvestment(investment);
+        investments.remove(investment);
     }
 
     @Override
     public void addIncoming(Income income){
-        this.homeAccount.addIncoming(income);
-        this.incomings.add(income);
+        homeAccount.addIncoming(income);
+        incomings.add(income);
     }
 
     @Override
     public void addExpense(Expense expense){
-        this.homeAccount.addExpense(expense);
-        this.expenses.add(expense);
+        homeAccount.addExpense(expense);
+        expenses.add(expense);
     }
     @Override
     public void addRecurringExpense(RecurringExpense expense){
         for (Expense e : expense.pastExpenses()){
-            this.homeAccount.addExpense(e);
-            this.expenses.add(e);}
+            homeAccount.addExpense(e);
+            expenses.add(e);}
     }
     @Override
     public void removeIncoming(Income income) {
-        this.homeAccount.removeIncoming(income);
-        this.incomings.remove(income);
+        homeAccount.removeIncoming(income);
+        incomings.remove(income);
     }
     @Override
     public void removeExpense(Expense expense) {
-        this.homeAccount.removeExpense(expense);
-        this.expenses.remove(expense);
+        homeAccount.removeExpense(expense);
+        expenses.remove(expense);
     }
     @Override
     public void removeRecurringExpense(RecurringExpense expense){
         for (Expense e : expense.pastExpenses()){
-            this.homeAccount.removeExpense(e);
-            this.expenses.remove(e);}
+            homeAccount.removeExpense(e);
+            expenses.remove(e);}
     }
 
     @Override

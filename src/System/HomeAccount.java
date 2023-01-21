@@ -6,39 +6,39 @@ import java.util.List;
 import java.util.Optional;
 
 public class HomeAccount implements Serializable {
-    private List<Expense> expenses;
-    private List<Income> incomings;
-    private List<Investment> investments;
-    private List<User> users;
-    private double balance;
+    private static List<Expense> expenses;
+    private static List<Income> incomings;
+    private static List<Investment> investments;
+    private static List<User> users;
+    private static double balance;
 
     public HomeAccount(){
-        this.expenses = new ArrayList<>();
-        this.incomings = new ArrayList<>();
-        this.investments = new ArrayList<>();
-        this.users = new ArrayList<>();
+        expenses = new ArrayList<>();
+        incomings = new ArrayList<>();
+        investments = new ArrayList<>();
+        users = new ArrayList<>();
     }
 
-    public void addIncoming(Income income){
-        this.incomings.add(income);
+    public static void addIncoming(Income income){
+        incomings.add(income);
     }
 
-    public void addExpense(Expense expense){
-        this.expenses.add(expense);
+    public static void addExpense(Expense expense){
+        expenses.add(expense);
     }
 
-    public void addInvestment(Investment investment){
-        this.investments.add(investment);
+    public static void addInvestment(Investment investment){
+        investments.add(investment);
     }
 
-    public void removeIncoming(Income incoming) { this.incomings.remove(incoming); }
-    public void removeExpense(Expense expense) { this.expenses.remove(expense); }
+    public static void removeIncoming(Income incoming) { incomings.remove(incoming); }
+    public static void removeExpense(Expense expense) { expenses.remove(expense); }
 
-    public void removeInvestment(Investment investment) { this.investments.remove(investment); }
-    public double getBalance() { return balance; }
+    public static void removeInvestment(Investment investment) { investments.remove(investment); }
+    public static double getBalance() { return balance; }
 
-    public void addUser(User user){
-        this.users.add(user);
+    public static void addUser(User user){
+        users.add(user);
 
 //        if(type == "Adult"){
 //            users.add(new User());
@@ -48,16 +48,16 @@ public class HomeAccount implements Serializable {
 //        }
     }
 
-    public void removeUser(User user){
-        this.users.remove(user);
+    public static void removeUser(User user){
+        users.remove(user);
     }
 
-    public List<User> getUsers() {
+    public static List<User> getUsers() {
         return users;
     }
 
     public User containsLogin(String login){
-        Optional ans = this.users.stream().filter(o -> o.getLogin().equals(login)).findFirst();
+        Optional ans = users.stream().filter(o -> o.getLogin().equals(login)).findFirst();
         if (ans.isPresent()){
             return (User) ans.get();
         }else{

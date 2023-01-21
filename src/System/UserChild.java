@@ -1,9 +1,8 @@
 package System;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class UserChild extends User implements Serializable {
+public class UserChild extends User{
     public UserChild(HomeAccount homeAccount, String password, String login,String firstName,String surname) {
         super(homeAccount, password, login,firstName,surname);
     }
