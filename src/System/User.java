@@ -31,6 +31,14 @@ public abstract class User implements Serializable {
         this.surname=surname;
     }
 
+    public List<Income> getIncomings() {
+        return incomings;
+    }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
     public String getLogin() {
         return login;
     }
