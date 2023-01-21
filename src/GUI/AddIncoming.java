@@ -10,10 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import System.Income;
+import System.UserAdult;
 
 public class AddIncoming extends JFrame {
     //magda
-    //przy childzie updatujemy listę tylko dla childa
+    //przy childzie updatujemy listę tylko dla childa // to juz jest metodzie zrobiuoine
 
     public static final int W_FRAME = 540;
     public static final int H_FRAME = 360;
@@ -27,7 +28,7 @@ public class AddIncoming extends JFrame {
     private HomeAccount homeAccount;
     private User user;
 
-    public AddIncoming(HomeAccount ha) {
+    public AddIncoming(User ur) {
         setTitle("Add incoming");
         setResizable(false);
         setLayout(null);
@@ -39,7 +40,7 @@ public class AddIncoming extends JFrame {
 
         setVisible(true);
         insets = this.getInsets();
-        homeAccount=ha;
+        user = ur;
 
         AddIncomingGUI();
     }
@@ -64,19 +65,15 @@ public class AddIncoming extends JFrame {
 
         buttonApprove = new JButton("OK");
         buttonApprove.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        buttonApprove.setBounds(120,40,70,20);
+        buttonApprove.setBounds(220,200,70,20);
         buttonApprove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                    int number = Integer.parseInt(textAmount.getText());
-                    user.addIncoming(new Income(number));
-                    homeAccount.addIncoming(new Income(number));
+                int number = Integer.parseInt(textAmount.getText());
+                user.addIncoming(new Income(number));
+
                 }
-                catch (NumberFormatException ex){
-                    ex.printStackTrace();
-                }
-            }
+
         });
         contentPane.add(buttonApprove);
 
@@ -89,10 +86,11 @@ public class AddIncoming extends JFrame {
 
         EventQueue.invokeLater(new Runnable() {
             HomeAccount homeAccount= new HomeAccount();
+            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
             @Override
             public void run() {
 
-                new AddIncoming(homeAccount);
+                new AddIncoming(user);
 
             }
         });
