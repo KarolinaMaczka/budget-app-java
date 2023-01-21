@@ -131,9 +131,9 @@ public class Login extends JFrame {
                         labelErrorText.setText("");
 
                         if (userFromLogin instanceof UserAdult){
-                            new UserPage();
+                            new UserPage(userFromLogin);
                         }else{
-                            new ChildUserPage();
+                            new ChildUserPage(userFromLogin);
                         }
                     }
                 }

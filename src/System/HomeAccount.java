@@ -1,6 +1,7 @@
 package System;
 
         import java.io.*;
+        import java.time.LocalDate;
         import java.util.ArrayList;
         import java.util.List;
         import java.util.Optional;
@@ -35,7 +36,36 @@ public class HomeAccount implements Serializable {
     public void removeExpense(Expense expense) { this.expenses.remove(expense); }
 
     public void removeInvestment(Investment investment) { this.investments.remove(investment); }
-    public double getBalance() { return balance; }
+
+    public void updateBalance() {
+        balance = 0;
+        for(var e : expenses) {
+            balance -= e.getAmount();
+        }
+        for(var in : incomings) {
+            balance -= in.getAmount();
+        }
+    }
+
+    public double getBalance() {
+        updateBalance();
+        return balance;
+    }
+
+    public double getBalanceDateRange(LocalDate start, LocalDate end) {
+        double personalBalance=0;
+        for(Expense e :expenses){
+            if(e.getDate().isBefore(end) & e.getDate().isAfter(start)){
+                personalBalance-=e.getAmount();
+            }
+        }
+        for(Income i :incomings){
+            if(i.getDate().isBefore(end) & i.getDate().isAfter(start)){
+                personalBalance+=i.getAmount();
+            }
+        }
+        return personalBalance;
+    }
 
     public void addUser(User user){
         this.users.add(user);

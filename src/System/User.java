@@ -18,6 +18,7 @@ public abstract class User implements Serializable {
     protected String surname;
     protected List<Expense> expenses;
     protected List<Income> incomings;
+    protected List<Investment> investments;
 
 
     public User(HomeAccount homeAccount, String password, String login,String firstName,String surname) {
@@ -27,17 +28,18 @@ public abstract class User implements Serializable {
         this.login = login;
         this.expenses = new ArrayList<>();
         this.incomings = new ArrayList<>();
+        this.investments = new ArrayList<>();
         this.firstName=firstName;
         this.surname=surname;
     }
 
-    public List<Income> getIncomings() {
-        return incomings;
-    }
-
-    public List<Expense> getExpenses() {
-        return expenses;
-    }
+//    public List<Income> getIncomings() {
+//        return incomings;
+//    }
+//
+//    public List<Expense> getExpenses() {
+//        return expenses;
+//    }
 
     public String getLogin() {
         return login;
@@ -50,7 +52,34 @@ public abstract class User implements Serializable {
     public void addIncoming(Income income){
     }
 
+    public HomeAccount getHomeAccount() {
+        return homeAccount;
+    }
+
+    public double getAmountInvested() {
+        double amount=0;
+        for(var investment : investments) {
+            amount += investment.getAmount();
+        }
+        return amount;
+    }
+
+    public double getAmountInvestedDateRange(LocalDate start, LocalDate end) {
+        double amount=0;
+        for(var investment : investments) {
+            if(investment.getDate().isBefore(end) && investment.getDate().isAfter(start))
+                amount += investment.getAmount();
+        }
+        return amount;
+    }
+
+
+    public void addInvestment(Investment investment) {
+        this.investments.add(investment);
+    }
+
     public void addExpense(Expense expense){
+        this.expenses.add(expense);
     }
     public void addRecurringExpense(RecurringExpense expense){
     }

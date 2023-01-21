@@ -27,4 +27,13 @@ public class Income implements Serializable {
     public String getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Income{" +
+                "date=" + date +
+                ", amount=" + amount +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }
