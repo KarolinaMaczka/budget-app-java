@@ -4,23 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import System.HomeAccount;
-import System.User;
-import System.UserAdult;
+import java.io.*;
+
+import System.*;
 
 public class Login extends JFrame {
-    public static final int W_FRAME = 540;
-    public static final int H_FRAME = 360;
+    public static final int W_FRAME = 700;
+    public static final int H_FRAME = 250;
     private final String errorText = "Wrong username or password";
-    private JPanel contentPane;
-    private JButton logButton;
-    private JLabel labelUsername, labelPassword, labelIcon, labelErrorText;
-    private JTextField textFieldUsername;
+    private JPanel contentPane,contentPaneFL;
+    private JButton logButton,newAccountButton;
+    private JLabel labelUsername, labelPassword, labelErrorText,labelFirstName,labelSurname;
+    private JLabel errorUsername,errorPassword,errorFirstName,errorSurname;
+    private JTextField textFieldUsername, textFieldPassword, textFieldFirstName,textFieldSurname;
     private JPasswordField passwordFieldPassword;
     private Insets insets;
     private HomeAccount homeAccount;
+    private JLabel title;
 
-    public Login(HomeAccount ha){
+    public Login() {
         super("login");
         setResizable(false);
         setLayout(null);
@@ -32,84 +34,107 @@ public class Login extends JFrame {
 
         setVisible(true);
         insets = this.getInsets();
-        homeAccount=ha;
 
-        //TODO
-        //FirtLoginGUI();
-        //tworzymy konto domowe - tworzymy homeaccount(tylko raz)
-        // dodajemy wszystkich użytkowników i randomowe hasłą
+        //reading from file
+        File homeAccountFile= new File("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount");
+        //if there is no home account yet
+        if (homeAccountFile.length()==0){
+            Login.this.dispose();
+            new FirstLogin();
+        }else {
+            ObjectInputStream in = null;
+            try {
+                in = new ObjectInputStream(new FileInputStream(homeAccountFile));
+            } catch (IOException e) {
+                System.out.println("zła ścieżka");
+            }
 
-        LoginGUI();
-
+            try {
+                homeAccount =(HomeAccount) in.readObject();
+                System.out.println(homeAccount);
+                System.out.println(homeAccount.getUsers());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            LoginGUI();
+        }
 
     }
 
+
+
     private void LoginGUI(){
+        this.setTitle("Logging");
         contentPane = new JPanel();
-        contentPane.setLayout(null);
         contentPane.setBounds(insets.left, insets.top, W_FRAME - insets.left - insets.right,
                 H_FRAME - insets.bottom - insets.top);
 
         labelUsername = new JLabel("Username");
         labelUsername.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        labelUsername.setBounds(120,140,70,20);
-        contentPane.add(labelUsername);
+        labelUsername.setSize(70,20);
 
         labelPassword = new JLabel("Password");
         labelPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        labelPassword.setBounds(120,180,70,20);
-        contentPane.add(labelPassword);
+        labelPassword.setSize(70,20);
 
         textFieldUsername = new JTextField();
         textFieldUsername.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        textFieldUsername.setBounds(220,140,120,20);
+        textFieldUsername.setSize(120,20);
         textFieldUsername.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 passwordFieldPassword.requestFocus();
             }
         });
-        contentPane.add(textFieldUsername);
 
         passwordFieldPassword = new JPasswordField();
-        passwordFieldPassword.setBounds(220, 180,
-                120, 20);
+        passwordFieldPassword.setSize(120,20);
         passwordFieldPassword.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 logButton.doClick();
             }
         });
-        contentPane.add(passwordFieldPassword);
 
-        labelErrorText = new JLabel();
+        labelErrorText = new JLabel("");
         labelErrorText.setForeground(Color.RED);
-        labelErrorText.setBounds(200,250,170,30);
-        contentPane.add(labelErrorText);
+        labelErrorText.setSize(170,30);
 
-        logButton = new JButton("Log");
-        logButton.setBounds(240, 220,80,30);
+        logButton = new JButton("Sign in");
+        logButton.setSize(80,30);
         logButton.setFocusPainted(false);
         logButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ObjectInputStream in = null;
+                try {
+                    in = new ObjectInputStream(new FileInputStream("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount"));
+                } catch (IOException exc) {
+                    System.out.println("zła ścieżka");
+                }
 
-                //TODO
-                //czytanie pliku z Userami
+                try {
+                    homeAccount =(HomeAccount) in.readObject();
+                } catch (IOException exc) {
+                    exc.printStackTrace();
+                } catch (ClassNotFoundException exc) {
+                    exc.printStackTrace();
+                }
 
                 String login = textFieldUsername.getText();
                 User userFromLogin = homeAccount.containsLogin(login);
                 if (userFromLogin != null){
                     if (userFromLogin.getPassword().equals(String.valueOf(passwordFieldPassword.getPassword()))){
 
-                        //TODO
-                        //przejście do nowej strony
-
                         labelErrorText.setText("");
 
-                        //test
-                        labelErrorText.setText("Zalogowano");
-
+                        if (userFromLogin instanceof UserAdult){
+                            new UserPage();
+                        }else{
+                            new ChildUserPage();
+                        }
                     }
                 }
                 else {
@@ -118,30 +143,80 @@ public class Login extends JFrame {
                 }
             }
         });
-        contentPane.add(logButton);
+
+        title = new JLabel("Log into your home account");
+        title.setFont(new Font("Helvetica", Font.PLAIN, 18));
+        title.setSize(70,20);
+
+        GroupLayout layout = new GroupLayout(contentPane);
+        contentPane.setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        layout.setHorizontalGroup(
+                layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(title)
+                                .addComponent(labelUsername,GroupLayout.Alignment.TRAILING)
+                                .addComponent(labelPassword,GroupLayout.Alignment.TRAILING)
+                                .addComponent(labelErrorText)
+                        )
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                                .addComponent(textFieldUsername)
+                                .addComponent(passwordFieldPassword)
+                                .addComponent(logButton)
+                        )
+        );
+
+        layout.setVerticalGroup(
+                layout.createSequentialGroup()
+                        .addComponent(title)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(labelUsername)
+                                .addComponent(textFieldUsername)
+                        )
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(labelPassword)
+                                .addComponent(passwordFieldPassword)
+                        )
+                        .addComponent(labelErrorText)
+                        .addComponent(logButton)
+        );
 
         setContentPane(contentPane);
     }
 
     public static void main(String[] args) {
+
+        //TODO
+        // usuń
+//        try {
+//            deleteAccount();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
         EventQueue.invokeLater(new Runnable() {
-
-            //TODO
-            //odczytywanie z pliku
-
-            //test
-            HomeAccount homeAccount=new HomeAccount();
-            UserAdult u = new UserAdult(homeAccount,"sda","sfa", "Magdalena", "Jeczen");
-            //end of test
 
             @Override
             public void run() {
 
-                new Login(homeAccount);
+                new Login();
 
             }
         });
 
+    }
+
+
+    private static void deleteAccount() throws FileNotFoundException {
+        //TODO
+        // usuń czyszczenie pliku
+        PrintWriter writer = new PrintWriter("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount");
+        writer.print("");
+        // other operations
+        writer.close();
+        // koniec usuwania
     }
 
 
