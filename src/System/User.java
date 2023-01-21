@@ -58,6 +58,14 @@ public abstract class User implements Serializable {
         return personalBalance;
     }
 
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public List<Income> getIncomings() {
+        return incomings;
+    }
+
     public double getPersonalBalanceDateRange(LocalDate start, LocalDate end) {
         double personalBalance=0;
         for(Expense e :expenses){

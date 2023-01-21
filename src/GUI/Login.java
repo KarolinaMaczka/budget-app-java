@@ -6,13 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-import System.HomeAccount;
-import System.User;
-import System.UserAdult;
+import System.*;
 
 public class Login extends JFrame {
     public static final int W_FRAME = 700;
-    public static final int H_FRAME = 350;
+    public static final int H_FRAME = 250;
     private final String errorText = "Wrong username or password";
     private JPanel contentPane,contentPaneFL;
     private JButton logButton,newAccountButton;
@@ -70,7 +68,6 @@ public class Login extends JFrame {
     private void LoginGUI(){
         this.setTitle("Logging");
         contentPane = new JPanel();
-        contentPane.setLayout(null);
         contentPane.setBounds(insets.left, insets.top, W_FRAME - insets.left - insets.right,
                 H_FRAME - insets.bottom - insets.top);
 

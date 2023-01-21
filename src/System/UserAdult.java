@@ -7,7 +7,6 @@ import java.util.List;
 
 public class UserAdult extends User implements Serializable {
     protected List<Investment> investments;
-    protected HomeAccount homeAccount;
 
     public UserAdult(HomeAccount homeAccount, String password, String login,String firstName,String surname) {
         super(homeAccount, password, login,firstName,surname);

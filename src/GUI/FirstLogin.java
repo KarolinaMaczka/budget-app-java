@@ -6,9 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-import System.HomeAccount;
-import System.User;
-import System.UserAdult;
+import System.*;
 
 public class FirstLogin extends JFrame {
     public static final int W_FRAME = 700;
