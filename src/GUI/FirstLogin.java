@@ -35,8 +35,8 @@ public class FirstLogin extends JFrame {
         setVisible(true);
         insets = this.getInsets();
 
-        FirstLoginGUI();
     }
+
 
     private void FirstLoginGUI(){
         this.setTitle("Creating home account");
