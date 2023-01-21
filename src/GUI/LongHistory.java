@@ -2,10 +2,6 @@ package GUI;
 
 import javax.swing.*;
 import System.*;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
-import org.jdatepicker.util.JDatePickerUtil;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
