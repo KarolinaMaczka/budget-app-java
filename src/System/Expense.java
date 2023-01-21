@@ -47,9 +47,8 @@ public class Expense implements Serializable {
 
     @Override
     public String toString() {
-        return "Expense " +
-                " " + date +
+        return  date +
                 " " + amount +
-                " " + categoryOfExpense;
+                " " + categoryOfExpense.name();
     }
 }

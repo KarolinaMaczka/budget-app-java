@@ -88,4 +88,7 @@ public class HomeAccount implements Serializable {
         }
     }
 
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
 }
