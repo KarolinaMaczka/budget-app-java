@@ -11,9 +11,8 @@ import System.*;
 public class FirstLogin extends JFrame {
     public static final int W_FRAME = 700;
     public static final int H_FRAME = 350;
-    private final String errorText = "Wrong username or password";
-    private JPanel contentPane,contentPaneFL;
-    private JButton logButton,newAccountButton;
+    private JPanel contentPaneFL;
+    private JButton newAccountButton;
     private JLabel labelUsername, labelPassword, labelErrorText,labelFirstName,labelSurname;
     private JLabel errorUsername,errorPassword,errorFirstName,errorSurname;
     private JTextField textFieldUsername, textFieldPassword, textFieldFirstName,textFieldSurname;
@@ -37,7 +36,6 @@ public class FirstLogin extends JFrame {
         FirstLoginGUI();
 
     }
-
 
     private void FirstLoginGUI(){
         this.setTitle("Creating home account");

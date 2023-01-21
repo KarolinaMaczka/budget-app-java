@@ -51,4 +51,12 @@ public class UserChild extends User{
         }
         return personalBalance;
     }
+
+    @Override
+    public String toString() {
+        return "UserChild{" +
+                "password='" + password + '\'' +
+                ", login='" + login + '\'' +
+                '}';
+    }
 }

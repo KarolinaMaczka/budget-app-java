@@ -81,5 +81,11 @@ public abstract class User implements Serializable {
         return personalBalance;
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "password='" + password + '\'' +
+                ", login='" + login + '\'' +
+                '}';
+    }
 }
