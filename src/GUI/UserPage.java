@@ -124,8 +124,8 @@ public class UserPage extends JFrame {
         String balanceString = "Balance of the home: " +
                 Math.round(100 * user.getHomeAccount().getBalanceDateRange(start, end)) / 100d + "pln";
         String investmentString = "Amount invested: " +
-//                Math.round(100*user.getAmountInvestedDateRange(start,end) ) / 100d + "pln";
-                Math.round(100*user.getHomeAccount().investedAmount() ) / 100d + "pln";
+                Math.round(100*user.getAmountInvested() ) / 100d + "pln";
+//                Math.round(100*user.getHomeAccount().investedAmount() ) / 100d + "pln";
 
         JLabel personalBalanceLabel = new JLabel();
         JLabel balanceLabel = new JLabel();
@@ -606,7 +606,7 @@ public class UserPage extends JFrame {
         user.addIncoming(new Income(12.3));
         user.addIncoming(new Income(42.3));
         user.addExpense(new Expense(21.1,CategoryOfExpense.GROCERIES, false));
-        user.addInvestment(new Investment(420, "weed"));
+        user.addInvestment(new Investment(420, "wfwf"));
 
 
         new UserPage(user);
