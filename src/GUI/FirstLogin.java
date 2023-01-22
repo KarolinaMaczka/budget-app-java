@@ -86,9 +86,6 @@ public class FirstLogin extends JFrame {
         title.setFont(new Font("Helvetica", Font.PLAIN, 18));
         title.setSize(70,20);
 
-        //TODO
-        // inne błędy wpisywania - na koniec
-
         textFieldFirstName = new JTextField();
         textFieldFirstName.setFont(new Font("Tahoma", Font.PLAIN, 16));
         textFieldFirstName.setSize(120,20);

@@ -279,10 +279,10 @@ public class ChildUserPage extends JFrame {
             }
         });
 
-//        contentPane.add(startMonth);
-//        contentPane.add(startYear);
-//        contentPane.add(endMonth);
-//        contentPane.add(endYear);
+        contentPane.add(startMonth);
+        contentPane.add(startYear);
+        contentPane.add(endMonth);
+        contentPane.add(endYear);
 
         JLabel startDateLabel = new JLabel();
         JLabel endDateLabel = new JLabel();
@@ -295,8 +295,8 @@ public class ChildUserPage extends JFrame {
         startDateLabel.setBounds(0,80 + h,140,20);
         endDateLabel.setBounds(140,80 + h,140,20);
 
-//        contentPane.add(startDateLabel);
-//        contentPane.add(endDateLabel);
+        contentPane.add(startDateLabel);
+        contentPane.add(endDateLabel);
 
         JButton mtd = new JButton();
         mtd.setText("Month to date");
@@ -314,13 +314,13 @@ public class ChildUserPage extends JFrame {
             }
         });
 
-//        contentPane.add(mtd);
+        contentPane.add(mtd);
 
 //        ImageIcon imageIcon = new ImageIcon("pie4.png");
 
 
         JButton pieChart = new JButton();
-        pieChart.setBounds(40, 100 + h, 170,30);
+        pieChart.setBounds(40, 155 + h, 170,30);
         pieChart.setText("Display plot");
         pieChart.setFont(new Font("Tahoma", Font.BOLD, 18));
         pieChart.setFocusable(false);
@@ -378,7 +378,7 @@ public class ChildUserPage extends JFrame {
 //        contentPane.add(typeOfPlot);
 
         JButton extendedHistory = new JButton();
-        extendedHistory.setBounds(20, 160 + h, 210, 30);
+        extendedHistory.setBounds(20, 195 + h, 210, 30);
         extendedHistory.setText("Extended history");
         extendedHistory.setFont(new Font("Tahoma", Font.BOLD, 17));
         extendedHistory.setFocusable(false);
