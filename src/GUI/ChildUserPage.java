@@ -23,15 +23,15 @@ import System.Expense;
 import System.CategoryOfExpense;
 
 public class ChildUserPage extends JFrame {
+    // Jak UserPage, lecz bez dostępu do informacji o koncie domowym i dodawania nowych użytkowników
+
     public static final int W_FRAME = 730;
     public static final int H_FRAME = 360;
     private JPanel contentPane;
-//    private JTextField balance;
-//    private Insets insets;
+
     private User user;
     private LocalDate start = LocalDate.now().minusMonths(1);
     private LocalDate end = LocalDate.now().plusDays(1);
-//    private JPanel panel1;
     private JTable table;
     private int startMonthInt = 1;
     private int startYearInt = 2018;
@@ -116,7 +116,6 @@ public class ChildUserPage extends JFrame {
 
 
 
-//        String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
         String personalBalanceString = "Your balance: " + Math.round( user.getPersonalBalanceDateRange(start, end.minusDays(1)) * 100) / 100d + "pln";
 
         String balanceString = "Balance of the home: " +
@@ -141,12 +140,10 @@ public class ChildUserPage extends JFrame {
 
         contentPane.add(balanceLabel);
         contentPane.add(personalBalanceLabel);
-//        contentPane.add(investmentLabel);
 
 
 
-        // Column Names
-        String[] columnNames = { "Incomes", "Expenses"}; //tu cos nie działa
+        String[] columnNames = { "Incomes", "Expenses"};
         JLabel tableTitle1 = new JLabel();
         tableTitle1.setText("Incomes:");
         tableTitle1.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -189,16 +186,13 @@ public class ChildUserPage extends JFrame {
                     startMonthInt = startMonth.getSelectedIndex() + 1;
                     String monthString = startMonthInt > 10 ? Integer.toString(startMonthInt) : "0" + startMonthInt;
                     String s = "01/" + monthString + "/" + startYearInt;
-//                    System.out.println(s);
                     try{
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         start = LocalDate.parse(s, formatter);
-//                        System.out.println(start);
                     }
                     catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
-//                    UserPageGUI();
                 }
             }
         });
@@ -207,7 +201,6 @@ public class ChildUserPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == startYear) {
-//                    startMonthInt = startMonth.getSelectedIndex() + 1;
                     startYearInt = startYear.getSelectedIndex() + 2018;
                     String monthString = startMonthInt > 10 ? Integer.toString(startMonthInt) : "0" + startMonthInt;
                     String s = "01/" + monthString + "/" + startYearInt;
@@ -218,7 +211,6 @@ public class ChildUserPage extends JFrame {
                     catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
-//                    UserPageGUI();
                 }
             }
         });
@@ -246,7 +238,6 @@ public class ChildUserPage extends JFrame {
                     catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
-//                    UserPageGUI();
                 }
             }
         });
@@ -274,7 +265,6 @@ public class ChildUserPage extends JFrame {
                     catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
-//                    UserPageGUI();
                 }
             }
         });
@@ -309,14 +299,11 @@ public class ChildUserPage extends JFrame {
                 if(e.getSource() == mtd) {
                     end = LocalDate.now().plusDays(1);
                     start = LocalDate.of(end.getYear(), end.getMonthValue(), 1);
-//                    UserPageGUI();
                 }
             }
         });
 
         contentPane.add(mtd);
-
-//        ImageIcon imageIcon = new ImageIcon("pie4.png");
 
 
         JButton pieChart = new JButton();
@@ -329,7 +316,6 @@ public class ChildUserPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == pieChart) {
-//                    if (wholeHouseSelected) {
                     JFrame frame = new JFrame("Plot");
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     frame.setSize(420, 420);
@@ -341,41 +327,12 @@ public class ChildUserPage extends JFrame {
                     }
                     frame.add(plot);
                     frame.setVisible(true);
-//                        UserPageGUI();
-//                    } else {
-//                        JFrame frame = new JFrame("Plot");
-//                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-//                        frame.setSize(420, 420);
-//                        List<ModelPieChart> data = plotData(user);
-//
-//                        PieChart plot = new PieChart();
-//                        for (var d : data) {
-//                            plot.addData(d);
-//                        }
-//                        frame.add(plot);
-//                        frame.setVisible(true);
-//                    }
+
                 }
             }
         });
 
         contentPane.add(pieChart);
-
-//        JCheckBox typeOfPlot = new JCheckBox();
-//        typeOfPlot.setText("Whole house");
-//        typeOfPlot.setBounds(210, 155 + h, 100, 20);
-//
-//        typeOfPlot.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if(e.getSource() == typeOfPlot) {
-//                    wholeHouseSelected = typeOfPlot.isSelected();
-////                    UserPageGUI();
-//                }
-//            }
-//        });
-
-//        contentPane.add(typeOfPlot);
 
         JButton extendedHistory = new JButton();
         extendedHistory.setBounds(20, 195 + h, 210, 30);
@@ -390,7 +347,6 @@ public class ChildUserPage extends JFrame {
                     LongHistory frame = new LongHistory(user);
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-//                    UserPageGUI();
                 }
             }
         });
@@ -401,27 +357,6 @@ public class ChildUserPage extends JFrame {
         JButton addInvestment = new JButton();
         JButton removeInvestment = new JButton();
 
-        // 720 x 360
-
-//        addExpense.setBounds(52, 240 + h, 170, 30);
-//        addExpense.setText("Add expense");
-//        addExpense.setFont(new Font("Tahoma", Font.BOLD, 17));
-//        addExpense.setFocusable(false);
-//
-//        addIncome.setBounds(52+53+170, 240 + h, 170, 30);
-//        addIncome.setText("Add income");
-//        addIncome.setFont(new Font("Tahoma", Font.BOLD, 17));
-//        addIncome.setFocusable(false);
-//
-//        addInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
-//        addInvestment.setText("Add investment");
-//        addInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
-//        addInvestment.setFocusable(false);
-//
-//        removeInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
-//        removeInvestment.setText("Remove investment");
-//        removeInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
-//        removeInvestment.setFocusable(false);
 
         addExpense.setBounds(8-4, 240 + h, 170, 30);
         addExpense.setText("Add expense");
@@ -465,8 +400,7 @@ public class ChildUserPage extends JFrame {
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     updateTable();
-//                    table = new JTable(data, columnNames);
-//                    UserPageGUI();
+
                 }
             }
         });
@@ -478,7 +412,6 @@ public class ChildUserPage extends JFrame {
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     updateTable();
-//                    UserPageGUI();
                 }
             }
         });
@@ -495,8 +428,7 @@ public class ChildUserPage extends JFrame {
 
         contentPane.add(addIncome);
         contentPane.add(addExpense);
-//        contentPane.add(addInvestment);
-//        contentPane.add(removeInvestment);
+
 
 
 
@@ -526,14 +458,10 @@ public class ChildUserPage extends JFrame {
     }
 
     private void updateTable() {
-//        if (firstTable)
-//            contentPane.remove(table);
-//        firstTable = false;
         String[] columnNames = {"Incomes", "Expenses"};
 
         String[] expenses = new String[10];
         String[] incomes = new String[10];
-//        Object[] exs = user.getExpenses().toArray();
 
         for(int i=0; i<10;i++) {
             incomes[i] = "";
@@ -577,11 +505,6 @@ public class ChildUserPage extends JFrame {
         contentPane.remove(table);
         contentPane.add(table);
     }
-//    public static void main(String[] args) {
-////        UserAdult user = new UserAdult(new HomeAccount(), "sss","swsaw","p","k");
-////        user.addExpense(new Expense(21, CategoryOfExpense.GROCERIES, false));
-//        new GUI.ChildUserPage(new UserChild(new HomeAccount(),"ws","wae","swww","ws"));
-////        frame.setVisible(true);
-//    }
+
 
 }
