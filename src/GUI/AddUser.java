@@ -174,6 +174,7 @@ public class AddUser extends JFrame {
                     }else {
                         u = new UserAdult(homeAccount, textFieldPassword.getText(), textFieldUsername.getText(), textFieldFirstName.getText(), textFieldSurname.getText());
                     }
+
                     System.out.println(u);
                     System.out.println(homeAccount.getUsers());
 

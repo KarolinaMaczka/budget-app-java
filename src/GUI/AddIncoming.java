@@ -8,6 +8,9 @@ import System.User;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import System.Income;
 import System.UserAdult;
@@ -67,11 +70,38 @@ public class AddIncoming extends JFrame {
         buttonApprove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double number = Double.parseDouble(textAmount.getText());
-                user.addIncoming(new Income(number));
+                double number =0;
+                try {
+                    number = Double.parseDouble(textAmount.getText());
+                    if (number <= 0) {
+                        JOptionPane.showMessageDialog(null, "Please Enter Valid Amount");
+                    } else {
 
+                        user.addIncoming(new Income(number));
+                        ObjectOutputStream o = null;
+                        try {
+                            o = new ObjectOutputStream(new FileOutputStream("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount"));
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            o.writeObject(user.getHomeAccount());;
+                            o.close();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+
+                        EventQueue.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                AddIncoming.this.dispose();
+                            }
+                        });
+                    }
+                } catch(NumberFormatException exc){
+                    JOptionPane.showMessageDialog(null, "Please Enter Valid Amount");
                 }
-
+            }
         });
         contentPane.add(buttonApprove);
 

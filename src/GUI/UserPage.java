@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,40 +25,7 @@ import System.Income;
 import System.Investment;
 
 public class UserPage extends JFrame {
-    /*
-    Piotrek
-
-        TODO
-    wyświetl stan konta - domowy
-    private JLabel balance;
-        twoje przychody - liczba
-    private JLabel personalIncomes;
-        ogólne przychody
-    private JLabel incomes;
-        twoje wydatki
-    private JLabel personalExpenses;
-        ogólne wydatki
-    private JLabel expenses;
-        pokaż kwotę zainwestowaną
-    private JLabel invested;
-        TODO
-    wykres do przychodów - ????
-    private JButton incomePlot;
-        TODO
-    wykres wydatków w kategoriach
-    private JButton expensePlot;
-    wybierz zakres data
-    private J
-    dodawanie wydatków: - oddzielny page itd., addExpense, addInvestment, addExpense
-    oddzielnie wydatki itd. dla homeaccount i userów - zapisywanie do plików
-    TODO
-    dodawanie Usera i childUsera - checkbox
-    TODO
-    przy dodawaniu wydatków - kategoria kieszonkowe dla dziecka, updatuje też stan przychodów dziecka
-    TODO
-    wyświetl listę przychodów i wydatków - 10 pierwszych
-    */
-    public static final int W_FRAME = 720;
+    public static final int W_FRAME = 730;
     public static final int H_FRAME = 360;
     private JPanel contentPane;
     //    private JLabel balanceLabel, personalBalanceLabel;
@@ -74,10 +44,11 @@ public class UserPage extends JFrame {
     private final int h=20;
     private String[][] data = new String[10][2];
     private boolean firstTable = true;
+    private JButton logout;
 
     public UserPage(User u) {
         super("UserPage");
-        user = u;
+        this.user = u;
         setResizable(false);
 
         setSize(W_FRAME, H_FRAME);
@@ -93,6 +64,39 @@ public class UserPage extends JFrame {
         contentPane.setLayout(null);
         contentPane.setSize(W_FRAME, H_FRAME);
 
+        JButton logout = new JButton();
+        logout.setText("Log out");
+        logout.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        logout.setBounds(580, 5, 120, 25);
+        logout.setFocusable(false);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ObjectOutputStream o = null;
+                try {
+                    o = new ObjectOutputStream(new FileOutputStream("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount"));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    o.writeObject(user.getHomeAccount());;
+                    o.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Login();
+                        UserPage.this.dispose();
+                    }
+                });
+            }
+        });
+        contentPane.add(logout);
+
+
         JLabel banner = new JLabel();
         banner.setText("Welcome " + user.getFirstName() + " " + user.getSurname() + "!");
         banner.setFont(new Font("Comic sans", Font.BOLD, 24));
@@ -102,7 +106,7 @@ public class UserPage extends JFrame {
         JButton refresh = new JButton();
         refresh.setText("Refresh");
         refresh.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        refresh.setBounds(580, 5, 120, 25);
+        refresh.setBounds(450, 5, 120, 25);
         refresh.setFocusable(false);
 
         refresh.addActionListener(new ActionListener() {
@@ -138,9 +142,9 @@ public class UserPage extends JFrame {
         balanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         personalBalanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         investmentLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        balanceLabel.setBounds(0,20 + h,300,20);
-        personalBalanceLabel.setBounds(0,40 + h,300,20);
-        investmentLabel.setBounds(0, 60 + h, 300, 20);
+        balanceLabel.setBounds(5,20 + h,300,20);
+        personalBalanceLabel.setBounds(5,40 + h,300,20);
+        investmentLabel.setBounds(5, 60 + h, 300, 20);
 
         contentPane.add(balanceLabel);
         contentPane.add(personalBalanceLabel);
@@ -282,10 +286,10 @@ public class UserPage extends JFrame {
             }
         });
 
-        contentPane.add(startMonth);
-        contentPane.add(startYear);
-        contentPane.add(endMonth);
-        contentPane.add(endYear);
+//        contentPane.add(startMonth);
+//        contentPane.add(startYear);
+//        contentPane.add(endMonth);
+//        contentPane.add(endYear);
 
         JLabel startDateLabel = new JLabel();
         JLabel endDateLabel = new JLabel();
@@ -298,8 +302,8 @@ public class UserPage extends JFrame {
         startDateLabel.setBounds(0,80 + h,140,20);
         endDateLabel.setBounds(140,80 + h,140,20);
 
-        contentPane.add(startDateLabel);
-        contentPane.add(endDateLabel);
+//        contentPane.add(startDateLabel);
+//        contentPane.add(endDateLabel);
 
         JButton mtd = new JButton();
         mtd.setText("Month to date");
@@ -317,13 +321,13 @@ public class UserPage extends JFrame {
             }
         });
 
-        contentPane.add(mtd);
+//        contentPane.add(mtd);
 
 //        ImageIcon imageIcon = new ImageIcon("pie4.png");
 
 
         JButton pieChart = new JButton();
-        pieChart.setBounds(40, 150 + h, 170,30);
+        pieChart.setBounds(40, 120 + h, 170,30);
         pieChart.setText("Display plot");
         pieChart.setFont(new Font("Tahoma", Font.BOLD, 18));
         pieChart.setFocusable(false);
@@ -366,7 +370,7 @@ public class UserPage extends JFrame {
 
         JCheckBox typeOfPlot = new JCheckBox();
         typeOfPlot.setText("Whole house");
-        typeOfPlot.setBounds(210, 155 + h, 100, 20);
+        typeOfPlot.setBounds(210, 120 + h, 100, 20);
 
         typeOfPlot.addActionListener(new ActionListener() {
             @Override
@@ -381,7 +385,7 @@ public class UserPage extends JFrame {
         contentPane.add(typeOfPlot);
 
         JButton extendedHistory = new JButton();
-        extendedHistory.setBounds(20, 185 + h, 210, 30);
+        extendedHistory.setBounds(20, 170 + h, 210, 30);
         extendedHistory.setText("Extended history");
         extendedHistory.setFont(new Font("Tahoma", Font.BOLD, 17));
         extendedHistory.setFocusable(false);

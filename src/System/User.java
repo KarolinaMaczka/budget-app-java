@@ -33,13 +33,6 @@ public abstract class User implements Serializable {
         this.surname=surname;
     }
 
-//    public List<Income> getIncomings() {
-//        return incomings;
-//    }
-//
-//    public List<Expense> getExpenses() {
-//        return expenses;
-//    }
 
     public String getLogin() {
         return login;
@@ -120,15 +113,22 @@ public abstract class User implements Serializable {
     }
 
     public void addExpense(Expense expense){
-        //this.expenses.add(expense);
+        this.expenses.add(expense);
+        this.homeAccount.addExpense(expense);
     }
     public void addRecurringExpense(RecurringExpense expense){
+        for (Expense e : expense.getAddToExpenseList()){
+            this.homeAccount.addExpense(e);
+            this.expenses.add(e);}
     }
     public void removeIncoming(Income income) {
     }
     public void removeExpense(Expense expense) {
     }
     public void removeRecurringExpense(RecurringExpense expense){
+        for (Expense e : expense.allExpenses()){
+            this.homeAccount.removeExpense(e);
+            this.expenses.remove(e);}
     }
 
 
@@ -157,6 +157,7 @@ public abstract class User implements Serializable {
     }
 
     public List<Investment> getInvestments() {return investments;}
+
     public double getPersonalBalanceDateRange(LocalDate start, LocalDate end) {
         double personalBalance=0;
 //        expenses.forEach(System.out::println);

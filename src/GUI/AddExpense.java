@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import System.HomeAccount;
 import System.User;
@@ -142,22 +145,47 @@ public class AddExpense extends JFrame {
         buttonApprove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double number = Double.parseDouble(textAmount.getText());
-                CategoryOfExpense cat = (CategoryOfExpense)boxExpenseCategory.getSelectedItem();
-                if(checkBoxReccurence.isSelected() && user instanceof UserAdult){
-                    int numberOfTimes = Integer.parseInt(textAmountOfTime.getText());
-                    RecurringExpense recurringExpense = new RecurringExpense(number, cat,(FrequencyOfExpsense)comboBoxFrequency.getSelectedItem(),numberOfTimes);
-                    user.addRecurringExpense(recurringExpense);
-                }
-                else{
-                    Expense ex = new Expense(number, cat, false);
-                    user.addExpense(ex);
+                double number = 0;
+                try {
+                    number = Double.parseDouble(textAmount.getText());
+                    CategoryOfExpense cat = (CategoryOfExpense)boxExpenseCategory.getSelectedItem();
+                    if(checkBoxReccurence.isSelected() && user instanceof UserAdult){
+                        int numberOfTimes = Integer.parseInt(textAmountOfTime.getText());
+                        RecurringExpense recurringExpense = new RecurringExpense(number, cat,(FrequencyOfExpsense)comboBoxFrequency.getSelectedItem(),numberOfTimes);
+                        System.out.println(recurringExpense);
+                        user.addRecurringExpense(recurringExpense);
                     }
+                    else{
+                        Expense ex = new Expense(number, cat, false);
+                        user.addExpense(ex);
+                    }
+                    ObjectOutputStream o = null;
+                    try {
+                        o = new ObjectOutputStream(new FileOutputStream("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount"));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    try {
+                        o.writeObject(user.getHomeAccount());;
+                        o.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    EventQueue.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            AddExpense.this.dispose();
+                        }
+                    });
+                }catch(NumberFormatException exc){
+                    JOptionPane.showMessageDialog(null, "Please Enter Only Numbers");
+                }
+
                 }
 
         });
         contentPane.add(buttonApprove);
-
 
         setContentPane(contentPane);
 

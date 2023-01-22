@@ -44,7 +44,7 @@ public class LongHistory extends JFrame {
         setLocationRelativeTo(null);
         setLocation(getX() - 80, getY() - 80);
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         setVisible(true);
         insets = this.getInsets();

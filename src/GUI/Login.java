@@ -129,6 +129,7 @@ public class Login extends JFrame {
                     if (userFromLogin.getPassword().equals(String.valueOf(passwordFieldPassword.getPassword()))){
 
                         labelErrorText.setText("");
+                        Login.this.dispose();
 
                         if (userFromLogin instanceof UserAdult){
                             new UserPage(userFromLogin);
@@ -190,11 +191,11 @@ public class Login extends JFrame {
 
         //TODO
         // usuń
-//        try {
-//            deleteAccount();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            deleteAccount();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         EventQueue.invokeLater(new Runnable() {
 
@@ -207,7 +208,6 @@ public class Login extends JFrame {
         });
 
     }
-
 
     private static void deleteAccount() throws FileNotFoundException {
         //TODO

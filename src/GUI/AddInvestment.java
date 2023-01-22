@@ -10,6 +10,9 @@ import System.UserAdult;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,7 +116,8 @@ public class AddInvestment extends JFrame {
         textName.setFont(new Font("Tahoma", Font.PLAIN, 14));
         textName.setBounds(220,100,120,20);
 
-
+        contentPane.add(labelName);
+        contentPane.add(textName);
 
         labelAmount = new JLabel("Amount");
         labelAmount.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -132,30 +136,68 @@ public class AddInvestment extends JFrame {
         buttonApprove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double amountToAdd = Double.parseDouble(textAmount.getText());
-                if(comboBoxNewOrExisting.getSelectedItem() == "Create new"){
-                    user.addInvestment(new Investment(amountToAdd, textName.getText()));
-                }
-                else{
-                    for(String s: nazwy2){
-                        if(comboBoxName.getSelectedItem() == s){
-                            for(Investment investment: user.getInvestments()){
-                                if(investment.getName() == s){
-                                    user.addToExisingInvestment(investment,amountToAdd);
+                double amountToAdd =0;
+                try{
+                    amountToAdd = Double.parseDouble(textAmount.getText());
+                    if (amountToAdd <= 0) {
+                        JOptionPane.showMessageDialog(null, "Please Enter Valid Amount");
+                    } else {
+                        boolean ok =false;
+                        if (comboBoxNewOrExisting.getSelectedItem() == "Create new") {
+                            if (textName.getText().equals("")){
+                                JOptionPane.showMessageDialog(null, "Please Enter Valid Name");
+                            }else{
+                                user.addInvestment(new Investment(amountToAdd, textName.getText()));
+                                ok=true;
+                            }
+                        } else {
+                            for (String s : nazwy2) {
+                                if (comboBoxName.getSelectedItem() == s) {
+                                    for (Investment investment : user.getInvestments()) {
+                                        if (investment.getName() == s) {
+                                            user.addToExisingInvestment(investment, amountToAdd);
+                                        }
+                                        break;
+                                    }
                                 }
-                                break;
+                            }
+                            ok=true;
+                        }
+                        System.out.println(user.getAmountInvested());
+                        System.out.println(user.getInvestments());
+                        if (ok){
+                            for (Investment i : user.getInvestments()) {
+                                nazwy.add(i.getName());
+                                System.out.println(i.getName() + " kwota: " + i.getAmount());
+
+                            }
+                            ObjectOutputStream o = null;
+                            try {
+                                o = new ObjectOutputStream(new FileOutputStream("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount"));
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                            try {
+                                o.writeObject(user.getHomeAccount());
+                                ;
+                                o.close();
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
                             }
 
+                            EventQueue.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    AddInvestment.this.dispose();
+                                }
+                            });
                         }
                     }
                 }
-                System.out.println(user.getAmountInvested());
-                System.out.println(user.getInvestments());
-                for(Investment i: user.getInvestments()){
-                    nazwy.add(i.getName());
-                    System.out.println(i.getName() + " kwota: "+ i.getAmount());
-
+                catch(NumberFormatException exc){
+                    JOptionPane.showMessageDialog(null, "Please Enter Valid Amount");
                 }
+
             }
         });
 

@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,14 +23,14 @@ import System.Expense;
 import System.CategoryOfExpense;
 
 public class ChildUserPage extends JFrame {
-    public static final int W_FRAME = 720;
+    public static final int W_FRAME = 730;
     public static final int H_FRAME = 360;
     private JPanel contentPane;
 //    private JTextField balance;
 //    private Insets insets;
     private User user;
-    private LocalDate start;
-    private LocalDate end;
+    private LocalDate start = LocalDate.now().minusMonths(1);
+    private LocalDate end = LocalDate.now().plusDays(1);
 //    private JPanel panel1;
     private JTable table;
     private int startMonthInt = 1;
@@ -39,7 +42,7 @@ public class ChildUserPage extends JFrame {
 
     public ChildUserPage(User u) {
         super("ChildUserPage");
-        user = u;
+        this.user = u;
         setResizable(false);
 
         setSize(W_FRAME, H_FRAME);
@@ -56,6 +59,38 @@ public class ChildUserPage extends JFrame {
         contentPane.setLayout(null);
         contentPane.setSize(W_FRAME, H_FRAME);
 
+        JButton logout = new JButton();
+        logout.setText("Log out");
+        logout.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        logout.setBounds(580, 5, 120, 25);
+        logout.setFocusable(false);
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ObjectOutputStream o = null;
+                try {
+                    o = new ObjectOutputStream(new FileOutputStream("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount"));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    o.writeObject(user.getHomeAccount());;
+                    o.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Login();
+                        ChildUserPage.this.dispose();
+                    }
+                });
+            }
+        });
+        contentPane.add(logout);
+
         JLabel banner = new JLabel();
         banner.setText("Welcome " + user.getFirstName() + " " + user.getSurname() + "!");
         banner.setFont(new Font("Comic sans", Font.BOLD, 24));
@@ -65,7 +100,7 @@ public class ChildUserPage extends JFrame {
         JButton refresh = new JButton();
         refresh.setText("Refresh");
         refresh.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        refresh.setBounds(580, 5, 120, 25);
+        refresh.setBounds(450, 5, 120, 25);
         refresh.setFocusable(false);
 
         refresh.addActionListener(new ActionListener() {
@@ -106,7 +141,7 @@ public class ChildUserPage extends JFrame {
 
         contentPane.add(balanceLabel);
         contentPane.add(personalBalanceLabel);
-        contentPane.add(investmentLabel);
+//        contentPane.add(investmentLabel);
 
 
 
@@ -244,10 +279,10 @@ public class ChildUserPage extends JFrame {
             }
         });
 
-        contentPane.add(startMonth);
-        contentPane.add(startYear);
-        contentPane.add(endMonth);
-        contentPane.add(endYear);
+//        contentPane.add(startMonth);
+//        contentPane.add(startYear);
+//        contentPane.add(endMonth);
+//        contentPane.add(endYear);
 
         JLabel startDateLabel = new JLabel();
         JLabel endDateLabel = new JLabel();
@@ -260,8 +295,8 @@ public class ChildUserPage extends JFrame {
         startDateLabel.setBounds(0,80 + h,140,20);
         endDateLabel.setBounds(140,80 + h,140,20);
 
-        contentPane.add(startDateLabel);
-        contentPane.add(endDateLabel);
+//        contentPane.add(startDateLabel);
+//        contentPane.add(endDateLabel);
 
         JButton mtd = new JButton();
         mtd.setText("Month to date");
@@ -279,13 +314,13 @@ public class ChildUserPage extends JFrame {
             }
         });
 
-        contentPane.add(mtd);
+//        contentPane.add(mtd);
 
 //        ImageIcon imageIcon = new ImageIcon("pie4.png");
 
 
         JButton pieChart = new JButton();
-        pieChart.setBounds(40, 150 + h, 170,30);
+        pieChart.setBounds(40, 100 + h, 170,30);
         pieChart.setText("Display plot");
         pieChart.setFont(new Font("Tahoma", Font.BOLD, 18));
         pieChart.setFocusable(false);
@@ -343,7 +378,7 @@ public class ChildUserPage extends JFrame {
 //        contentPane.add(typeOfPlot);
 
         JButton extendedHistory = new JButton();
-        extendedHistory.setBounds(20, 185 + h, 210, 30);
+        extendedHistory.setBounds(20, 160 + h, 210, 30);
         extendedHistory.setText("Extended history");
         extendedHistory.setFont(new Font("Tahoma", Font.BOLD, 17));
         extendedHistory.setFocusable(false);
@@ -460,8 +495,8 @@ public class ChildUserPage extends JFrame {
 
         contentPane.add(addIncome);
         contentPane.add(addExpense);
-        contentPane.add(addInvestment);
-        contentPane.add(removeInvestment);
+//        contentPane.add(addInvestment);
+//        contentPane.add(removeInvestment);
 
 
 
