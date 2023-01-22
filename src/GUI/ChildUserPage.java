@@ -34,27 +34,24 @@ public class ChildUserPage extends JFrame {
     private int startYearInt = 2018;
     private int endMonthInt = 12;
     private int endYearInt = 2023;
-    private final int h=0;
+    private final int h=20;
     private String[][] data = new String[10][2];
 
     public ChildUserPage(User u) {
         super("ChildUserPage");
         user = u;
         setResizable(false);
-//        setResizable(false);
-//        setLayout(null);
+
         setSize(W_FRAME, H_FRAME);
-//        setLocationRelativeTo(null);
-//        setLocation(getX() - 80, getY() - 80);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        ChildUserPageGUI();
 
-        UserPageGUI();
 
     }
 
-    private void UserPageGUI() {
+    private void ChildUserPageGUI() {
         contentPane = new JPanel();
         contentPane.setLayout(null);
         contentPane.setSize(W_FRAME, H_FRAME);
@@ -65,76 +62,73 @@ public class ChildUserPage extends JFrame {
         banner.setBounds(5, 5, 300, 30);
         contentPane.add(banner);
 
-        String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
-//        String balanceString = "Balance of the home: " + user.getHomeAccount().getBalanceDateRange(start, end) + "pln";
-        String investmentString = "Amount invested: " + user.getAmountInvestedDateRange(start, end) + "pln";
+        JButton refresh = new JButton();
+        refresh.setText("Refresh");
+        refresh.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        refresh.setBounds(580, 5, 120, 25);
+        refresh.setFocusable(false);
+
+        refresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == refresh) {
+                    ChildUserPageGUI();
+                }
+            }
+        });
+
+        contentPane.add(refresh);
+
+
+
+//        String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
+        String personalBalanceString = "Your balance: " + Math.round( user.getPersonalBalanceDateRange(start, end) * 100) / 100d + "pln";
+
+        String balanceString = "Balance of the home: " +
+                "******" + "pln";
+        String investmentString = "Amount invested: " +
+                Math.round(100*user.getAmountInvestedDateRange(start,end) ) / 100d+ "pln";
 
         JLabel personalBalanceLabel = new JLabel();
-//        JLabel balanceLabel = new JLabel();
+        JLabel balanceLabel = new JLabel();
         JLabel investmentLabel = new JLabel();
 
         investmentLabel.setText(investmentString);
-//        balanceLabel.setText(balanceString);
+        balanceLabel.setText(balanceString);
         personalBalanceLabel.setText(personalBalanceString);
 
-//        balanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        balanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         personalBalanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         investmentLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//        balanceLabel.setBounds(0, 0, 300, 20);
-        personalBalanceLabel.setBounds(0, 40, 300, 20);
-        investmentLabel.setBounds(0, 60, 300, 20);
+        balanceLabel.setBounds(0,20 + h,300,20);
+        personalBalanceLabel.setBounds(0,40 + h,300,20);
+        investmentLabel.setBounds(0, 60 + h, 300, 20);
 
-//        contentPane.add(balanceLabel);
+        contentPane.add(balanceLabel);
         contentPane.add(personalBalanceLabel);
         contentPane.add(investmentLabel);
 
-//        String[][] data = new String[10][2];
-//        String[] expenses = new String[10];
-//        String[] incomes = new String[10];
-//
-//        int i = 0;
-//        for (var e : user.getExpenses()) {
-//            if (i > 9)
-//                break;
-//            expenses[i] = e.toString();
-//            i++;
-//        }
-//        i = 0;
-//        for (var in : user.getIncomings()) {
-//            if (i > 9)
-//                break;
-//            incomes[i] = in.toString();
-//            i++;
-//        }
-//
-//        for (i = 0; i < 10; i++) {
-//            data[i][0] = incomes[i];
-//            data[i][1] = expenses[i];
-//        }
+
 
         // Column Names
-        String[] columnNames = {"Incomes", "Expenses"}; //tu cos nie działa
+        String[] columnNames = { "Incomes", "Expenses"}; //tu cos nie działa
         JLabel tableTitle1 = new JLabel();
-        tableTitle1.setText("Incomes");
-        tableTitle1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        tableTitle1.setBounds(310, 40, 100, 20);
+        tableTitle1.setText("Incomes:");
+        tableTitle1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        tableTitle1.setBounds(310,20 + h,100,20);
         contentPane.add(tableTitle1);
 
         JLabel tableTitle2 = new JLabel();
-        tableTitle2.setText("Expenses");
-        tableTitle2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        tableTitle2.setBounds(510, 40, 100, 20);
+        tableTitle2.setText("Expenses:");
+        tableTitle2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        tableTitle2.setBounds(510,20 + h,100,20);
         contentPane.add(tableTitle2);
 
-        // Initializing the JTable
-//        table = new JTable(data, columnNames);
+
         updateTable();
 
-        table.setBounds(310, 65, 400, 160);
-        contentPane.add(table);
-
-        String months[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-        String years[] = {"2018", "2019", "2020", "2021", "2022", "2023"};
+        String months[] = {"1","2","3","4","5","6","7","8","9","10","11","12"};
+        String years[] = {"2018","2019","2020","2021","2022","2023"};
 
         JComboBox startMonth = new JComboBox(months);
         JComboBox startYear = new JComboBox(years);
@@ -147,25 +141,29 @@ public class ChildUserPage extends JFrame {
         endMonth.setFocusable(false);
         endYear.setFocusable(false);
 
-        startMonth.setBounds(5, 100, 40, 20);
-        startYear.setBounds(45, 100, 55, 20);
+        startMonth.setBounds(5,100 + h,40,20);
+        startYear.setBounds(45,100 + h,55,20);
 
-        endMonth.setBounds(145, 100, 40, 20);
-        endYear.setBounds(185, 100, 55, 20);
+        endMonth.setBounds(145,100 + h,40,20);
+        endYear.setBounds(185,100 + h,55,20);
 
         startMonth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == startMonth) {
+                if(e.getSource() == startMonth) {
                     startMonthInt = startMonth.getSelectedIndex() + 1;
                     String monthString = startMonthInt > 10 ? Integer.toString(startMonthInt) : "0" + startMonthInt;
                     String s = "01/" + monthString + "/" + startYearInt;
-                    try {
+//                    System.out.println(s);
+                    try{
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         start = LocalDate.parse(s, formatter);
-                    } catch (DateTimeException dte) {
+//                        System.out.println(start);
+                    }
+                    catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
+//                    UserPageGUI();
                 }
             }
         });
@@ -173,17 +171,19 @@ public class ChildUserPage extends JFrame {
         startYear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == startYear) {
+                if(e.getSource() == startYear) {
 //                    startMonthInt = startMonth.getSelectedIndex() + 1;
                     startYearInt = startYear.getSelectedIndex() + 2018;
                     String monthString = startMonthInt > 10 ? Integer.toString(startMonthInt) : "0" + startMonthInt;
                     String s = "01/" + monthString + "/" + startYearInt;
-                    try {
+                    try{
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         start = LocalDate.parse(s, formatter);
-                    } catch (DateTimeException dte) {
+                    }
+                    catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
+//                    UserPageGUI();
                 }
             }
         });
@@ -191,25 +191,27 @@ public class ChildUserPage extends JFrame {
         endMonth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == endMonth) {
+                if(e.getSource() == endMonth) {
                     endMonthInt = endMonth.getSelectedIndex() + 1;
                     String monthString = endMonthInt > 10 ? Integer.toString(endMonthInt) : "0" + endMonthInt;
                     String endDay;
-                    if (endMonthInt == 2) {
+                    if(endMonthInt == 2) {
                         endDay = Integer.toString(29 - Math.min(endYearInt % 4, 1));
-                    } else if (endMonthInt <= 7) {
+                    } else if(endMonthInt <= 7) {
                         endDay = Integer.toString(30 + endMonthInt % 2);
                     } else {
                         endDay = Integer.toString(31 - endMonthInt % 2);
                     }
 
                     String s = endDay + "/" + monthString + "/" + endYearInt;
-                    try {
+                    try{
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         end = LocalDate.parse(s, formatter);
-                    } catch (DateTimeException dte) {
+                    }
+                    catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
+//                    UserPageGUI();
                 }
             }
         });
@@ -217,25 +219,27 @@ public class ChildUserPage extends JFrame {
         endYear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == endYear) {
+                if(e.getSource() == endYear) {
                     endYearInt = endYear.getSelectedIndex() + 2018;
                     String monthString = endMonthInt > 10 ? Integer.toString(endMonthInt) : "0" + endMonthInt;
                     String endDay;
-                    if (endMonthInt == 2) {
+                    if(endMonthInt == 2) {
                         endDay = Integer.toString(29 - Math.min(endYearInt % 4, 1));
-                    } else if (endMonthInt <= 7) {
+                    } else if(endMonthInt <= 7) {
                         endDay = Integer.toString(30 + endMonthInt % 2);
                     } else {
                         endDay = Integer.toString(31 - endMonthInt % 2);
                     }
 
                     String s = endDay + "/" + monthString + "/" + endYearInt;
-                    try {
+                    try{
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         end = LocalDate.parse(s, formatter);
-                    } catch (DateTimeException dte) {
+                    }
+                    catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
+//                    UserPageGUI();
                 }
             }
         });
@@ -253,8 +257,8 @@ public class ChildUserPage extends JFrame {
 
         startDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
         endDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        startDateLabel.setBounds(0, 80, 140, 20);
-        endDateLabel.setBounds(140, 80, 140, 20);
+        startDateLabel.setBounds(0,80 + h,140,20);
+        endDateLabel.setBounds(140,80 + h,140,20);
 
         contentPane.add(startDateLabel);
         contentPane.add(endDateLabel);
@@ -262,14 +266,15 @@ public class ChildUserPage extends JFrame {
         JButton mtd = new JButton();
         mtd.setText("Month to date");
         mtd.setFocusable(false);
-        mtd.setBounds(65, 125, 120, 20);
+        mtd.setBounds(65, 125 + h, 120,20);
 
         mtd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == mtd) {
-                    end = LocalDate.now();
+                if(e.getSource() == mtd) {
+                    end = LocalDate.now().plusDays(1);
                     start = LocalDate.of(end.getYear(), end.getMonthValue(), 1);
+//                    UserPageGUI();
                 }
             }
         });
@@ -280,7 +285,7 @@ public class ChildUserPage extends JFrame {
 
 
         JButton pieChart = new JButton();
-        pieChart.setBounds(40, 150, 170, 30);
+        pieChart.setBounds(40, 150 + h, 170,30);
         pieChart.setText("Display plot");
         pieChart.setFont(new Font("Tahoma", Font.BOLD, 18));
         pieChart.setFocusable(false);
@@ -288,11 +293,12 @@ public class ChildUserPage extends JFrame {
         pieChart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == pieChart) {
+                if(e.getSource() == pieChart) {
+//                    if (wholeHouseSelected) {
                     JFrame frame = new JFrame("Plot");
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     frame.setSize(420, 420);
-                    java.util.List<ModelPieChart> data = plotData(user);
+                    List<ModelPieChart> data = plotData(user);
 
                     PieChart plot = new PieChart();
                     for (var d : data) {
@@ -300,13 +306,44 @@ public class ChildUserPage extends JFrame {
                     }
                     frame.add(plot);
                     frame.setVisible(true);
+//                        UserPageGUI();
+//                    } else {
+//                        JFrame frame = new JFrame("Plot");
+//                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+//                        frame.setSize(420, 420);
+//                        List<ModelPieChart> data = plotData(user);
+//
+//                        PieChart plot = new PieChart();
+//                        for (var d : data) {
+//                            plot.addData(d);
+//                        }
+//                        frame.add(plot);
+//                        frame.setVisible(true);
+//                    }
                 }
             }
         });
+
         contentPane.add(pieChart);
 
+//        JCheckBox typeOfPlot = new JCheckBox();
+//        typeOfPlot.setText("Whole house");
+//        typeOfPlot.setBounds(210, 155 + h, 100, 20);
+//
+//        typeOfPlot.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if(e.getSource() == typeOfPlot) {
+//                    wholeHouseSelected = typeOfPlot.isSelected();
+////                    UserPageGUI();
+//                }
+//            }
+//        });
+
+//        contentPane.add(typeOfPlot);
+
         JButton extendedHistory = new JButton();
-        extendedHistory.setBounds(20, 185, 210, 30);
+        extendedHistory.setBounds(20, 185 + h, 210, 30);
         extendedHistory.setText("Extended history");
         extendedHistory.setFont(new Font("Tahoma", Font.BOLD, 17));
         extendedHistory.setFocusable(false);
@@ -315,8 +352,10 @@ public class ChildUserPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == extendedHistory) {
-                    LongHistory longHistory = new LongHistory(user);
-                    longHistory.setVisible(true);
+                    LongHistory frame = new LongHistory(user);
+                    frame.setVisible(true);
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+//                    UserPageGUI();
                 }
             }
         });
@@ -325,23 +364,51 @@ public class ChildUserPage extends JFrame {
         JButton addExpense = new JButton();
         JButton addIncome = new JButton();
         JButton addInvestment = new JButton();
+        JButton removeInvestment = new JButton();
 
         // 720 x 360
 
-        addExpense.setBounds(52, 240 + h, 170, 30);
+//        addExpense.setBounds(52, 240 + h, 170, 30);
+//        addExpense.setText("Add expense");
+//        addExpense.setFont(new Font("Tahoma", Font.BOLD, 17));
+//        addExpense.setFocusable(false);
+//
+//        addIncome.setBounds(52+53+170, 240 + h, 170, 30);
+//        addIncome.setText("Add income");
+//        addIncome.setFont(new Font("Tahoma", Font.BOLD, 17));
+//        addIncome.setFocusable(false);
+//
+//        addInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
+//        addInvestment.setText("Add investment");
+//        addInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
+//        addInvestment.setFocusable(false);
+//
+//        removeInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
+//        removeInvestment.setText("Remove investment");
+//        removeInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
+//        removeInvestment.setFocusable(false);
+
+        addExpense.setBounds(8-4, 240 + h, 170, 30);
         addExpense.setText("Add expense");
-        addExpense.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addExpense.setFont(new Font("Tahoma", Font.BOLD, 15));
         addExpense.setFocusable(false);
 
-        addIncome.setBounds(52+53+170, 240 + h, 170, 30);
+        addIncome.setBounds(8+8+170-4, 240 + h, 170, 30);
         addIncome.setText("Add income");
-        addIncome.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addIncome.setFont(new Font("Tahoma", Font.BOLD, 15));
         addIncome.setFocusable(false);
 
-        addInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
+        addInvestment.setBounds(8+8+170+8+170-4, 240 + h, 170, 30);
         addInvestment.setText("Add investment");
-        addInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addInvestment.setFont(new Font("Tahoma", Font.BOLD, 15));
         addInvestment.setFocusable(false);
+
+        removeInvestment.setBounds(8+8+170+8+170+170+8-4, 240 + h, 170, 30);
+        removeInvestment.setText("Sell investment");
+        removeInvestment.setFont(new Font("Tahoma", Font.BOLD, 15));
+        removeInvestment.setFocusable(false);
+
+
 
         addIncome.addActionListener(new ActionListener() {
             @Override
@@ -350,6 +417,8 @@ public class ChildUserPage extends JFrame {
                     AddIncoming frame = new AddIncoming(user);
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    updateTable();
+//                    UserPageGUI();
                 }
             }
         });
@@ -360,6 +429,9 @@ public class ChildUserPage extends JFrame {
                     AddExpense frame = new AddExpense(user);
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    updateTable();
+//                    table = new JTable(data, columnNames);
+//                    UserPageGUI();
                 }
             }
         });
@@ -370,6 +442,18 @@ public class ChildUserPage extends JFrame {
                     AddInvestment frame = new AddInvestment(user);
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    updateTable();
+//                    UserPageGUI();
+                }
+            }
+        });
+        removeInvestment.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == removeInvestment) {
+                    RemoveInvestment frame = new RemoveInvestment(user);
+                    frame.setVisible(true);
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 }
             }
         });
@@ -377,13 +461,39 @@ public class ChildUserPage extends JFrame {
         contentPane.add(addIncome);
         contentPane.add(addExpense);
         contentPane.add(addInvestment);
+        contentPane.add(removeInvestment);
+
+
 
         setContentPane(contentPane);
         setVisible(true);
 
     }
 
+    private List<ModelPieChart> plotData(User user) {
+        ArrayList<ModelPieChart> list = new ArrayList<>();
+        List<Expense> expenses = user.getExpenses();
+
+        double[] amounts = new double[CategoryOfExpense.values().length];
+
+        for(var e : expenses) {
+            if((e.getDate().isBefore(end) && e.getDate().isAfter(start)) || e.getDate().isEqual(start) || e.getDate().isEqual(end))
+                amounts[e.getCategoryOfExpense().getId()] -= e.getAmount();
+        }
+
+        for(int i=0;i<amounts.length;i++) {
+            if (amounts[i] != 0)
+                list.add(new ModelPieChart(CategoryOfExpense.values()[i].name(),
+                        amounts[i], CategoryOfExpense.values()[i].getColor()));
+        }
+
+        return list;
+    }
+
     private void updateTable() {
+//        if (firstTable)
+//            contentPane.remove(table);
+//        firstTable = false;
         String[] columnNames = {"Incomes", "Expenses"};
 
         String[] expenses = new String[10];
@@ -427,28 +537,11 @@ public class ChildUserPage extends JFrame {
                 return false;
             };
         };
+        table.setBounds(310,55 + h, 400,160);
+        contentPane.add(table);
+        contentPane.remove(table);
+        contentPane.add(table);
     }
-
-    private java.util.List<ModelPieChart> plotData(User user) {
-        ArrayList<ModelPieChart> list = new ArrayList<>();
-        List<Expense> expenses = user.getExpenses();
-
-        double[] amounts = new double[CategoryOfExpense.values().length];
-
-        for(var e : expenses) {
-//            list.add(new ModelPieChart(e.getCategoryOfExpense().name(), e.getAmount(), e.getCategoryOfExpense().getColor()));
-            amounts[e.getCategoryOfExpense().getId()] -= e.getAmount();
-        }
-
-        for(int i=0;i<amounts.length;i++) {
-            if(amounts[i] != 0)
-                list.add(new ModelPieChart(CategoryOfExpense.values()[i].name(),
-                        amounts[i], CategoryOfExpense.values()[i].getColor()));
-        }
-
-        return list;
-    }
-
     public static void main(String[] args) {
 //        UserAdult user = new UserAdult(new HomeAccount(), "sss","swsaw","p","k");
 //        user.addExpense(new Expense(21, CategoryOfExpense.GROCERIES, false));
