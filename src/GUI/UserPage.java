@@ -124,7 +124,7 @@ public class UserPage extends JFrame {
         String balanceString = "Balance of the home: " +
                 Math.round(100 * user.getHomeAccount().getBalanceDateRange(start, end)) / 100d + "pln";
         String investmentString = "Amount invested: " +
-                Math.round(100*user.getAmountInvested() ) / 100d + "pln";
+                Math.round(100*user.getAmountInvestedDateRange(start, end) ) / 100d + "pln";
 //                Math.round(100*user.getHomeAccount().investedAmount() ) / 100d + "pln";
 
         JLabel personalBalanceLabel = new JLabel();

@@ -30,6 +30,14 @@ public class Investment implements Serializable {
         return amount;
     }
 
+    @Override
+    public String toString() {
+        return "Investment{" +
+                "amount=" + amount +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public String getId() {
         return id;
     }
