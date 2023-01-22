@@ -16,6 +16,7 @@ import System.UserAdult;
 import System.HomeAccount;
 
 public class RemoveInvestment extends JFrame {
+    // TO GUI odpowiada za usuwanie istniejących inwestycji
     public static final int W_FRAME = 540;
     public static final int H_FRAME = 360;
     private Insets insets;
@@ -40,7 +41,7 @@ public class RemoveInvestment extends JFrame {
         insets = this.getInsets();
         this.user = ur;
 
-        SellInvestmentGUI();
+        SellInvestmentGUI(); // główna funkcja
     }
     public void SellInvestmentGUI(){
         investments = user.getInvestments();
@@ -115,18 +116,5 @@ public class RemoveInvestment extends JFrame {
         setContentPane(contentPane);
     }
 
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            HomeAccount homeAccount= new HomeAccount();
-//            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
-//
-//            @Override
-//            public void run() {
-//                user.addInvestment(new Investment(32, "mieszkanie"));
-//                user.addInvestment(new Investment(12124, "rower"));
-//                new RemoveInvestment(user);
-//            }
-//        });
-//
-//    }
+
 }

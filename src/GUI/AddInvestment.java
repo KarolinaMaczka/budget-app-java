@@ -18,6 +18,7 @@ import java.util.List;
 
 
 public class AddInvestment extends JFrame {
+    // To GUI odpowiada za dodawanie do nowych lub tworzenie inwestycji
     public static final int W_FRAME = 540;
     public static final int H_FRAME = 360;
 
@@ -53,7 +54,7 @@ public class AddInvestment extends JFrame {
         insets = this.getInsets();
         this.user = ur;
 
-        AddInvestmentGUI();
+        AddInvestmentGUI(); // główna funkcja
 
 
     }
@@ -64,7 +65,6 @@ public class AddInvestment extends JFrame {
         List<String> nazwy = new ArrayList<>();
         for(Investment i: investments){
             nazwy.add(i.getName());
-//            System.out.println(i.getName());
         }
         String[] nazwy2 = nazwy.toArray(String[]::new);
 
@@ -207,20 +207,6 @@ public class AddInvestment extends JFrame {
 
     }
 
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            HomeAccount homeAccount= new HomeAccount();
-//            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
-//
-//            @Override
-//            public void run() {
-//                user.addInvestment(new Investment(32, "mieszkanie"));
-//                user.addInvestment(new Investment(12124, "rower"));
-//                new AddInvestment(user);
-//            }
-//        });
-//
-//    }
 
 
 }
