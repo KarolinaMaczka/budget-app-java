@@ -39,19 +39,7 @@ public class UserAdult extends User{
                 System.out.println("Kwota: "+ amountt);
             }
 
-            //System.out.println(this.investments);
-            //double amountt=0;
-            //System.out.println("halo pomocy");
-            //if(this.investments.isEmpty()){
-            // System.out.println("Jest pusta");
-            //}
-            //investments.forEach(System.out::println);
-            // for(Investment investment : investments) {
-            //    System.out.println("halo pomocy2");
-            //   System.out.println("its done");
-            //   amountt += investment.getAmount();
-            //}
-            //return amountt;
+
             return amountt;
 
     }
@@ -117,9 +105,6 @@ public class UserAdult extends User{
         return personalBalance;
     }
 
-
-    //TODO
-    // do usunięcia
     @Override
     public String toString() {
         return "UserAdult{" +

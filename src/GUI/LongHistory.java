@@ -8,13 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.security.Key;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -22,18 +16,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class LongHistory extends JFrame {
-    //karolina
-    //wyświetla historię, zaznacza czy to wydatek czy przychód, można wybrać zakres dat
 
     private int W_FRAME=1000,H_FRAME=600;
+
     private Insets insets;
-//    private JPanel contentPane;
-//    private JFormattedTextField startingDateField, endDateField;
-//    private LocalDate startingDate = LocalDate.of(2000, 1, 1);
-//    private LocalDate endDate = LocalDate.now();
-//    private JLabel dateStartLabel, dateEndLabel, expensesLabel, incomingsLabel;
     private User user;
-//    private JTable tableExpenses;
     private ContentPane contentPane;
 
     public LongHistory (User user){
@@ -51,7 +38,6 @@ public class LongHistory extends JFrame {
 
         this.user=user;
 
-//        LongHistoryGUI();
         contentPane = new ContentPane();
         setContentPane(contentPane);
 
@@ -62,6 +48,7 @@ public class LongHistory extends JFrame {
         public ChoicePane choicePanel;
         public IncomePane incomingsPanel;
 
+        //panel which contains all of smaller panels
         public ContentPane() {
             super();
             this.expensePanel = new ExpensePane(LocalDate.of(2000, 1, 1),LocalDate.now());
@@ -94,6 +81,7 @@ public class LongHistory extends JFrame {
         }
     }
 
+    // here you can choose date range
     private class ChoicePane extends JPanel{
         private JLabel dateStartLabel, dateEndLabel;
         private JFormattedTextField startingDateField, endDateField;
@@ -205,6 +193,7 @@ public class LongHistory extends JFrame {
         }
     }
 
+    //this panel contains table with expenses
     private class ExpensePane extends JPanel{
         private LocalDate startingDate;
         private LocalDate endDate;
@@ -274,6 +263,7 @@ public class LongHistory extends JFrame {
         }
     }
 
+    // this panel contains table with incomes
     private class IncomePane extends JPanel{
         private LocalDate startingDate;
         private LocalDate endDate;
@@ -341,28 +331,5 @@ public class LongHistory extends JFrame {
 
         }
     }
-
-//    public static void main(String[] args) {
-//
-//        HomeAccount ha= new HomeAccount();
-//        UserAdult u = new UserAdult(ha,"sda","sfa","nem","smkd");
-//        System.out.println(ha.getUsers());
-//        System.out.println(ha.containsLogin("sfa"));
-//
-//        Expense e = new Expense(456,CategoryOfExpense.GROCERIES,false);
-//        Expense e1 = new Expense(6,CategoryOfExpense.FUEL,false);
-//        e1.setDate(LocalDate.of(2003, 1, 4));
-//        Income i = new Income(222);
-//        u.addIncoming(i);
-//        u.addExpense(e);
-//        u.addExpense(e1);
-//
-//        EventQueue.invokeLater(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        new LongHistory(u);
-//                    }
-//                });
-//    }
 
 }

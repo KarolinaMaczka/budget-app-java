@@ -47,7 +47,7 @@ public class AddExpense extends JFrame {
     private HomeAccount homeAccount;
     private User user;
     public AddExpense(User ur) {
-        setTitle("Add incoming");
+        setTitle("Add expense");
         setResizable(false);
         setLayout(null);
         setSize(W_FRAME, H_FRAME);

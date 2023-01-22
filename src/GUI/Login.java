@@ -11,12 +11,10 @@ import System.*;
 public class Login extends JFrame {
     public static final int W_FRAME = 700;
     public static final int H_FRAME = 250;
-    private final String errorText = "Wrong username or password";
-    private JPanel contentPane,contentPaneFL;
-    private JButton logButton,newAccountButton;
-    private JLabel labelUsername, labelPassword, labelErrorText,labelFirstName,labelSurname;
-    private JLabel errorUsername,errorPassword,errorFirstName,errorSurname;
-    private JTextField textFieldUsername, textFieldPassword, textFieldFirstName,textFieldSurname;
+    private JPanel contentPane;
+    private JButton logButton;
+    private JLabel labelUsername, labelPassword, labelErrorText;
+    private JTextField textFieldUsername;
     private JPasswordField passwordFieldPassword;
     private Insets insets;
     private HomeAccount homeAccount;
@@ -37,6 +35,7 @@ public class Login extends JFrame {
 
         //reading from file
         File homeAccountFile= new File(".\\src\\Data\\HomeAccount");
+
         //if there is no home account yet
         if (homeAccountFile.length()==0){
             Login.this.dispose();
@@ -51,7 +50,6 @@ public class Login extends JFrame {
 
             try {
                 homeAccount =(HomeAccount) in.readObject();
-                System.out.println(homeAccount);
                 System.out.println(homeAccount.getUsers());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -62,8 +60,6 @@ public class Login extends JFrame {
         }
 
     }
-
-
 
     private void LoginGUI(){
         this.setTitle("Logging");
@@ -102,6 +98,7 @@ public class Login extends JFrame {
         labelErrorText.setForeground(Color.RED);
         labelErrorText.setSize(170,30);
 
+        //user needs to click this button to log in
         logButton = new JButton("Sign in");
         logButton.setSize(80,30);
         logButton.setFocusPainted(false);
@@ -123,6 +120,7 @@ public class Login extends JFrame {
                     exc.printStackTrace();
                 }
 
+                //finding right user to log into theirs account
                 String login = textFieldUsername.getText();
                 User userFromLogin = homeAccount.containsLogin(login);
                 if (userFromLogin != null){
@@ -192,13 +190,12 @@ public class Login extends JFrame {
 
     public static void main(String[] args) {
 
-        //TODO
-        // usuń
-//        try {
-//            deleteAccount();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        // if you want to reset your homeaccount
+        try {
+            deleteAccount();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         EventQueue.invokeLater(new Runnable() {
 
@@ -213,13 +210,9 @@ public class Login extends JFrame {
     }
 
     private static void deleteAccount() throws FileNotFoundException {
-        //TODO
-        // usuń czyszczenie pliku
         PrintWriter writer = new PrintWriter(".\\src\\Data\\HomeAccount");
         writer.print("");
-        // other operations
         writer.close();
-        // koniec usuwania
     }
 
 

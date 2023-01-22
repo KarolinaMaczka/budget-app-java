@@ -8,6 +8,8 @@ import java.io.*;
 
 import System.*;
 
+//This page is displayed during first logging into the application
+
 public class FirstLogin extends JFrame {
     public static final int W_FRAME = 700;
     public static final int H_FRAME = 350;
@@ -16,7 +18,6 @@ public class FirstLogin extends JFrame {
     private JLabel labelUsername, labelPassword, labelErrorText,labelFirstName,labelSurname;
     private JLabel errorUsername,errorPassword,errorFirstName,errorSurname;
     private JTextField textFieldUsername, textFieldPassword, textFieldFirstName,textFieldSurname;
-    private JPasswordField passwordFieldPassword;
     private Insets insets;
     private HomeAccount homeAccount;
     private JLabel title;
@@ -154,10 +155,9 @@ public class FirstLogin extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (checkDataCorrectness(textFieldFirstName.getText(),textFieldSurname.getText(),textFieldUsername.getText(),textFieldPassword.getText())){
                     labelErrorText.setForeground(Color.GREEN);
-                    labelErrorText.setText("Tworzenie konta");
+                    labelErrorText.setText("Creating Account");
                     homeAccount = new HomeAccount();
                     User u1=new UserAdult(homeAccount,textFieldPassword.getText(),textFieldUsername.getText(),textFieldFirstName.getText(),textFieldSurname.getText());
-                    System.out.println(u1);
                     System.out.println(homeAccount.getUsers());
 
                     ObjectOutputStream o = null;
@@ -237,12 +237,13 @@ public class FirstLogin extends JFrame {
         setContentPane(contentPaneFL);
     }
 
+    //checks whether data is correct and displays message
     private boolean checkDataCorrectness(String firstName,String surname, String username,String password){
         if (firstName.length()==0 || surname.length()==0 || username.length()==0 || password.length()==0 ){
-            labelErrorText.setText("Wpisz poprawne dane");
+            labelErrorText.setText("Enter correct data");
             return false;
         }else if (firstName.length()>14 || surname.length()>14 || username.length()>14 || password.length()>14||password.length()<9){
-            labelErrorText.setText("Wpisz poprawne dane");
+            labelErrorText.setText("Enter correct data");
             return false;
         }
         labelErrorText.setText("");
