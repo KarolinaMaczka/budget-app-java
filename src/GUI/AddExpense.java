@@ -85,11 +85,11 @@ public class AddExpense extends JFrame {
 
         labelNumberOfTimes = new JLabel("Times:");
         labelNumberOfTimes.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        labelNumberOfTimes.setBounds(120,130,120,20);
+        labelNumberOfTimes.setBounds(120,135,120,20);
 
         textAmountOfTime= new JTextField();
         textAmountOfTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        textAmountOfTime.setBounds(220,130,120,20);
+        textAmountOfTime.setBounds(220,135,120,20);
 
         comboBoxFrequency = new JComboBox(FrequencyOfExpsense.values());
         comboBoxFrequency.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -113,14 +113,14 @@ public class AddExpense extends JFrame {
 
         labelAmount = new JLabel("Amount");
         labelAmount.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        labelAmount.setBounds(120,210,70,20);
+        labelAmount.setBounds(120,200,70,20);
         contentPane.add(labelAmount);
 
 
 
         textAmount= new JTextField();
         textAmount.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        textAmount.setBounds(220,210,120,20);
+        textAmount.setBounds(220,200,120,20);
         contentPane.add(textAmount);
 
 
