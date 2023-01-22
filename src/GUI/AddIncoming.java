@@ -51,11 +51,9 @@ public class AddIncoming extends JFrame {
         contentPane.setBounds(insets.left, insets.top, W_FRAME - insets.left - insets.right,
                 H_FRAME - insets.bottom - insets.top);
 
-        labelAmount = new JLabel("Amount");
-
-
+        labelAmount = new JLabel("Amount:");
         labelAmount.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        labelAmount.setBounds(120,140,70,20);
+        labelAmount.setBounds(130,140,70,20);
         contentPane.add(labelAmount);
 
         textAmount = new JTextField();
@@ -69,7 +67,7 @@ public class AddIncoming extends JFrame {
         buttonApprove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int number = Integer.parseInt(textAmount.getText());
+                double number = Double.parseDouble(textAmount.getText());
                 user.addIncoming(new Income(number));
 
                 }
