@@ -12,7 +12,7 @@ public class Investment implements Serializable {
     protected String name;
 
     public Investment(double amount, String name) {
-        this.amount = -amount;
+        this.amount = amount;
         this.date = LocalDate.now();
         this.id = "Inv" + counter;
         counter++;
@@ -23,7 +23,9 @@ public class Investment implements Serializable {
     public LocalDate getDate() {
         return date;
     }
-
+    public void addToAmount(double add){
+        this.amount += add;
+    }
     public double getAmount() {
         return amount;
     }

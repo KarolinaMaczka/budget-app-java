@@ -23,10 +23,12 @@ public class AddInvestment extends JFrame {
     private JTextField textName;
     private JLabel labelName;
     private JComboBox comboBoxName;
+    private JLabel labelChooseName;
     private JButton buttonApprove;
     //private JCheckBox checkBoxNew;
     //private JCheckBox checkBoxExisting;
     private JComboBox comboBoxNewOrExisting;
+    private JLabel labelNewOrExisting;
 
     private Insets insets;
     private JPanel contentPane;
@@ -73,9 +75,14 @@ public class AddInvestment extends JFrame {
         comboBoxNewOrExisting.setFont(new Font("Tahoma", Font.PLAIN, 14));
         comboBoxNewOrExisting.setBounds(220,50,170,20);
         contentPane.add(comboBoxNewOrExisting);
+
         comboBoxName = new JComboBox(nazwy2);
         comboBoxName.setFont(new Font("Tahoma", Font.PLAIN, 14));
         comboBoxName.setBounds(220,80,170,20);
+
+        labelChooseName = new JLabel("Choose investment:");
+        labelChooseName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        labelChooseName.setBounds(80,80,170,20);
 
 
         comboBoxNewOrExisting.addActionListener(new ActionListener() {
@@ -87,9 +94,8 @@ public class AddInvestment extends JFrame {
 
                 }
                 else if(((JComboBox)e.getSource()).getSelectedItem() == "Add to exisitng"){
-
                     contentPane.add(comboBoxName);
-
+                    contentPane.add(labelChooseName);
                 }
                 contentPane.updateUI();
             }
@@ -119,6 +125,34 @@ public class AddInvestment extends JFrame {
         buttonApprove = new JButton("OK");
         buttonApprove.setFont(new Font("Tahoma", Font.PLAIN, 14));
         buttonApprove.setBounds(220,230,70,20);
+        buttonApprove.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double amountToAdd = Double.parseDouble(textAmount.getText());
+                if(comboBoxNewOrExisting.getSelectedItem() == "Create new"){
+                    user.addInvestment(new Investment(amountToAdd, textName.getText()));
+
+                }
+                else{
+                    for(String s: nazwy2){
+                        if(comboBoxName.getSelectedItem() == s){
+                            for(Investment investment: investments){
+                                if(investment.getName() == s){
+                                    investment.addToAmount(amountToAdd);
+                                }
+                            }
+                            for(Investment i: user.getInvestments()){
+                                System.out.println(i.getName()+ " kwota: "+i.getAmount());
+                            }
+                            break;
+                        }
+                    }
+                }
+                //System.out.println(user.getInvestments());
+            }
+        });
+
+        contentPane.add(buttonApprove);
 
         setContentPane(contentPane);
 
@@ -134,7 +168,6 @@ public class AddInvestment extends JFrame {
                 user.addInvestment(new Investment(32, "mieszkanie"));
                 user.addInvestment(new Investment(12124, "rower"));
                 new AddInvestment(user);
-
             }
         });
 
