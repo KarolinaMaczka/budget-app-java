@@ -78,11 +78,11 @@ public class AddInvestment extends JFrame {
 
         comboBoxName = new JComboBox(nazwy2);
         comboBoxName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        comboBoxName.setBounds(220,80,170,20);
+        comboBoxName.setBounds(220,100,170,20);
 
         labelChooseName = new JLabel("Choose investment:");
         labelChooseName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        labelChooseName.setBounds(80,80,170,20);
+        labelChooseName.setBounds(80,100,170,20);
 
 
         comboBoxNewOrExisting.addActionListener(new ActionListener() {
@@ -91,11 +91,15 @@ public class AddInvestment extends JFrame {
                 if(((JComboBox)e.getSource()).getSelectedItem() == "Create new"){
                     contentPane.add(labelName);
                     contentPane.add(textName);
+                    contentPane.remove(comboBoxName);
+                    contentPane.remove(labelChooseName);
 
                 }
                 else if(((JComboBox)e.getSource()).getSelectedItem() == "Add to exisitng"){
                     contentPane.add(comboBoxName);
                     contentPane.add(labelChooseName);
+                    contentPane.remove(labelName);
+                    contentPane.remove(textName);
                 }
                 contentPane.updateUI();
             }
@@ -113,13 +117,13 @@ public class AddInvestment extends JFrame {
 
         labelAmount = new JLabel("Amount");
         labelAmount.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        labelAmount.setBounds(120,200,70,20);
+        labelAmount.setBounds(120,160,70,20);
         contentPane.add(labelAmount);
 
 
         textAmount= new JTextField();
         textAmount.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        textAmount.setBounds(220,200,120,20);
+        textAmount.setBounds(220,160,120,20);
         contentPane.add(textAmount);
 
         buttonApprove = new JButton("OK");
