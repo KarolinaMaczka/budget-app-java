@@ -135,7 +135,6 @@ public class AddInvestment extends JFrame {
                 double amountToAdd = Double.parseDouble(textAmount.getText());
                 if(comboBoxNewOrExisting.getSelectedItem() == "Create new"){
                     user.addInvestment(new Investment(amountToAdd, textName.getText()));
-
                 }
                 else{
                     for(String s: nazwy2){
@@ -146,7 +145,7 @@ public class AddInvestment extends JFrame {
                                 }
                             }
                             for(Investment i: user.getInvestments()){
-//                                System.out.println(i.getName()+ " kwota: "+i.getAmount());
+                                System.out.println(i.getName()+ " kwota: "+i.getAmount());
                             }
                             break;
                         }
