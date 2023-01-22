@@ -1,6 +1,8 @@
 package System;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,6 +22,19 @@ public class Main {
         System.out.println(pbdr);
         System.out.println(ha.getClass());
 
+        u.addInvestment(new Investment(32, "mieszkanie"));
+        u.addInvestment(new Investment(12124, "rower"));
+        System.out.println("Inwestycje:" + u.getInvestments());
+        List<Investment> investmentArray;
+        investmentArray = u.getInvestments();
+        System.out.println(investmentArray);
+        List<String> nazwy = new ArrayList<>();
+        for(Investment i: investmentArray){
+            nazwy.add(i.getName());
+            System.out.println(i.getName());
+        }
+        String[] nazwy2 = nazwy.toArray(String[]::new);
+        System.out.println(nazwy2[0]);
     }
 
 }

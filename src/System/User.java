@@ -98,6 +98,7 @@ public abstract class User implements Serializable {
     public void removeRecurringExpense(RecurringExpense expense){
     }
 
+
     public double getPersonalBalance(LocalDate date) {
         double personalBalance=0;
         return personalBalance;
@@ -111,6 +112,7 @@ public abstract class User implements Serializable {
         return incomings;
     }
 
+    public List<Investment> getInvestments() {return investments;}
     public double getPersonalBalanceDateRange(LocalDate start, LocalDate end) {
         double personalBalance=0;
         for(Expense e :expenses){

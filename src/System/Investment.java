@@ -9,13 +9,17 @@ public class Investment implements Serializable {
     private String id;
     private static int counter;
 
-    public Investment(double amount) {
+    protected String name;
+
+    public Investment(double amount, String name) {
         this.amount = -amount;
         this.date = LocalDate.now();
         this.id = "Inv" + counter;
         counter++;
+        this.name  = name;
     }
 
+    public String getName() {return name;}
     public LocalDate getDate() {
         return date;
     }

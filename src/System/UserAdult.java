@@ -12,7 +12,7 @@ public class UserAdult extends User{
         this.investments = new ArrayList<>();
     }
 
-
+    public List<Investment> getInvestments() {return investments;}
 
     public void addInvestment(Investment investment){
         this.homeAccount.addInvestment(investment);
