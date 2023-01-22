@@ -104,6 +104,17 @@ public abstract class User implements Serializable {
         return personalBalance;
     }
 
+    public double getPersonalBalance() {
+        double b = 0;
+        for(var e :expenses) {
+            b += e.getAmount();
+        }
+        for(var i : incomings) {
+            b += i.getAmount();
+        }
+        return b;
+    }
+
     public List<Expense> getExpenses() {
         return expenses;
     }
@@ -117,7 +128,7 @@ public abstract class User implements Serializable {
         double personalBalance=0;
         for(Expense e :expenses){
             if(e.getDate().isBefore(end) && e.getDate().isAfter(start)){
-                personalBalance-=e.getAmount();
+                personalBalance+=e.getAmount();
             }
         }
         for(Income i :incomings){

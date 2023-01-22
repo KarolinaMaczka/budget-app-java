@@ -72,6 +72,7 @@ public class UserPage extends JFrame {
     private boolean wholeHouseSelected = false;
     private final int h=20;
     private String[][] data = new String[10][2];
+    private boolean firstTable = true;
 
     public UserPage(User u) {
         super("UserPage");
@@ -469,7 +470,9 @@ public class UserPage extends JFrame {
         banner.setBounds(5, 5, 300, 30);
         contentPane.add(banner);
 
-        String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
+//        String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
+        String personalBalanceString = "Your balance: " + user.getPersonalBalance() + "pln";
+
         String balanceString = "Balance of the home: " + user.getHomeAccount().getBalanceDateRange(start, end) + "pln";
         String investmentString = "Amount invested: " + user.getAmountInvestedDateRange(start, end) + "pln";
 
@@ -536,8 +539,8 @@ public class UserPage extends JFrame {
         // Initializing the JTable
 //        table = new JTable(data, columnNames);
         updateTable();
-        table.setBounds(310,55 + h, 400,160);
-        contentPane.add(table);
+//        table.setBounds(310,55 + h, 400,160);
+//        contentPane.add(table);
 
         String months[] = {"1","2","3","4","5","6","7","8","9","10","11","12"};
         String years[] = {"2018","2019","2020","2021","2022","2023"};
@@ -566,6 +569,7 @@ public class UserPage extends JFrame {
                     startMonthInt = startMonth.getSelectedIndex() + 1;
                     String monthString = startMonthInt > 10 ? Integer.toString(startMonthInt) : "0" + startMonthInt;
                     String s = "01/" + monthString + "/" + startYearInt;
+                    System.out.println(s);
                     try{
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         start = LocalDate.parse(s, formatter);
@@ -573,6 +577,7 @@ public class UserPage extends JFrame {
                     catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
+//                    UserPageGUI();
                 }
             }
         });
@@ -592,6 +597,7 @@ public class UserPage extends JFrame {
                     catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
+//                    UserPageGUI();
                 }
             }
         });
@@ -619,6 +625,7 @@ public class UserPage extends JFrame {
                     catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
+//                    UserPageGUI();
                 }
             }
         });
@@ -646,6 +653,7 @@ public class UserPage extends JFrame {
                     catch(DateTimeException dte){
                         System.out.println("Wrong date format");
                     }
+//                    UserPageGUI();
                 }
             }
         });
@@ -680,6 +688,7 @@ public class UserPage extends JFrame {
                 if(e.getSource() == mtd) {
                     end = LocalDate.now();
                     start = LocalDate.of(end.getYear(), end.getMonthValue(), 1);
+                    UserPageGUI();
                 }
             }
         });
@@ -711,6 +720,7 @@ public class UserPage extends JFrame {
                         }
                         frame.add(plot);
                         frame.setVisible(true);
+                        UserPageGUI();
 //                    } else {
 //                        JFrame frame = new JFrame("Plot");
 //                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -739,6 +749,7 @@ public class UserPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == typeOfPlot) {
                     wholeHouseSelected = typeOfPlot.isSelected();
+                    UserPageGUI();
                 }
             }
         });
@@ -758,6 +769,7 @@ public class UserPage extends JFrame {
                     LongHistory frame = new LongHistory(user);
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    UserPageGUI();
                 }
             }
         });
@@ -792,6 +804,7 @@ public class UserPage extends JFrame {
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     updateTable();
+                    UserPageGUI();
                 }
             }
         });
@@ -803,7 +816,8 @@ public class UserPage extends JFrame {
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     updateTable();
-                    table = new JTable(data, columnNames);
+//                    table = new JTable(data, columnNames);
+                    UserPageGUI();
                 }
             }
         });
@@ -815,7 +829,7 @@ public class UserPage extends JFrame {
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     updateTable();
-
+                    UserPageGUI();
                 }
             }
         });
@@ -850,6 +864,9 @@ public class UserPage extends JFrame {
     }
 
     private void updateTable() {
+//        if (firstTable)
+//            contentPane.remove(table);
+//        firstTable = false;
         String[] columnNames = {"Incomes", "Expenses"};
 
         String[] expenses = new String[10];
@@ -893,6 +910,10 @@ public class UserPage extends JFrame {
                 return false;
             };
         };
+        table.setBounds(310,55 + h, 400,160);
+        contentPane.add(table);
+        contentPane.remove(table);
+        contentPane.add(table);
     }
 
     public static void main(String[] args) {

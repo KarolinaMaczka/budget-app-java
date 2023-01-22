@@ -53,18 +53,18 @@ public class HomeAccount implements Serializable {
     }
 
     public double getBalanceDateRange(LocalDate start, LocalDate end) {
-        double personalBalance=0;
+        double balance=0;
         for(Expense e :expenses){
             if(e.getDate().isBefore(end) & e.getDate().isAfter(start)){
-                personalBalance-=e.getAmount();
+                balance-=e.getAmount();
             }
         }
         for(Income i :incomings){
             if(i.getDate().isBefore(end) & i.getDate().isAfter(start)){
-                personalBalance+=i.getAmount();
+                balance+=i.getAmount();
             }
         }
-        return personalBalance;
+        return balance;
     }
 
     public void addUser(User user){
