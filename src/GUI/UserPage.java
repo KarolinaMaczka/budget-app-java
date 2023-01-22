@@ -123,7 +123,7 @@ public class UserPage extends JFrame {
 
 
 //        String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
-        String personalBalanceString = "Your balance: " + Math.round( user.getPersonalBalanceDateRange(start, end) * 100) / 100d + "pln";
+        String personalBalanceString = "Your balance: " + Math.round( user.getPersonalBalanceDateRange(start, end.minusDays(1)) * 100) / 100d + "pln";
 
         String balanceString = "Balance of the home: " +
                 Math.round(100 * user.getHomeAccount().getBalanceDateRange(start, end)) / 100d + "pln";

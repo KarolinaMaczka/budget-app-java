@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +85,26 @@ public class RemoveInvestment extends JFrame {
                                 }
                             }
                         }
+                        ObjectOutputStream o = null;
+                        try {
+                            o = new ObjectOutputStream(new FileOutputStream("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount"));
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        try {
+                            o.writeObject(user.getHomeAccount());
+                            ;
+                            o.close();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+
+                        EventQueue.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                RemoveInvestment.this.dispose();
+                            }
+                        });
                     }
                 }
 
