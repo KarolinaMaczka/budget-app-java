@@ -565,21 +565,21 @@ public class UserPage extends JFrame {
 
         int counter = 0;
         for(var expense : user.getExpenses()) {
-//            if(expense.getDate().isAfter(start) && expense.getDate().isBefore(end)) {
+            if((expense.getDate().isBefore(end) && expense.getDate().isAfter(start)) || expense.getDate().isEqual(start) || expense.getDate().isEqual(end)) {
                 expenses[counter] = expense.toString();
                 counter ++;
                 if(counter > 9)
                     break;
-//            }
+            }
         }
         counter = 0;
         for(var income : user.getIncomings()) {
-//            if(income.getDate().isAfter(start) && income.getDate().isBefore(end)) {
+            if((income.getDate().isBefore(end) && income.getDate().isAfter(start)) || income.getDate().isEqual(start) || income.getDate().isEqual(end)) {
                 incomes[counter] = income.toString();
                 counter ++;
                 if(counter > 9)
                     break;
-//            }
+            }
 
         }
 
