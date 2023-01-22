@@ -45,6 +45,7 @@ public abstract class User implements Serializable {
         return login;
     }
 
+
     public String getFirstName() {
         return firstName;
     }
@@ -65,13 +66,19 @@ public abstract class User implements Serializable {
     }
 
     public double getAmountInvested() {
-        double amount=0;
-
-        investments.forEach(System.out::println);
-        for(var investment : investments) {
-            amount += investment.getAmount();
+        System.out.println(this.investments);
+        double amountt=0;
+        System.out.println("halo pomocy");
+        if(this.investments.isEmpty()){
+            System.out.println("Jest pusta");
         }
-        return amount;
+        investments.forEach(System.out::println);
+        for(Investment investment : investments) {
+            System.out.println("halo pomocy2");
+            System.out.println("its done");
+            amountt += investment.getAmount();
+        }
+        return amountt;
     }
 
     public double getAmountInvestedDateRange(LocalDate start, LocalDate end) {
@@ -90,6 +97,7 @@ public abstract class User implements Serializable {
 
     public void addInvestment(Investment investment) {
         this.investments.add(investment);
+        this.homeAccount.addInvestment(investment);
     }
 
     public void addExpense(Expense expense){

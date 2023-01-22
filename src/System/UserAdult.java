@@ -31,6 +31,7 @@ public class UserAdult extends User{
     }
 
     public void addToExisingInverment(Investment investment, double am){
+        this.homeAccount.addToExisingInverment(investment,am);
         for (Investment in: investments
              ) {
             if(in.equals(investment)){
