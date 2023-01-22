@@ -74,11 +74,20 @@ public class AddExpense extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == checkBoxReccurence){
-                    contentPane.add(labelFrequency);
-                    contentPane.add(comboBoxFrequency);
-                    contentPane.add(labelNumberOfTimes);
-                    contentPane.add(textAmountOfTime);
+                    if(((JCheckBox)e.getSource()).isSelected()){
+                        contentPane.add(labelFrequency);
+                        contentPane.add(comboBoxFrequency);
+                        contentPane.add(labelNumberOfTimes);
+                        contentPane.add(textAmountOfTime);
+                    }
+                    else{
+                        contentPane.remove(labelFrequency);
+                        contentPane.remove(comboBoxFrequency);
+                        contentPane.remove(labelNumberOfTimes);
+                        contentPane.remove(textAmountOfTime);
+                    }
                     contentPane.updateUI();
+
                 }
             }
         });
