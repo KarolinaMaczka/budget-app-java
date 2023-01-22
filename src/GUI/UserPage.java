@@ -370,7 +370,7 @@ public class UserPage extends JFrame {
 
         JCheckBox typeOfPlot = new JCheckBox();
         typeOfPlot.setText("Whole house");
-        typeOfPlot.setBounds(210, 120 + h, 100, 20);
+        typeOfPlot.setBounds(210, 125 + h, 100, 20);
 
         typeOfPlot.addActionListener(new ActionListener() {
             @Override

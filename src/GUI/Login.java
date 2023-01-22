@@ -136,6 +136,9 @@ public class Login extends JFrame {
                         }else{
                             new ChildUserPage(userFromLogin);
                         }
+                    }else {
+                        labelErrorText.setText("Incorrect login or password");
+                        passwordFieldPassword.setText("");
                     }
                 }
                 else {
