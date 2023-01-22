@@ -807,18 +807,18 @@ public class UserPage extends JFrame {
                 }
             }
         });
-//        addInvestment.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if(e.getSource() == addInvestment) {
-//                    AddInvestment frame = new AddInvestment();
-//                    frame.setVisible(true);
-//                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-//                    updateTable();
+        addInvestment.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == addInvestment) {
+                    AddInvestment frame = new AddInvestment(user);
+                    frame.setVisible(true);
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    updateTable();
 
-//                }
-//            }
-//        });
+                }
+            }
+        });
 
         contentPane.add(addIncome);
         contentPane.add(addExpense);
