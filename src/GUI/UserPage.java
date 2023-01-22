@@ -601,21 +601,21 @@ public class UserPage extends JFrame {
         contentPane.add(table);
     }
 
-    public static void main(String[] args) {
-//        UserAdult user = new UserAdult(new HomeAccount(), "sss","swsaw","p","k");
-//        user.addExpense(new Expense(21, CategoryOfExpense.GROCERIES, false));
-        UserAdult user = new UserAdult(new HomeAccount(),"ws","wae","swww","ws");
-        user.addIncoming(new Income(42.3));
-        user.addIncoming(new Income(32.3));
-        user.addIncoming(new Income(12.3));
-        user.addIncoming(new Income(42.3));
-        user.addExpense(new Expense(21.1,CategoryOfExpense.GROCERIES, false));
-        user.addInvestment(new Investment(420, "wfwf"));
-
-
-        new UserPage(user);
-//        frame.setVisible(true);
-    }
+//    public static void main(String[] args) {
+////        UserAdult user = new UserAdult(new HomeAccount(), "sss","swsaw","p","k");
+////        user.addExpense(new Expense(21, CategoryOfExpense.GROCERIES, false));
+//        UserAdult user = new UserAdult(new HomeAccount(),"ws","wae","swww","ws");
+//        user.addIncoming(new Income(42.3));
+//        user.addIncoming(new Income(32.3));
+//        user.addIncoming(new Income(12.3));
+//        user.addIncoming(new Income(42.3));
+//        user.addExpense(new Expense(21.1,CategoryOfExpense.GROCERIES, false));
+//        user.addInvestment(new Investment(420, "wfwf"));
+//
+//
+//        new UserPage(user);
+////        frame.setVisible(true);
+//    }
 
 
 }

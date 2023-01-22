@@ -342,27 +342,27 @@ public class LongHistory extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-
-        HomeAccount ha= new HomeAccount();
-        UserAdult u = new UserAdult(ha,"sda","sfa","nem","smkd");
-        System.out.println(ha.getUsers());
-        System.out.println(ha.containsLogin("sfa"));
-
-        Expense e = new Expense(456,CategoryOfExpense.GROCERIES,false);
-        Expense e1 = new Expense(6,CategoryOfExpense.FUEL,false);
-        e1.setDate(LocalDate.of(2003, 1, 4));
-        Income i = new Income(222);
-        u.addIncoming(i);
-        u.addExpense(e);
-        u.addExpense(e1);
-
-        EventQueue.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        new LongHistory(u);
-                    }
-                });
-    }
+//    public static void main(String[] args) {
+//
+//        HomeAccount ha= new HomeAccount();
+//        UserAdult u = new UserAdult(ha,"sda","sfa","nem","smkd");
+//        System.out.println(ha.getUsers());
+//        System.out.println(ha.containsLogin("sfa"));
+//
+//        Expense e = new Expense(456,CategoryOfExpense.GROCERIES,false);
+//        Expense e1 = new Expense(6,CategoryOfExpense.FUEL,false);
+//        e1.setDate(LocalDate.of(2003, 1, 4));
+//        Income i = new Income(222);
+//        u.addIncoming(i);
+//        u.addExpense(e);
+//        u.addExpense(e1);
+//
+//        EventQueue.invokeLater(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        new LongHistory(u);
+//                    }
+//                });
+//    }
 
 }

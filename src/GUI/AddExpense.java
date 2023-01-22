@@ -13,6 +13,7 @@ import System.User;
 import System.CategoryOfExpense;
 import System.Expense;
 import System.UserAdult;
+import System.UserChild;
 import System.FrequencyOfExpsense;
 import System.RecurringExpense;
 
@@ -154,6 +155,11 @@ public class AddExpense extends JFrame {
                         RecurringExpense recurringExpense = new RecurringExpense(number, cat,(FrequencyOfExpsense)comboBoxFrequency.getSelectedItem(),numberOfTimes);
                         System.out.println(recurringExpense);
                         user.addRecurringExpense(recurringExpense);
+                    }if(checkBoxReccurence.isSelected() && user instanceof UserChild){
+                        int numberOfTimes = Integer.parseInt(textAmountOfTime.getText());
+                        RecurringExpense recurringExpense = new RecurringExpense(number, cat,(FrequencyOfExpsense)comboBoxFrequency.getSelectedItem(),numberOfTimes);
+                        System.out.println(recurringExpense);
+                        user.addRecurringExpense(recurringExpense);
                     }
                     else{
                         Expense ex = new Expense(number, cat, false);
@@ -191,19 +197,19 @@ public class AddExpense extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-
-        EventQueue.invokeLater(new Runnable() {
-            HomeAccount homeAccount= new HomeAccount();
-            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
-            @Override
-            public void run() {
-
-                new AddExpense(user);
-
-            }
-        });
-
-    }
+//    public static void main(String[] args) {
+//
+//        EventQueue.invokeLater(new Runnable() {
+//            HomeAccount homeAccount= new HomeAccount();
+//            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
+//            @Override
+//            public void run() {
+//
+//                new AddExpense(user);
+//
+//            }
+//        });
+//
+//    }
 
 }

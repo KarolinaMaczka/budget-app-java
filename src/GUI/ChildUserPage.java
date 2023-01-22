@@ -117,7 +117,7 @@ public class ChildUserPage extends JFrame {
 
 
 //        String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
-        String personalBalanceString = "Your balance: " + Math.round( user.getPersonalBalanceDateRange(start, end) * 100) / 100d + "pln";
+        String personalBalanceString = "Your balance: " + Math.round( user.getPersonalBalanceDateRange(start, end.minusDays(1)) * 100) / 100d + "pln";
 
         String balanceString = "Balance of the home: " +
                 "******" + "pln";
@@ -577,11 +577,11 @@ public class ChildUserPage extends JFrame {
         contentPane.remove(table);
         contentPane.add(table);
     }
-    public static void main(String[] args) {
-//        UserAdult user = new UserAdult(new HomeAccount(), "sss","swsaw","p","k");
-//        user.addExpense(new Expense(21, CategoryOfExpense.GROCERIES, false));
-        new GUI.ChildUserPage(new UserChild(new HomeAccount(),"ws","wae","swww","ws"));
-//        frame.setVisible(true);
-    }
+//    public static void main(String[] args) {
+////        UserAdult user = new UserAdult(new HomeAccount(), "sss","swsaw","p","k");
+////        user.addExpense(new Expense(21, CategoryOfExpense.GROCERIES, false));
+//        new GUI.ChildUserPage(new UserChild(new HomeAccount(),"ws","wae","swww","ws"));
+////        frame.setVisible(true);
+//    }
 
 }

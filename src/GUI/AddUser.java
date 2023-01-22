@@ -268,39 +268,39 @@ public class AddUser extends JFrame {
         return true;
     }
 
-    public static void main(String[] args) {
-
-        File homeAccountFile= new File("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount");
-
-        if (homeAccountFile.length()==0){
-            System.out.println("pusty");
-        }else {
-            ObjectInputStream in = null;
-            try {
-                in = new ObjectInputStream(new FileInputStream(homeAccountFile));
-            } catch (IOException e) {
-                System.out.println("zła ścieżka");
-            }
-
-            try {
-                HomeAccount homeAccount =(HomeAccount) in.readObject();
-                System.out.println(homeAccount);
-                System.out.println(homeAccount.getUsers());
-                EventQueue.invokeLater(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        new AddUser(homeAccount);
-
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
+//    public static void main(String[] args) {
+//
+//        File homeAccountFile= new File("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount");
+//
+//        if (homeAccountFile.length()==0){
+//            System.out.println("pusty");
+//        }else {
+//            ObjectInputStream in = null;
+//            try {
+//                in = new ObjectInputStream(new FileInputStream(homeAccountFile));
+//            } catch (IOException e) {
+//                System.out.println("zła ścieżka");
+//            }
+//
+//            try {
+//                HomeAccount homeAccount =(HomeAccount) in.readObject();
+//                System.out.println(homeAccount);
+//                System.out.println(homeAccount.getUsers());
+//                EventQueue.invokeLater(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//
+//                        new AddUser(homeAccount);
+//
+//                    }
+//                });
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//    }
 }

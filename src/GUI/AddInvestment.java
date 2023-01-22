@@ -207,20 +207,20 @@ public class AddInvestment extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            HomeAccount homeAccount= new HomeAccount();
-            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
-
-            @Override
-            public void run() {
-                user.addInvestment(new Investment(32, "mieszkanie"));
-                user.addInvestment(new Investment(12124, "rower"));
-                new AddInvestment(user);
-            }
-        });
-
-    }
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//            HomeAccount homeAccount= new HomeAccount();
+//            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
+//
+//            @Override
+//            public void run() {
+//                user.addInvestment(new Investment(32, "mieszkanie"));
+//                user.addInvestment(new Investment(12124, "rower"));
+//                new AddInvestment(user);
+//            }
+//        });
+//
+//    }
 
 
 }

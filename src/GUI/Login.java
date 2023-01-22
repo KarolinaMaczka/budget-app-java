@@ -191,11 +191,11 @@ public class Login extends JFrame {
 
         //TODO
         // usuń
-        try {
-            deleteAccount();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            deleteAccount();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
         EventQueue.invokeLater(new Runnable() {
 

@@ -110,19 +110,19 @@ public class AddIncoming extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-
-        EventQueue.invokeLater(new Runnable() {
-            HomeAccount homeAccount= new HomeAccount();
-            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
-            @Override
-            public void run() {
-
-                new AddIncoming(user);
-
-            }
-        });
-
-    }
+//    public static void main(String[] args) {
+//
+//        EventQueue.invokeLater(new Runnable() {
+//            HomeAccount homeAccount= new HomeAccount();
+//            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
+//            @Override
+//            public void run() {
+//
+//                new AddIncoming(user);
+//
+//            }
+//        });
+//
+//    }
 
 }
