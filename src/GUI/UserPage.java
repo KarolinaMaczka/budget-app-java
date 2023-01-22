@@ -61,8 +61,8 @@ public class UserPage extends JFrame {
     private JTextField balance;
     private Insets insets;
     private User user;
-    private LocalDate start;
-    private LocalDate end;
+    private LocalDate start = LocalDate.now().minusMonths(1);
+    private LocalDate end = LocalDate.now();
     private JPanel panel1;
     private JTable table;
     private int startMonthInt = 1;
@@ -850,51 +850,63 @@ public class UserPage extends JFrame {
     }
 
     private void updateTable() {
-        String[] columnNames = { "Incomes", "Expenses"};
+        String[] columnNames = {"Incomes", "Expenses"};
 
         String[] expenses = new String[10];
         String[] incomes = new String[10];
-        Object[] exs = user.getExpenses().toArray();
+//        Object[] exs = user.getExpenses().toArray();
 
-//        int i=0;
-        for(int i=exs.length -1;i>=0;i--) {
-//            if(i > 9)
-//                break;
-            Expense e = (Expense) exs[i];
-            expenses[i] = e.toString();
-//            i++;
+        for(int i=0; i<10;i++) {
+            incomes[i] = "";
+            expenses[i] = "";
         }
 
-//        for(var in : user.getIncomings()) {
-//            if(i > 9)
-//                break;
-//            incomes[i] = in.toString();
-//            i++;
-//        }
-
-        Object[] ins = user.getIncomings().toArray();
-
-//        int i=0;
-        for(int i=exs.length -1;i>=0;i--) {
-//            if(i > 9)
-//                break;
-            Income e = (Income) ins[i];
-            expenses[i] = e.toString();
-//            i++;
+        int counter = 0;
+        for(var expense : user.getExpenses()) {
+//            if(expense.getDate().isAfter(start) && expense.getDate().isBefore(end)) {
+                expenses[counter] = expense.toString();
+                counter ++;
+                if(counter > 9)
+                    break;
+//            }
         }
+        counter = 0;
+        for(var income : user.getIncomings()) {
+//            if(income.getDate().isAfter(start) && income.getDate().isBefore(end)) {
+                incomes[counter] = income.toString();
+                counter ++;
+                if(counter > 9)
+                    break;
+//            }
+
+        }
+
+
 
         for(int i=0;i<10;i++) {
             data[i][0] = incomes[i];
             data[i][1] = expenses[i];
         }
 
-        table =  new JTable(data, columnNames);
+        table =  new JTable(data, columnNames){
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            };
+        };
     }
 
     public static void main(String[] args) {
 //        UserAdult user = new UserAdult(new HomeAccount(), "sss","swsaw","p","k");
 //        user.addExpense(new Expense(21, CategoryOfExpense.GROCERIES, false));
-        new UserPage(new UserAdult(new HomeAccount(),"ws","wae","swww","ws"));
+        UserAdult user = new UserAdult(new HomeAccount(),"ws","wae","swww","ws");
+        user.addIncoming(new Income(42.3));
+        user.addIncoming(new Income(32.3));
+        user.addIncoming(new Income(12.3));
+        user.addIncoming(new Income(42.3));
+        user.addExpense(new Expense(21.1,CategoryOfExpense.GROCERIES, false));
+
+
+        new UserPage(user);
 //        frame.setVisible(true);
     }
 

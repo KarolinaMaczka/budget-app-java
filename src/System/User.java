@@ -116,12 +116,12 @@ public abstract class User implements Serializable {
     public double getPersonalBalanceDateRange(LocalDate start, LocalDate end) {
         double personalBalance=0;
         for(Expense e :expenses){
-            if(e.getDate().isBefore(end) & e.getDate().isAfter(start)){
+            if(e.getDate().isBefore(end) && e.getDate().isAfter(start)){
                 personalBalance-=e.getAmount();
             }
         }
         for(Income i :incomings){
-            if(i.getDate().isBefore(end) & i.getDate().isAfter(start)){
+            if(i.getDate().isBefore(end) && i.getDate().isAfter(start)){
                 personalBalance+=i.getAmount();
             }
         }
