@@ -144,9 +144,6 @@ public class AddInvestment extends JFrame {
                                     investment.addToAmount(amountToAdd);
                                 }
                             }
-                            for(Investment i: user.getInvestments()){
-                                System.out.println(i.getName()+ " kwota: "+i.getAmount());
-                            }
                             break;
                         }
                     }
