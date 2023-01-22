@@ -108,6 +108,10 @@ public abstract class User implements Serializable {
     public void addInvestment(Investment investment) {
     }
 
+    public void addToExisingInvestment(Investment investment, double am){
+
+    }
+
     public void addExpense(Expense expense){
         this.expenses.add(expense);
     }

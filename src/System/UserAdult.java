@@ -30,7 +30,7 @@ public class UserAdult extends User{
         this.incomings.add(income);
     }
 
-    public void addToExisingInverment(Investment investment, double am){
+    public void addToExisingInvestment(Investment investment, double am){
         this.homeAccount.addToExisingInverment(investment,am);
         for (Investment in: investments
              ) {

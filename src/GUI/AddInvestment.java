@@ -141,7 +141,7 @@ public class AddInvestment extends JFrame {
                         if(comboBoxName.getSelectedItem() == s){
                             for(Investment investment: user.getInvestments()){
                                 if(investment.getName() == s){
-                                    ((UserAdult)user).addToExisingInverment(investment, amountToAdd);
+                                    user.addToExisingInvestment(investment,amountToAdd);
                                 }
                                 break;
                             }
