@@ -91,4 +91,12 @@ public class HomeAccount implements Serializable {
     public List<Expense> getExpenses() {
         return expenses;
     }
+    public void addToExisingInverment(Investment investment, double am){
+        for (Investment in: investments
+        ) {
+            if(in.equals(investment)){
+                in.addToAmount(am);
+            }
+        }
+    }
 }

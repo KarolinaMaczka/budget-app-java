@@ -26,7 +26,13 @@ public class Main {
 
         u.addInvestment(new Investment(32, "mieszkanie"));
         u.addInvestment(new Investment(12124, "rower"));
+        System.out.println(u.investments.isEmpty());
+        if(u.investments.isEmpty()){
+            System.out.println("jest pusta");
+        }
+
         System.out.println("Inwestycje:" + u.getInvestments());
+        System.out.println(u.getAmountInvested());
         List<Investment> investmentArray;
         investmentArray = u.getInvestments();
         System.out.println(investmentArray);
@@ -40,12 +46,15 @@ public class Main {
 
         //String[] nazwy2 = nazwy.toArray(String[]::new);
         //System.out.println(nazwy2[0]);
-        for(Investment i: investmentArray){
+        if(!u.getInvestments().isEmpty()){
+            System.out.println("popmoccww");
+        }
+        for(Investment i: u.getInvestments()){
             nazwy.add(i.getName());
             System.out.println(i.getName() + " kwota: "+ i.getAmount());
 
         }
-
+        System.out.println(u.getAmountInvested());
     }
 
 }
