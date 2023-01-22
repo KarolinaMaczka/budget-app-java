@@ -30,6 +30,32 @@ public class UserAdult extends User{
         this.incomings.add(income);
     }
 
+    @Override
+    public double getAmountInvested() {
+            double amountt = 0;
+            System.out.println("rozmiarxx: "+ this.investments.size());
+            for(Investment investment: investments){
+                amountt+=investment.getAmount();
+                System.out.println("Kwota: "+ amountt);
+            }
+
+            //System.out.println(this.investments);
+            //double amountt=0;
+            //System.out.println("halo pomocy");
+            //if(this.investments.isEmpty()){
+            // System.out.println("Jest pusta");
+            //}
+            //investments.forEach(System.out::println);
+            // for(Investment investment : investments) {
+            //    System.out.println("halo pomocy2");
+            //   System.out.println("its done");
+            //   amountt += investment.getAmount();
+            //}
+            //return amountt;
+            return amountt;
+
+    }
+
     public void addToExisingInvestment(Investment investment, double am){
         this.homeAccount.addToExisingInverment(investment,am);
         for (Investment in: investments
@@ -67,6 +93,8 @@ public class UserAdult extends User{
             this.homeAccount.removeExpense(e);
             this.expenses.remove(e);}
     }
+
+
 
     @Override
     public double getPersonalBalance(LocalDate date) {

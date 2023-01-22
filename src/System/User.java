@@ -65,20 +65,27 @@ public abstract class User implements Serializable {
         return homeAccount;
     }
 
-    public double getAmountInvested() {
-        System.out.println(this.investments);
-        double amountt=0;
-        System.out.println("halo pomocy");
-        if(this.investments.isEmpty()){
-            System.out.println("Jest pusta");
-        }
-        investments.forEach(System.out::println);
-        for(Investment investment : investments) {
-            System.out.println("halo pomocy2");
-            System.out.println("its done");
-            amountt += investment.getAmount();
-        }
-        return amountt;
+    public abstract double getAmountInvested();
+        //System.out.println("rozmiar: "+ this.investments.size());
+
+        //System.out.println(this.investments);
+        //double amountt=0;
+        //System.out.println("halo pomocy");
+        //if(this.investments.isEmpty()){
+           // System.out.println("Jest pusta");
+        //}
+        //investments.forEach(System.out::println);
+       // for(Investment investment : investments) {
+        //    System.out.println("halo pomocy2");
+         //   System.out.println("its done");
+         //   amountt += investment.getAmount();
+        //}
+        //return amountt;
+        //return 34;
+
+
+    public int getInvestitionsSize(){
+        return investments.size();
     }
 
     public double getAmountInvestedDateRange(LocalDate start, LocalDate end) {
