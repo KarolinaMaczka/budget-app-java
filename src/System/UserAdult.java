@@ -30,6 +30,15 @@ public class UserAdult extends User{
         this.incomings.add(income);
     }
 
+    public void addToExisingInverment(Investment investment, double am){
+        for (Investment in: investments
+             ) {
+            if(in.equals(investment)){
+                in.addToAmount(am);
+            }
+        }
+    }
+
     @Override
     public void addExpense(Expense expense){
         this.homeAccount.addExpense(expense);

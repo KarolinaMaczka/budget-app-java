@@ -139,16 +139,23 @@ public class AddInvestment extends JFrame {
                 else{
                     for(String s: nazwy2){
                         if(comboBoxName.getSelectedItem() == s){
-                            for(Investment investment: investments){
+                            for(Investment investment: user.getInvestments()){
                                 if(investment.getName() == s){
-                                    investment.addToAmount(amountToAdd);
+                                    ((UserAdult)user).addToExisingInverment(investment, amountToAdd);
                                 }
+                                break;
                             }
-                            break;
+
                         }
                     }
                 }
-                //System.out.println(user.getInvestments());
+                System.out.println(user.getAmountInvested());
+                System.out.println(user.getInvestments());
+                for(Investment i: user.getInvestments()){
+                    nazwy.add(i.getName());
+                    System.out.println(i.getName() + " kwota: "+ i.getAmount());
+
+                }
             }
         });
 

@@ -1,5 +1,7 @@
 package System;
 
+import GUI.AddInvestment;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +33,19 @@ public class Main {
         List<String> nazwy = new ArrayList<>();
         for(Investment i: investmentArray){
             nazwy.add(i.getName());
-            System.out.println(i.getName());
+            System.out.println(i.getName() + " kwota: "+ i.getAmount());
+
         }
-        String[] nazwy2 = nazwy.toArray(String[]::new);
-        System.out.println(nazwy2[0]);
+        System.out.println("Program");
+
+        //String[] nazwy2 = nazwy.toArray(String[]::new);
+        //System.out.println(nazwy2[0]);
+        for(Investment i: investmentArray){
+            nazwy.add(i.getName());
+            System.out.println(i.getName() + " kwota: "+ i.getAmount());
+
+        }
+
     }
 
 }
