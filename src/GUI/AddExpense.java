@@ -18,9 +18,7 @@ import System.FrequencyOfExpsense;
 import System.RecurringExpense;
 
 public class AddExpense extends JFrame {
-    //magda
-
-    //przy childzie updatujemy listę tylko dla childa
+    // To GUI odpowiada za dodawanie wydatków
 
     public static final int W_FRAME = 540;
     public static final int H_FRAME = 360;
@@ -47,7 +45,7 @@ public class AddExpense extends JFrame {
     private HomeAccount homeAccount;
     private User user;
     public AddExpense(User ur) {
-        setTitle("Add incoming");
+        setTitle("Add expense");
         setResizable(false);
         setLayout(null);
         setSize(W_FRAME, H_FRAME);
@@ -60,7 +58,7 @@ public class AddExpense extends JFrame {
         insets = this.getInsets();
         user = ur;
 
-        AddExpenseGUI();
+        AddExpenseGUI(); // główna funkcja
     }
 
     private void AddExpenseGUI(){
@@ -74,17 +72,19 @@ public class AddExpense extends JFrame {
         checkBoxReccurence.setBounds(220,50,170,20);
         contentPane.add(checkBoxReccurence);
 
-        checkBoxReccurence.addActionListener(new ActionListener() {
+        checkBoxReccurence.addActionListener(new ActionListener() { //funkcja zalezna od zaznaczenia checkboxa isReccuring
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == checkBoxReccurence){
-                    if(((JCheckBox)e.getSource()).isSelected()){
+                    if(((JCheckBox)e.getSource()).isSelected()){ // jeśli jest zaznaczony:
+                        // niech pojawią się labele, przyciski etc. dotyczące parametrow rekurencyjnego expense
                         contentPane.add(labelFrequency);
                         contentPane.add(comboBoxFrequency);
                         contentPane.add(labelNumberOfTimes);
                         contentPane.add(textAmountOfTime);
                     }
                     else{
+                        // niech znikną labele, przyciski etc. dotyczące parametrow rekurencyjnego expense
                         contentPane.remove(labelFrequency);
                         contentPane.remove(comboBoxFrequency);
                         contentPane.remove(labelNumberOfTimes);
@@ -143,24 +143,24 @@ public class AddExpense extends JFrame {
         buttonApprove = new JButton("OK");
         buttonApprove.setFont(new Font("Tahoma", Font.PLAIN, 14));
         buttonApprove.setBounds(220,230,70,20);
-        buttonApprove.addActionListener(new ActionListener() {
+        buttonApprove.addActionListener(new ActionListener() { // wykonuje się gdy naciśnięty zostanie przycik "OK"
             @Override
             public void actionPerformed(ActionEvent e) {
                 double number = 0;
                 try {
                     number = Double.parseDouble(textAmount.getText());
                     CategoryOfExpense cat = (CategoryOfExpense)boxExpenseCategory.getSelectedItem();
+                    // gdy Expense jest rekurencyjny:
                     if(checkBoxReccurence.isSelected() && user instanceof UserAdult){
                         int numberOfTimes = Integer.parseInt(textAmountOfTime.getText());
                         RecurringExpense recurringExpense = new RecurringExpense(number, cat,(FrequencyOfExpsense)comboBoxFrequency.getSelectedItem(),numberOfTimes);
-                        System.out.println(recurringExpense);
                         user.addRecurringExpense(recurringExpense);
                     }if(checkBoxReccurence.isSelected() && user instanceof UserChild){
                         int numberOfTimes = Integer.parseInt(textAmountOfTime.getText());
                         RecurringExpense recurringExpense = new RecurringExpense(number, cat,(FrequencyOfExpsense)comboBoxFrequency.getSelectedItem(),numberOfTimes);
-                        System.out.println(recurringExpense);
                         user.addRecurringExpense(recurringExpense);
                     }
+                    //gdy expense nie jest rekurencyjny
                     else{
                         Expense ex = new Expense(number, cat, false);
                         user.addExpense(ex);
@@ -197,19 +197,6 @@ public class AddExpense extends JFrame {
 
     }
 
-//    public static void main(String[] args) {
-//
-//        EventQueue.invokeLater(new Runnable() {
-//            HomeAccount homeAccount= new HomeAccount();
-//            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
-//            @Override
-//            public void run() {
-//
-//                new AddExpense(user);
-//
-//            }
-//        });
-//
-//    }
+
 
 }

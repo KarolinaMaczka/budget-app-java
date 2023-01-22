@@ -16,8 +16,7 @@ import System.Income;
 import System.UserAdult;
 
 public class AddIncoming extends JFrame {
-    //magda
-    //przy childzie updatujemy listę tylko dla childa // to juz jest metodzie zrobiuoine
+    // To GUI odpowiada za dodawanie przychodów
 
     public static final int W_FRAME = 540;
     public static final int H_FRAME = 360;
@@ -45,7 +44,7 @@ public class AddIncoming extends JFrame {
         insets = this.getInsets();
         user = ur;
 
-        AddIncomingGUI();
+        AddIncomingGUI(); // główna funkcja
     }
 
     private void AddIncomingGUI(){
@@ -67,7 +66,7 @@ public class AddIncoming extends JFrame {
         buttonApprove = new JButton("OK");
         buttonApprove.setFont(new Font("Tahoma", Font.PLAIN, 14));
         buttonApprove.setBounds(220,200,70,20);
-        buttonApprove.addActionListener(new ActionListener() {
+        buttonApprove.addActionListener(new ActionListener() { // wykonuje się gdy naciśnięty zostanie przycik "OK"
             @Override
             public void actionPerformed(ActionEvent e) {
                 double number =0;
@@ -110,19 +109,6 @@ public class AddIncoming extends JFrame {
 
     }
 
-//    public static void main(String[] args) {
-//
-//        EventQueue.invokeLater(new Runnable() {
-//            HomeAccount homeAccount= new HomeAccount();
-//            User user = new UserAdult(homeAccount, "sda","sfa", "Magdalena", "Jeczen");
-//            @Override
-//            public void run() {
-//
-//                new AddIncoming(user);
-//
-//            }
-//        });
-//
-//    }
+
 
 }
