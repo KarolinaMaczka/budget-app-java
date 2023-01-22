@@ -124,7 +124,7 @@ public class UserPage extends JFrame {
         String balanceString = "Balance of the home: " +
                 Math.round(100 * user.getHomeAccount().getBalanceDateRange(start, end)) / 100d + "pln";
         String investmentString = "Amount invested: " +
-                Math.round(100*user.getAmountInvestedDateRange(start,end) ) / 100d+ "pln";
+                Math.round(100*user.getAmountInvestedDateRange(start,end) ) / 100d + "pln";
 
         JLabel personalBalanceLabel = new JLabel();
         JLabel balanceLabel = new JLabel();
@@ -500,7 +500,24 @@ public class UserPage extends JFrame {
         contentPane.add(addInvestment);
         contentPane.add(removeInvestment);
 
+        JButton addUser = new JButton();
+        addUser.setText("Add user");
+        addUser.setBounds(8+8+170+8+170+170+8-4+25, 275 + h, 170-50, 20);
+        addUser.setFont(new Font("Tahoma", Font.BOLD, 14));
+        addUser.setFocusable(false);
 
+        addUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == addUser) {
+                    AddUser frame = new AddUser(user.getHomeAccount());
+                    frame.setVisible(true);
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                }
+            }
+        });
+
+        contentPane.add(addUser);
 
         setContentPane(contentPane);
         setVisible(true);

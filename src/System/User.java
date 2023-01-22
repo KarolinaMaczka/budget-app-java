@@ -77,9 +77,9 @@ public abstract class User implements Serializable {
     public double getAmountInvestedDateRange(LocalDate start, LocalDate end) {
         double amount=0;
 //        System.out.println();
-        expenses.forEach(System.out::println);
+//        expenses.forEach(System.out::println);
         System.out.println("o");
-        for(var inv : expenses) {
+        for(var inv : investments) {
             if((inv.getDate().isBefore(end) && inv.getDate().isAfter(start)) || inv.getDate().isEqual(start) || inv.getDate().isEqual(end))
                 amount += inv.getAmount();
 //                amount ++;
