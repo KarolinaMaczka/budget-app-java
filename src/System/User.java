@@ -113,7 +113,7 @@ public abstract class User implements Serializable {
     }
 
     public void addExpense(Expense expense){
-        this.expenses.add(expense);
+        //this.expenses.add(expense);
     }
     public void addRecurringExpense(RecurringExpense expense){
     }
