@@ -173,7 +173,7 @@ public class AddInvestment extends JFrame {
                             }
                             ObjectOutputStream o = null;
                             try {
-                                o = new ObjectOutputStream(new FileOutputStream("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount"));
+                                o = new ObjectOutputStream(new FileOutputStream(".\\src\\Data\\HomeAccount"));
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }

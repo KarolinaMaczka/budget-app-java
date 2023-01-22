@@ -36,7 +36,7 @@ public class Login extends JFrame {
         insets = this.getInsets();
 
         //reading from file
-        File homeAccountFile= new File("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount");
+        File homeAccountFile= new File(".\\src\\Data\\HomeAccount");
         //if there is no home account yet
         if (homeAccountFile.length()==0){
             Login.this.dispose();
@@ -110,7 +110,7 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 ObjectInputStream in = null;
                 try {
-                    in = new ObjectInputStream(new FileInputStream("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount"));
+                    in = new ObjectInputStream(new FileInputStream(".\\src\\Data\\HomeAccount"));
                 } catch (IOException exc) {
                     System.out.println("zła ścieżka");
                 }
@@ -212,7 +212,7 @@ public class Login extends JFrame {
     private static void deleteAccount() throws FileNotFoundException {
         //TODO
         // usuń czyszczenie pliku
-        PrintWriter writer = new PrintWriter("C:\\Users\\karim\\IdeaProjects\\kontrola-budzetu\\src\\Data\\HomeAccount");
+        PrintWriter writer = new PrintWriter(".\\src\\Data\\HomeAccount");
         writer.print("");
         // other operations
         writer.close();
