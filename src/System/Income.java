@@ -30,10 +30,7 @@ public class Income implements Serializable {
 
     @Override
     public String toString() {
-        return "Income{" +
-                "date=" + date +
-                ", amount=" + amount +
-                ", id='" + id + '\'' +
-                '}';
+        return  date +
+                " " + amount;
     }
 }

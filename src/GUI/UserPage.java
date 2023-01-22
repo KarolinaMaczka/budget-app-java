@@ -18,6 +18,7 @@ import System.User;
 import System.UserAdult;
 import System.Expense;
 import System.CategoryOfExpense;
+import System.Income;
 
 public class UserPage extends JFrame {
     /*
@@ -54,7 +55,7 @@ public class UserPage extends JFrame {
     wyświetl listę przychodów i wydatków - 10 pierwszych
     */
     public static final int W_FRAME = 720;
-    public static final int H_FRAME = 540;
+    public static final int H_FRAME = 360;
     private JPanel contentPane;
     //    private JLabel balanceLabel, personalBalanceLabel;
     private JTextField balance;
@@ -68,6 +69,9 @@ public class UserPage extends JFrame {
     private int startYearInt = 2018;
     private int endMonthInt = 12;
     private int endYearInt = 2023;
+    private boolean wholeHouseSelected = false;
+    private final int h=20;
+    private String[][] data = new String[10][2];
 
     public UserPage(User u) {
         super("UserPage");
@@ -81,9 +85,389 @@ public class UserPage extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+//        contentPane = new JPanel();
+//        contentPane.setLayout(null);
+//        contentPane.setSize(W_FRAME, H_FRAME);
+//
+////        JLabel banner = new JLabel();
+////        banner.setText("Welcome " + user.getFirstName() + " " + user.getSurname() + "!");
+////        banner.setFont(new Font("Comic sans", Font.BOLD, 24));
+////        banner.setBounds(5, 5, 300, 30);
+////        contentPane.add(banner);
+////
+////        String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
+////        String balanceString = "Balance of the home: " + user.getHomeAccount().getBalanceDateRange(start, end) + "pln";
+////        String investmentString = "Amount invested: " + user.getAmountInvestedDateRange(start, end) + "pln";
+////
+////        JLabel personalBalanceLabel = new JLabel();
+////        JLabel balanceLabel = new JLabel();
+////        JLabel investmentLabel = new JLabel();
+////
+////        investmentLabel.setText(investmentString);
+////        balanceLabel.setText(balanceString);
+////        personalBalanceLabel.setText(personalBalanceString);
+////
+////        balanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+////        personalBalanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+////        investmentLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+////        balanceLabel.setBounds(0,20 + h,300,20);
+////        personalBalanceLabel.setBounds(0,40 + h,300,20);
+////        investmentLabel.setBounds(0, 60 + h, 300, 20);
+////
+////        contentPane.add(balanceLabel);
+////        contentPane.add(personalBalanceLabel);
+////        contentPane.add(investmentLabel);
+////
+//////        String[][] data = new String[10][2];
+//////        String[] expenses = new String[10];
+//////        String[] incomes = new String[10];
+//////
+//////        int i=0;
+//////        for(var e : user.getExpenses()) {
+//////            if(i > 9)
+//////                break;
+//////            expenses[i] = e.toString();
+//////            i++;
+//////        }
+//////        i=0;
+//////        for(var in : user.getIncomings()) {
+//////            if(i > 9)
+//////                break;
+//////            incomes[i] = in.toString();
+//////            i++;
+//////        }
+//////
+//////        for(i=0;i<10;i++) {
+//////            data[i][0] = incomes[i];
+//////            data[i][1] = expenses[i];
+//////        }
+////
+////        // Column Names
+////        String[] columnNames = { "Incomes", "Expenses"}; //tu cos nie działa
+////        JLabel tableTitle1 = new JLabel();
+////        tableTitle1.setText("Incomes:");
+////        tableTitle1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+////        tableTitle1.setBounds(310,20 + h,100,20);
+////        contentPane.add(tableTitle1);
+////
+////        JLabel tableTitle2 = new JLabel();
+////        tableTitle2.setText("Expenses:");
+////        tableTitle2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+////        tableTitle2.setBounds(510,20 + h,100,20);
+////        contentPane.add(tableTitle2);
+////
+//////        JButton updateTable = new JButton();
+//////        updateTable.setText("Update table");
+////
+////        // Initializing the JTable
+//////        table = new JTable(data, columnNames);
+////        updateTable();
+////        table.setBounds(310,55 + h, 400,160);
+////        contentPane.add(table);
+////
+////        String months[] = {"1","2","3","4","5","6","7","8","9","10","11","12"};
+////        String years[] = {"2018","2019","2020","2021","2022","2023"};
+////
+////        JComboBox startMonth = new JComboBox(months);
+////        JComboBox startYear = new JComboBox(years);
+////
+////        JComboBox endMonth = new JComboBox(months);
+////        JComboBox endYear = new JComboBox(years);
+////
+////        startMonth.setFocusable(false);
+////        startYear.setFocusable(false);
+////        endMonth.setFocusable(false);
+////        endYear.setFocusable(false);
+////
+////        startMonth.setBounds(5,100 + h,40,20);
+////        startYear.setBounds(45,100 + h,55,20);
+////
+////        endMonth.setBounds(145,100 + h,40,20);
+////        endYear.setBounds(185,100 + h,55,20);
+////
+////        startMonth.addActionListener(new ActionListener() {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                if(e.getSource() == startMonth) {
+////                    startMonthInt = startMonth.getSelectedIndex() + 1;
+////                    String monthString = startMonthInt > 10 ? Integer.toString(startMonthInt) : "0" + startMonthInt;
+////                    String s = "01/" + monthString + "/" + startYearInt;
+////                    try{
+////                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+////                        start = LocalDate.parse(s, formatter);
+////                    }
+////                    catch(DateTimeException dte){
+////                        System.out.println("Wrong date format");
+////                    }
+////                }
+////            }
+////        });
+////
+////        startYear.addActionListener(new ActionListener() {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                if(e.getSource() == startYear) {
+//////                    startMonthInt = startMonth.getSelectedIndex() + 1;
+////                    startYearInt = startYear.getSelectedIndex() + 2018;
+////                    String monthString = startMonthInt > 10 ? Integer.toString(startMonthInt) : "0" + startMonthInt;
+////                    String s = "01/" + monthString + "/" + startYearInt;
+////                    try{
+////                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+////                        start = LocalDate.parse(s, formatter);
+////                    }
+////                    catch(DateTimeException dte){
+////                        System.out.println("Wrong date format");
+////                    }
+////                }
+////            }
+////        });
+////
+////        endMonth.addActionListener(new ActionListener() {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                if(e.getSource() == endMonth) {
+////                    endMonthInt = endMonth.getSelectedIndex() + 1;
+////                    String monthString = endMonthInt > 10 ? Integer.toString(endMonthInt) : "0" + endMonthInt;
+////                    String endDay;
+////                    if(endMonthInt == 2) {
+////                        endDay = Integer.toString(29 - Math.min(endYearInt % 4, 1));
+////                    } else if(endMonthInt <= 7) {
+////                        endDay = Integer.toString(30 + endMonthInt % 2);
+////                    } else {
+////                        endDay = Integer.toString(31 - endMonthInt % 2);
+////                    }
+////
+////                    String s = endDay + "/" + monthString + "/" + endYearInt;
+////                    try{
+////                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+////                        end = LocalDate.parse(s, formatter);
+////                    }
+////                    catch(DateTimeException dte){
+////                        System.out.println("Wrong date format");
+////                    }
+////                }
+////            }
+////        });
+////
+////        endYear.addActionListener(new ActionListener() {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                if(e.getSource() == endYear) {
+////                    endYearInt = endYear.getSelectedIndex() + 2018;
+////                    String monthString = endMonthInt > 10 ? Integer.toString(endMonthInt) : "0" + endMonthInt;
+////                    String endDay;
+////                    if(endMonthInt == 2) {
+////                        endDay = Integer.toString(29 - Math.min(endYearInt % 4, 1));
+////                    } else if(endMonthInt <= 7) {
+////                        endDay = Integer.toString(30 + endMonthInt % 2);
+////                    } else {
+////                        endDay = Integer.toString(31 - endMonthInt % 2);
+////                    }
+////
+////                    String s = endDay + "/" + monthString + "/" + endYearInt;
+////                    try{
+////                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+////                        end = LocalDate.parse(s, formatter);
+////                    }
+////                    catch(DateTimeException dte){
+////                        System.out.println("Wrong date format");
+////                    }
+////                }
+////            }
+////        });
+////
+////        contentPane.add(startMonth);
+////        contentPane.add(startYear);
+////        contentPane.add(endMonth);
+////        contentPane.add(endYear);
+////
+////        JLabel startDateLabel = new JLabel();
+////        JLabel endDateLabel = new JLabel();
+////
+////        startDateLabel.setText("Choose start date:");
+////        endDateLabel.setText("Choose end date:");
+////
+////        startDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+////        endDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+////        startDateLabel.setBounds(0,80 + h,140,20);
+////        endDateLabel.setBounds(140,80 + h,140,20);
+////
+////        contentPane.add(startDateLabel);
+////        contentPane.add(endDateLabel);
+////
+////        JButton mtd = new JButton();
+////        mtd.setText("Month to date");
+////        mtd.setFocusable(false);
+////        mtd.setBounds(65, 125 + h, 120,20);
+////
+////        mtd.addActionListener(new ActionListener() {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                if(e.getSource() == mtd) {
+////                    end = LocalDate.now();
+////                    start = LocalDate.of(end.getYear(), end.getMonthValue(), 1);
+////                }
+////            }
+////        });
+////
+////        contentPane.add(mtd);
+////
+//////        ImageIcon imageIcon = new ImageIcon("pie4.png");
+////
+////
+////        JButton pieChart = new JButton();
+////        pieChart.setBounds(40, 150 + h, 170,30);
+////        pieChart.setText("Display plot");
+////        pieChart.setFont(new Font("Tahoma", Font.BOLD, 18));
+////        pieChart.setFocusable(false);
+////
+////        pieChart.addActionListener(new ActionListener() {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                if(e.getSource() == pieChart) {
+//////                    if (wholeHouseSelected) {
+////                        JFrame frame = new JFrame("Plot");
+////                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+////                        frame.setSize(420, 420);
+////                        List<ModelPieChart> data = plotData(user);
+////
+////                        PieChart plot = new PieChart();
+////                        for (var d : data) {
+////                            plot.addData(d);
+////                        }
+////                        frame.add(plot);
+////                        frame.setVisible(true);
+//////                    } else {
+//////                        JFrame frame = new JFrame("Plot");
+//////                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+//////                        frame.setSize(420, 420);
+//////                        List<ModelPieChart> data = plotData(user);
+//////
+//////                        PieChart plot = new PieChart();
+//////                        for (var d : data) {
+//////                            plot.addData(d);
+//////                        }
+//////                        frame.add(plot);
+//////                        frame.setVisible(true);
+//////                    }
+////                }
+////            }
+////        });
+////
+////        contentPane.add(pieChart);
+////
+////        JCheckBox typeOfPlot = new JCheckBox();
+////        typeOfPlot.setText("Whole house");
+////        typeOfPlot.setBounds(210, 155 + h, 100, 20);
+////
+////        typeOfPlot.addActionListener(new ActionListener() {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                if(e.getSource() == typeOfPlot) {
+////                    wholeHouseSelected = typeOfPlot.isSelected();
+////                }
+////            }
+////        });
+////
+////        contentPane.add(typeOfPlot);
+////
+////        JButton extendedHistory = new JButton();
+////        extendedHistory.setBounds(20, 185 + h, 210, 30);
+////        extendedHistory.setText("Extended history");
+////        extendedHistory.setFont(new Font("Tahoma", Font.BOLD, 17));
+////        extendedHistory.setFocusable(false);
+////
+////        extendedHistory.addActionListener(new ActionListener() {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                if (e.getSource() == extendedHistory) {
+////                    LongHistory frame = new LongHistory(user);
+////                    frame.setVisible(true);
+////                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+////                }
+////            }
+////        });
+////        contentPane.add(extendedHistory);
+////
+////        JButton addExpense = new JButton();
+////        JButton addIncome = new JButton();
+////        JButton addInvestment = new JButton();
+////
+////        // 720 x 360
+////
+////        addExpense.setBounds(52, 240 + h, 170, 30);
+////        addExpense.setText("Add expense");
+////        addExpense.setFont(new Font("Tahoma", Font.BOLD, 17));
+////        addExpense.setFocusable(false);
+////
+////        addIncome.setBounds(52+53+170, 240 + h, 170, 30);
+////        addIncome.setText("Add income");
+////        addIncome.setFont(new Font("Tahoma", Font.BOLD, 17));
+////        addIncome.setFocusable(false);
+////
+////        addInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
+////        addInvestment.setText("Add investment");
+////        addInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
+////        addInvestment.setFocusable(false);
+////
+////        addIncome.addActionListener(new ActionListener() {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                if(e.getSource() == addIncome) {
+////                    AddIncoming frame = new AddIncoming(user);
+////                    frame.setVisible(true);
+////                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+////                    updateTable();
+////                }
+////            }
+////        });
+////        addExpense.addActionListener(new ActionListener() {
+////            @Override
+////            public void actionPerformed(ActionEvent e) {
+////                if(e.getSource() == addExpense) {
+////                    AddExpense frame = new AddExpense(user);
+////                    frame.setVisible(true);
+////                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+////                    updateTable();
+////                    table = new JTable(data, columnNames);
+////                }
+////            }
+////        });
+//////        addInvestment.addActionListener(new ActionListener() {
+//////            @Override
+//////            public void actionPerformed(ActionEvent e) {
+//////                if(e.getSource() == addInvestment) {
+//////                    AddInvestment frame = new AddInvestment();
+//////                    frame.setVisible(true);
+//////                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+//////                    updateTable();
+////
+//////                }
+//////            }
+//////        });
+////
+////        contentPane.add(addIncome);
+////        contentPane.add(addExpense);
+////        contentPane.add(addInvestment);
+//
+//
+//
+//        setContentPane(contentPane);
+//        setVisible(true);
+        UserPageGUI();
+
+    }
+
+    private void UserPageGUI() {
         contentPane = new JPanel();
         contentPane.setLayout(null);
         contentPane.setSize(W_FRAME, H_FRAME);
+
+        JLabel banner = new JLabel();
+        banner.setText("Welcome " + user.getFirstName() + " " + user.getSurname() + "!");
+        banner.setFont(new Font("Comic sans", Font.BOLD, 24));
+        banner.setBounds(5, 5, 300, 30);
+        contentPane.add(banner);
 
         String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
         String balanceString = "Balance of the home: " + user.getHomeAccount().getBalanceDateRange(start, end) + "pln";
@@ -100,56 +484,59 @@ public class UserPage extends JFrame {
         balanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         personalBalanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         investmentLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        balanceLabel.setBounds(0,20,300,20);
-        personalBalanceLabel.setBounds(0,40,300,20);
-        investmentLabel.setBounds(0, 60, 300, 20);
+        balanceLabel.setBounds(0,20 + h,300,20);
+        personalBalanceLabel.setBounds(0,40 + h,300,20);
+        investmentLabel.setBounds(0, 60 + h, 300, 20);
 
         contentPane.add(balanceLabel);
         contentPane.add(personalBalanceLabel);
         contentPane.add(investmentLabel);
 
-        String[][] data = new String[10][2];
-        String[] expenses = new String[10];
-        String[] incomes = new String[10];
-
-        int i=0;
-        for(var e : user.getExpenses()) {
-            if(i > 9)
-                break;
-            expenses[i] = e.toString();
-            i++;
-        }
-        i=0;
-        for(var in : user.getIncomings()) {
-            if(i > 9)
-                break;
-            incomes[i] = in.toString();
-            i++;
-        }
-
-        for(i=0;i<10;i++) {
-            data[i][0] = incomes[i];
-            data[i][1] = expenses[i];
-        }
+//        String[][] data = new String[10][2];
+//        String[] expenses = new String[10];
+//        String[] incomes = new String[10];
+//
+//        int i=0;
+//        for(var e : user.getExpenses()) {
+//            if(i > 9)
+//                break;
+//            expenses[i] = e.toString();
+//            i++;
+//        }
+//        i=0;
+//        for(var in : user.getIncomings()) {
+//            if(i > 9)
+//                break;
+//            incomes[i] = in.toString();
+//            i++;
+//        }
+//
+//        for(i=0;i<10;i++) {
+//            data[i][0] = incomes[i];
+//            data[i][1] = expenses[i];
+//        }
 
         // Column Names
         String[] columnNames = { "Incomes", "Expenses"}; //tu cos nie działa
         JLabel tableTitle1 = new JLabel();
-        tableTitle1.setText("Incomes");
-        tableTitle1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        tableTitle1.setBounds(310,20,100,20);
+        tableTitle1.setText("Incomes:");
+        tableTitle1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        tableTitle1.setBounds(310,20 + h,100,20);
         contentPane.add(tableTitle1);
 
         JLabel tableTitle2 = new JLabel();
-        tableTitle2.setText("Expenses");
-        tableTitle2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        tableTitle2.setBounds(510,20,100,20);
+        tableTitle2.setText("Expenses:");
+        tableTitle2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        tableTitle2.setBounds(510,20 + h,100,20);
         contentPane.add(tableTitle2);
 
-        // Initializing the JTable
-        table = new JTable(data, columnNames);
+//        JButton updateTable = new JButton();
+//        updateTable.setText("Update table");
 
-        table.setBounds(310,45, 400,160);
+        // Initializing the JTable
+//        table = new JTable(data, columnNames);
+        updateTable();
+        table.setBounds(310,55 + h, 400,160);
         contentPane.add(table);
 
         String months[] = {"1","2","3","4","5","6","7","8","9","10","11","12"};
@@ -166,11 +553,11 @@ public class UserPage extends JFrame {
         endMonth.setFocusable(false);
         endYear.setFocusable(false);
 
-        startMonth.setBounds(5,100,40,20);
-        startYear.setBounds(45,100,55,20);
+        startMonth.setBounds(5,100 + h,40,20);
+        startYear.setBounds(45,100 + h,55,20);
 
-        endMonth.setBounds(145,100,40,20);
-        endYear.setBounds(185,100,55,20);
+        endMonth.setBounds(145,100 + h,40,20);
+        endYear.setBounds(185,100 + h,55,20);
 
         startMonth.addActionListener(new ActionListener() {
             @Override
@@ -276,8 +663,8 @@ public class UserPage extends JFrame {
 
         startDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
         endDateLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        startDateLabel.setBounds(0,80,140,20);
-        endDateLabel.setBounds(140,80,140,20);
+        startDateLabel.setBounds(0,80 + h,140,20);
+        endDateLabel.setBounds(140,80 + h,140,20);
 
         contentPane.add(startDateLabel);
         contentPane.add(endDateLabel);
@@ -285,7 +672,7 @@ public class UserPage extends JFrame {
         JButton mtd = new JButton();
         mtd.setText("Month to date");
         mtd.setFocusable(false);
-        mtd.setBounds(65, 125, 120,20);
+        mtd.setBounds(65, 125 + h, 120,20);
 
         mtd.addActionListener(new ActionListener() {
             @Override
@@ -303,7 +690,7 @@ public class UserPage extends JFrame {
 
 
         JButton pieChart = new JButton();
-        pieChart.setBounds(40, 150, 170,30);
+        pieChart.setBounds(40, 150 + h, 170,30);
         pieChart.setText("Display plot");
         pieChart.setFont(new Font("Tahoma", Font.BOLD, 18));
         pieChart.setFocusable(false);
@@ -312,26 +699,54 @@ public class UserPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == pieChart) {
-                    JFrame frame = new JFrame("Plot");
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(420, 420);
-                    List<ModelPieChart> data = plotData(user);
+//                    if (wholeHouseSelected) {
+                        JFrame frame = new JFrame("Plot");
+                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                        frame.setSize(420, 420);
+                        List<ModelPieChart> data = plotData(user);
 
-                    PieChart plot = new PieChart();
-                    for(var d : data) {
-                        plot.addData(d);
-                    }
-//                    plot.addData( new ModelPieChart("x", 21, Color.blue));
-                    frame.add(plot);
-                    frame.setVisible(true);
+                        PieChart plot = new PieChart();
+                        for (var d : data) {
+                            plot.addData(d);
+                        }
+                        frame.add(plot);
+                        frame.setVisible(true);
+//                    } else {
+//                        JFrame frame = new JFrame("Plot");
+//                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+//                        frame.setSize(420, 420);
+//                        List<ModelPieChart> data = plotData(user);
+//
+//                        PieChart plot = new PieChart();
+//                        for (var d : data) {
+//                            plot.addData(d);
+//                        }
+//                        frame.add(plot);
+//                        frame.setVisible(true);
+//                    }
                 }
             }
         });
 
         contentPane.add(pieChart);
 
+        JCheckBox typeOfPlot = new JCheckBox();
+        typeOfPlot.setText("Whole house");
+        typeOfPlot.setBounds(210, 155 + h, 100, 20);
+
+        typeOfPlot.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == typeOfPlot) {
+                    wholeHouseSelected = typeOfPlot.isSelected();
+                }
+            }
+        });
+
+        contentPane.add(typeOfPlot);
+
         JButton extendedHistory = new JButton();
-        extendedHistory.setBounds(20, 185, 210, 30);
+        extendedHistory.setBounds(20, 185 + h, 210, 30);
         extendedHistory.setText("Extended history");
         extendedHistory.setFont(new Font("Tahoma", Font.BOLD, 17));
         extendedHistory.setFocusable(false);
@@ -340,80 +755,140 @@ public class UserPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == extendedHistory) {
-                    LongHistory longHistory = new LongHistory(user);
-                    longHistory.setVisible(true);
+                    LongHistory frame = new LongHistory(user);
+                    frame.setVisible(true);
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 }
             }
         });
         contentPane.add(extendedHistory);
 
+        JButton addExpense = new JButton();
+        JButton addIncome = new JButton();
+        JButton addInvestment = new JButton();
+
+        // 720 x 360
+
+        addExpense.setBounds(52, 240 + h, 170, 30);
+        addExpense.setText("Add expense");
+        addExpense.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addExpense.setFocusable(false);
+
+        addIncome.setBounds(52+53+170, 240 + h, 170, 30);
+        addIncome.setText("Add income");
+        addIncome.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addIncome.setFocusable(false);
+
+        addInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
+        addInvestment.setText("Add investment");
+        addInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addInvestment.setFocusable(false);
+
+        addIncome.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == addIncome) {
+                    AddIncoming frame = new AddIncoming(user);
+                    frame.setVisible(true);
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    updateTable();
+                }
+            }
+        });
+        addExpense.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == addExpense) {
+                    AddExpense frame = new AddExpense(user);
+                    frame.setVisible(true);
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                    updateTable();
+                    table = new JTable(data, columnNames);
+                }
+            }
+        });
+//        addInvestment.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if(e.getSource() == addInvestment) {
+//                    AddInvestment frame = new AddInvestment();
+//                    frame.setVisible(true);
+//                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+//                    updateTable();
+
+//                }
+//            }
+//        });
+
+        contentPane.add(addIncome);
+        contentPane.add(addExpense);
+        contentPane.add(addInvestment);
+
+
+
         setContentPane(contentPane);
         setVisible(true);
-
     }
-
-//    private void UserPageGUI() {
-////        contentPane = new JPanel();
-////        contentPane.setLayout(null);
-////        contentPane.setBounds(insets.left, insets.top, W_FRAME - insets.left - insets.right,
-////                H_FRAME - insets.bottom - insets.top);
-////        double personalBalance = user.getPersonalBalanceDateRange(start, end);
-//        Double personalBalance = 420.0;
-//
-////        double homeBalance = user.getPersonalBalanceDateRange(start, end);
-//        Double homeBalance = 21.37;
-//
-//        String personalBalanceString = "Your balance: " + personalBalance;
-//        String balanceString = "Balance of the home: " + homeBalance;
-//
-//        JLabel personalBalanceLabel = new JLabel();
-//        JLabel balanceLabel = new JLabel();
-//
-//        balanceLabel.setText(balanceString);
-//        personalBalanceLabel.setText(personalBalanceString);
-//
-//        balanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//        personalBalanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-////        balanceLabel.setBounds(120,140,100,100);
-//        balanceLabel.setHorizontalTextPosition(JLabel.CENTER);
-//        balanceLabel.setVerticalTextPosition(JLabel.CENTER);
-//
-////        personalBalanceLabel.setHorizontalTextPosition(JLabel.CENTER);
-////        personalBalanceLabel.setVerticalTextPosition(JLabel.LEFT);
-//
-//        this.add(balanceLabel);
-////        this.add(personalBalanceLabel);
-//
-////        balanceLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-////        balanceLabel.setBounds(200,140,100,100);
-//
-//
-////        contentPane.add(personalBalanceLabel);
-////        contentPane.add(balanceLabel);
-////
-////
-////
-////
-////        setContentPane(contentPane);
-//
-//    }
 
     private List<ModelPieChart> plotData(User user) {
         ArrayList<ModelPieChart> list = new ArrayList<>();
-        List<Expense> expenses = user.getExpenses();
+        List<Expense> expenses = !wholeHouseSelected ? user.getExpenses() : user.getHomeAccount().getExpenses();
 
         double[] amounts = new double[CategoryOfExpense.values().length];
 
         for(var e : expenses) {
-//            list.add(new ModelPieChart(e.getCategoryOfExpense().name(), e.getAmount(), e.getCategoryOfExpense().getColor()));
-            amounts[e.getCategoryOfExpense().getId()] += e.getAmount();
+            amounts[e.getCategoryOfExpense().getId()] -= e.getAmount();
         }
 
         for(int i=0;i<amounts.length;i++) {
-            list.add(new ModelPieChart(CategoryOfExpense.values()[i].name(), amounts[i], CategoryOfExpense.values()[i].getColor()));
+            if (amounts[i] != 0)
+                list.add(new ModelPieChart(CategoryOfExpense.values()[i].name(),
+                        amounts[i], CategoryOfExpense.values()[i].getColor()));
         }
 
         return list;
+    }
+
+    private void updateTable() {
+        String[] columnNames = { "Incomes", "Expenses"};
+
+        String[] expenses = new String[10];
+        String[] incomes = new String[10];
+        Object[] exs = user.getExpenses().toArray();
+
+//        int i=0;
+        for(int i=exs.length -1;i>=0;i--) {
+//            if(i > 9)
+//                break;
+            Expense e = (Expense) exs[i];
+            expenses[i] = e.toString();
+//            i++;
+        }
+
+//        for(var in : user.getIncomings()) {
+//            if(i > 9)
+//                break;
+//            incomes[i] = in.toString();
+//            i++;
+//        }
+
+        Object[] ins = user.getIncomings().toArray();
+
+//        int i=0;
+        for(int i=exs.length -1;i>=0;i--) {
+//            if(i > 9)
+//                break;
+            Income e = (Income) ins[i];
+            expenses[i] = e.toString();
+//            i++;
+        }
+
+        for(int i=0;i<10;i++) {
+            data[i][0] = incomes[i];
+            data[i][1] = expenses[i];
+        }
+
+        table =  new JTable(data, columnNames);
     }
 
     public static void main(String[] args) {
@@ -424,25 +899,4 @@ public class UserPage extends JFrame {
     }
 
 
-
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//
-//            //TODO
-//            //odczytywanie z pliku
-//
-//            //test
-//            HomeAccount homeAccount=new HomeAccount();
-//            UserAdult u = new UserAdult(homeAccount,"sda","sfa");
-//            //end of test
-//
-//            @Override
-//            public void run() {
-//
-//                new Login(homeAccount);
-//
-//            }
-//        });
-//
-//    }
 }

@@ -34,6 +34,7 @@ public class ChildUserPage extends JFrame {
     private int startYearInt = 2018;
     private int endMonthInt = 12;
     private int endYearInt = 2023;
+    private final int h=0;
 
     public ChildUserPage(User u) {
         super("ChildUserPage");
@@ -50,6 +51,12 @@ public class ChildUserPage extends JFrame {
         contentPane = new JPanel();
         contentPane.setLayout(null);
         contentPane.setSize(W_FRAME, H_FRAME);
+
+        JLabel banner = new JLabel();
+        banner.setText("Welcome " + user.getFirstName() + " " + user.getSurname() + "!");
+        banner.setFont(new Font("Comic sans", Font.BOLD, 24));
+        banner.setBounds(5, 5, 300, 30);
+        contentPane.add(banner);
 
         String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
 //        String balanceString = "Balance of the home: " + user.getHomeAccount().getBalanceDateRange(start, end) + "pln";
@@ -307,6 +314,62 @@ public class ChildUserPage extends JFrame {
         });
         contentPane.add(extendedHistory);
 
+        JButton addExpense = new JButton();
+        JButton addIncome = new JButton();
+        JButton addInvestment = new JButton();
+
+        // 720 x 360
+
+        addExpense.setBounds(52, 240 + h, 170, 30);
+        addExpense.setText("Add expense");
+        addExpense.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addExpense.setFocusable(false);
+
+        addIncome.setBounds(52+53+170, 240 + h, 170, 30);
+        addIncome.setText("Add income");
+        addIncome.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addIncome.setFocusable(false);
+
+        addInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
+        addInvestment.setText("Add investment");
+        addInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addInvestment.setFocusable(false);
+
+        addIncome.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == addIncome) {
+                    AddIncoming frame = new AddIncoming(user);
+                    frame.setVisible(true);
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                }
+            }
+        });
+        addExpense.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == addExpense) {
+                    AddExpense frame = new AddExpense(user);
+                    frame.setVisible(true);
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                }
+            }
+        });
+//        addInvestment.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if(e.getSource() == addInvestment) {
+//                    AddInvestment frame = new AddInvestment();
+//                    frame.setVisible(true);
+//                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+//                }
+//            }
+//        });
+
+        contentPane.add(addIncome);
+        contentPane.add(addExpense);
+        contentPane.add(addInvestment);
+
         setContentPane(contentPane);
         setVisible(true);
 
@@ -366,11 +429,13 @@ public class ChildUserPage extends JFrame {
 
         for(var e : expenses) {
 //            list.add(new ModelPieChart(e.getCategoryOfExpense().name(), e.getAmount(), e.getCategoryOfExpense().getColor()));
-            amounts[e.getCategoryOfExpense().getId()] += e.getAmount();
+            amounts[e.getCategoryOfExpense().getId()] -= e.getAmount();
         }
 
         for(int i=0;i<amounts.length;i++) {
-            list.add(new ModelPieChart(CategoryOfExpense.values()[i].name(), amounts[i], CategoryOfExpense.values()[i].getColor()));
+            if(amounts[i] != 0)
+                list.add(new ModelPieChart(CategoryOfExpense.values()[i].name(),
+                        amounts[i], CategoryOfExpense.values()[i].getColor()));
         }
 
         return list;

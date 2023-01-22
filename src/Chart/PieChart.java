@@ -9,6 +9,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+//source: https://github.com/DJ-Raven/java-swing-pie-chart
+
 public class PieChart extends JComponent {
 
     private final List<ModelPieChart> models;

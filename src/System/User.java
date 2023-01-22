@@ -45,6 +45,14 @@ public abstract class User implements Serializable {
         return login;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
     public String getPassword() {
         return password;
     }
