@@ -52,6 +52,14 @@ public class HomeAccount implements Serializable {
         return balance;
     }
 
+    public double investedAmount() {
+        double res=0;
+        for(var in : investments) {
+            res += in.getAmount();
+        }
+        return res;
+    }
+
     public double getBalanceDateRange(LocalDate start, LocalDate end) {
         double balance=0;
         for(Expense e :expenses){

@@ -94,6 +94,16 @@ public abstract class User implements Serializable {
         return amount;
     }
 
+    public double investedInTotal() {
+        double res=0;
+
+        for(var i : investments) {
+            res += i.getAmount();
+        }
+
+        return res;
+    }
+
 
     public void addInvestment(Investment investment) {
         this.investments.add(investment);
@@ -151,6 +161,13 @@ public abstract class User implements Serializable {
                 personalBalance+=i.getAmount();
             }
         }
+
+        for(var i :investments){
+            if((i.getDate().isBefore(end) && i.getDate().isAfter(start)) || i.getDate().isEqual(start) || i.getDate().isEqual(end)){
+                personalBalance-=i.getAmount();
+            }
+        }
+
         return personalBalance;
     }
 
