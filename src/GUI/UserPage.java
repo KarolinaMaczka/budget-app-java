@@ -19,6 +19,7 @@ import System.UserAdult;
 import System.Expense;
 import System.CategoryOfExpense;
 import System.Income;
+import System.Investment;
 
 public class UserPage extends JFrame {
     /*
@@ -62,7 +63,7 @@ public class UserPage extends JFrame {
     private Insets insets;
     private User user;
     private LocalDate start = LocalDate.now().minusMonths(1);
-    private LocalDate end = LocalDate.now();
+    private LocalDate end = LocalDate.now().plusDays(1);
     private JPanel panel1;
     private JTable table;
     private int startMonthInt = 1;
@@ -470,11 +471,32 @@ public class UserPage extends JFrame {
         banner.setBounds(5, 5, 300, 30);
         contentPane.add(banner);
 
-//        String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
-        String personalBalanceString = "Your balance: " + user.getPersonalBalance() + "pln";
+        JButton refresh = new JButton();
+        refresh.setText("Refresh");
+        refresh.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        refresh.setBounds(580, 5, 120, 25);
+        refresh.setFocusable(false);
 
-        String balanceString = "Balance of the home: " + user.getHomeAccount().getBalanceDateRange(start, end) + "pln";
-        String investmentString = "Amount invested: " + user.getAmountInvestedDateRange(start, end) + "pln";
+        refresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == refresh) {
+                    UserPageGUI();
+                }
+            }
+        });
+
+        contentPane.add(refresh);
+
+
+
+//        String personalBalanceString = "Your balance: " + user.getPersonalBalanceDateRange(start, end) + "pln";
+        String personalBalanceString = "Your balance: " + Math.round( user.getPersonalBalanceDateRange(start, end) * 100) / 100d + "pln";
+
+        String balanceString = "Balance of the home: " +
+                Math.round(100 * user.getHomeAccount().getBalanceDateRange(start, end)) / 100d + "pln";
+        String investmentString = "Amount invested: " +
+                Math.round(100*user.getAmountInvested() ) / 100d+ "pln";
 
         JLabel personalBalanceLabel = new JLabel();
         JLabel balanceLabel = new JLabel();
@@ -495,29 +517,7 @@ public class UserPage extends JFrame {
         contentPane.add(personalBalanceLabel);
         contentPane.add(investmentLabel);
 
-//        String[][] data = new String[10][2];
-//        String[] expenses = new String[10];
-//        String[] incomes = new String[10];
-//
-//        int i=0;
-//        for(var e : user.getExpenses()) {
-//            if(i > 9)
-//                break;
-//            expenses[i] = e.toString();
-//            i++;
-//        }
-//        i=0;
-//        for(var in : user.getIncomings()) {
-//            if(i > 9)
-//                break;
-//            incomes[i] = in.toString();
-//            i++;
-//        }
-//
-//        for(i=0;i<10;i++) {
-//            data[i][0] = incomes[i];
-//            data[i][1] = expenses[i];
-//        }
+
 
         // Column Names
         String[] columnNames = { "Incomes", "Expenses"}; //tu cos nie działa
@@ -533,14 +533,8 @@ public class UserPage extends JFrame {
         tableTitle2.setBounds(510,20 + h,100,20);
         contentPane.add(tableTitle2);
 
-//        JButton updateTable = new JButton();
-//        updateTable.setText("Update table");
 
-        // Initializing the JTable
-//        table = new JTable(data, columnNames);
         updateTable();
-//        table.setBounds(310,55 + h, 400,160);
-//        contentPane.add(table);
 
         String months[] = {"1","2","3","4","5","6","7","8","9","10","11","12"};
         String years[] = {"2018","2019","2020","2021","2022","2023"};
@@ -569,10 +563,11 @@ public class UserPage extends JFrame {
                     startMonthInt = startMonth.getSelectedIndex() + 1;
                     String monthString = startMonthInt > 10 ? Integer.toString(startMonthInt) : "0" + startMonthInt;
                     String s = "01/" + monthString + "/" + startYearInt;
-                    System.out.println(s);
+//                    System.out.println(s);
                     try{
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         start = LocalDate.parse(s, formatter);
+//                        System.out.println(start);
                     }
                     catch(DateTimeException dte){
                         System.out.println("Wrong date format");
@@ -686,9 +681,9 @@ public class UserPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == mtd) {
-                    end = LocalDate.now();
+                    end = LocalDate.now().plusDays(1);
                     start = LocalDate.of(end.getYear(), end.getMonthValue(), 1);
-                    UserPageGUI();
+//                    UserPageGUI();
                 }
             }
         });
@@ -720,7 +715,7 @@ public class UserPage extends JFrame {
                         }
                         frame.add(plot);
                         frame.setVisible(true);
-                        UserPageGUI();
+//                        UserPageGUI();
 //                    } else {
 //                        JFrame frame = new JFrame("Plot");
 //                        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -749,7 +744,7 @@ public class UserPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == typeOfPlot) {
                     wholeHouseSelected = typeOfPlot.isSelected();
-                    UserPageGUI();
+//                    UserPageGUI();
                 }
             }
         });
@@ -769,7 +764,7 @@ public class UserPage extends JFrame {
                     LongHistory frame = new LongHistory(user);
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                    UserPageGUI();
+//                    UserPageGUI();
                 }
             }
         });
@@ -778,23 +773,51 @@ public class UserPage extends JFrame {
         JButton addExpense = new JButton();
         JButton addIncome = new JButton();
         JButton addInvestment = new JButton();
+        JButton removeInvestment = new JButton();
 
         // 720 x 360
 
-        addExpense.setBounds(52, 240 + h, 170, 30);
+//        addExpense.setBounds(52, 240 + h, 170, 30);
+//        addExpense.setText("Add expense");
+//        addExpense.setFont(new Font("Tahoma", Font.BOLD, 17));
+//        addExpense.setFocusable(false);
+//
+//        addIncome.setBounds(52+53+170, 240 + h, 170, 30);
+//        addIncome.setText("Add income");
+//        addIncome.setFont(new Font("Tahoma", Font.BOLD, 17));
+//        addIncome.setFocusable(false);
+//
+//        addInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
+//        addInvestment.setText("Add investment");
+//        addInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
+//        addInvestment.setFocusable(false);
+//
+//        removeInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
+//        removeInvestment.setText("Remove investment");
+//        removeInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
+//        removeInvestment.setFocusable(false);
+
+        addExpense.setBounds(8-4, 240 + h, 170, 30);
         addExpense.setText("Add expense");
-        addExpense.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addExpense.setFont(new Font("Tahoma", Font.BOLD, 15));
         addExpense.setFocusable(false);
 
-        addIncome.setBounds(52+53+170, 240 + h, 170, 30);
+        addIncome.setBounds(8+8+170-4, 240 + h, 170, 30);
         addIncome.setText("Add income");
-        addIncome.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addIncome.setFont(new Font("Tahoma", Font.BOLD, 15));
         addIncome.setFocusable(false);
 
-        addInvestment.setBounds(52+53+170+170+53, 240 + h, 170, 30);
+        addInvestment.setBounds(8+8+170+8+170-4, 240 + h, 170, 30);
         addInvestment.setText("Add investment");
-        addInvestment.setFont(new Font("Tahoma", Font.BOLD, 17));
+        addInvestment.setFont(new Font("Tahoma", Font.BOLD, 15));
         addInvestment.setFocusable(false);
+
+        removeInvestment.setBounds(8+8+170+8+170+170+8-4, 240 + h, 170, 30);
+        removeInvestment.setText("Sell investment");
+        removeInvestment.setFont(new Font("Tahoma", Font.BOLD, 15));
+        removeInvestment.setFocusable(false);
+
+
 
         addIncome.addActionListener(new ActionListener() {
             @Override
@@ -804,7 +827,7 @@ public class UserPage extends JFrame {
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     updateTable();
-                    UserPageGUI();
+//                    UserPageGUI();
                 }
             }
         });
@@ -817,7 +840,7 @@ public class UserPage extends JFrame {
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     updateTable();
 //                    table = new JTable(data, columnNames);
-                    UserPageGUI();
+//                    UserPageGUI();
                 }
             }
         });
@@ -829,7 +852,17 @@ public class UserPage extends JFrame {
                     frame.setVisible(true);
                     frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                     updateTable();
-                    UserPageGUI();
+//                    UserPageGUI();
+                }
+            }
+        });
+        removeInvestment.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == removeInvestment) {
+                    RemoveInvestment frame = new RemoveInvestment(user);
+                    frame.setVisible(true);
+                    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 }
             }
         });
@@ -837,6 +870,7 @@ public class UserPage extends JFrame {
         contentPane.add(addIncome);
         contentPane.add(addExpense);
         contentPane.add(addInvestment);
+        contentPane.add(removeInvestment);
 
 
 
@@ -851,7 +885,8 @@ public class UserPage extends JFrame {
         double[] amounts = new double[CategoryOfExpense.values().length];
 
         for(var e : expenses) {
-            amounts[e.getCategoryOfExpense().getId()] -= e.getAmount();
+            if(e.getDate().isBefore(end) && e.getDate().isAfter(start))
+                amounts[e.getCategoryOfExpense().getId()] -= e.getAmount();
         }
 
         for(int i=0;i<amounts.length;i++) {
@@ -925,6 +960,7 @@ public class UserPage extends JFrame {
         user.addIncoming(new Income(12.3));
         user.addIncoming(new Income(42.3));
         user.addExpense(new Expense(21.1,CategoryOfExpense.GROCERIES, false));
+        user.addInvestment(new Investment(420, "weed"));
 
 
         new UserPage(user);

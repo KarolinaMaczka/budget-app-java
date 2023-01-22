@@ -56,7 +56,7 @@ public class HomeAccount implements Serializable {
         double balance=0;
         for(Expense e :expenses){
             if(e.getDate().isBefore(end) & e.getDate().isAfter(start)){
-                balance-=e.getAmount();
+                balance+=e.getAmount();
             }
         }
         for(Income i :incomings){

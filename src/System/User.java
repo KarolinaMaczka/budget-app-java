@@ -66,6 +66,8 @@ public abstract class User implements Serializable {
 
     public double getAmountInvested() {
         double amount=0;
+
+        investments.forEach(System.out::println);
         for(var investment : investments) {
             amount += investment.getAmount();
         }
@@ -74,9 +76,11 @@ public abstract class User implements Serializable {
 
     public double getAmountInvestedDateRange(LocalDate start, LocalDate end) {
         double amount=0;
-        for(var investment : investments) {
-            if(investment.getDate().isBefore(end) && investment.getDate().isAfter(start))
-                amount += investment.getAmount();
+//        System.out.println();
+        for(Investment inv : investments) {
+//            if(investment.getDate().isBefore(end) && investment.getDate().isAfter(start))
+                amount += inv.getAmount();
+                amount ++;
         }
         return amount;
     }
@@ -126,6 +130,7 @@ public abstract class User implements Serializable {
     public List<Investment> getInvestments() {return investments;}
     public double getPersonalBalanceDateRange(LocalDate start, LocalDate end) {
         double personalBalance=0;
+//        expenses.forEach(System.out::println);
         for(Expense e :expenses){
             if(e.getDate().isBefore(end) && e.getDate().isAfter(start)){
                 personalBalance+=e.getAmount();

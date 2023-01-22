@@ -61,7 +61,7 @@ public class AddInvestment extends JFrame {
         List<String> nazwy = new ArrayList<>();
         for(Investment i: investments){
             nazwy.add(i.getName());
-            System.out.println(i.getName());
+//            System.out.println(i.getName());
         }
         String[] nazwy2 = nazwy.toArray(String[]::new);
 
@@ -146,7 +146,7 @@ public class AddInvestment extends JFrame {
                                 }
                             }
                             for(Investment i: user.getInvestments()){
-                                System.out.println(i.getName()+ " kwota: "+i.getAmount());
+//                                System.out.println(i.getName()+ " kwota: "+i.getAmount());
                             }
                             break;
                         }
