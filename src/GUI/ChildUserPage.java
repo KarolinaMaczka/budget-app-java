@@ -94,7 +94,7 @@ public class ChildUserPage extends JFrame {
         JLabel banner = new JLabel();
         banner.setText("Welcome " + user.getFirstName() + " " + user.getSurname() + "!");
         banner.setFont(new Font("Comic sans", Font.BOLD, 24));
-        banner.setBounds(5, 5, 300, 30);
+        banner.setBounds(5, 5, 400, 30);
         contentPane.add(banner);
 
         JButton refresh = new JButton();
