@@ -191,11 +191,11 @@ public class Login extends JFrame {
     public static void main(String[] args) {
 
         // if you want to reset your homeaccount
-        try {
-            deleteAccount();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            deleteAccount();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
         EventQueue.invokeLater(new Runnable() {
 
