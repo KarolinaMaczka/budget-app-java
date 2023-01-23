@@ -6,17 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecurringExpense implements Serializable {
-//    private class
-//    protected FrequencyOfExpsense frequency;
-//    protected int numberOfTimes;
     private ArrayList<LocalDate> datesOfPayments;
     private double amount;
     private CategoryOfExpense category;
     private List<Expense> addToExpenseList;
 
     public RecurringExpense(double amount, CategoryOfExpense category, FrequencyOfExpsense frequency, int numberOfTimes) {
-//        super(amount, category);
-//        this.id = "R" + this.id;
+
         this.amount = amount;
         this.category = category;
         this.datesOfPayments = new ArrayList<>();

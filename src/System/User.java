@@ -7,9 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class User implements Serializable {
-//    User: pola: homeAccount personalBalance password login
-//
-//    metody: addIncoming addExpense addInvestment removeIncoming removeExpense removeInvestemnt getBalance
 
     protected HomeAccount homeAccount;
     protected String password;
@@ -59,22 +56,18 @@ public abstract class User implements Serializable {
     }
 
     public  double getAmountInvested() {
-//        System.out.println("rozmiar: " + this.investments.size());
 
         System.out.println(this.investments);
         double amountt = 0;
-//        System.out.println("halo pomocy");
         if (this.investments.isEmpty()) {
             System.out.println("Jest pusta");
         }
         investments.forEach(System.out::println);
         for (Investment investment : investments) {
-//            System.out.println("halo pomocy2");
-//            System.out.println("its done");
             amountt += investment.getAmount();
         }
         return amountt;
-//        return 34;
+
     }
 
     public int getInvestitionsSize(){
@@ -83,13 +76,9 @@ public abstract class User implements Serializable {
 
     public double getAmountInvestedDateRange(LocalDate start, LocalDate end) {
         double amount=0;
-//        System.out.println();
-//        investments.forEach(System.out::println);
-//        System.out.println("o");
+
         for(var inv : this.investments) {
-//            if((inv.getDate().isBefore(end) && inv.getDate().isAfter(start)) || inv.getDate().isEqual(start) || inv.getDate().isEqual(end))
                 amount += inv.getAmount();
-//                amount ++;
         }
         return amount;
     }
@@ -160,7 +149,6 @@ public abstract class User implements Serializable {
 
     public double getPersonalBalanceDateRange(LocalDate start, LocalDate end) {
         double personalBalance=0;
-//        expenses.forEach(System.out::println);
         for(Expense e :expenses){
             if((e.getDate().isBefore(end) && e.getDate().isAfter(start)) || e.getDate().isEqual(start) || e.getDate().isEqual(end)){
                 personalBalance+=e.getAmount();
@@ -172,14 +160,9 @@ public abstract class User implements Serializable {
             }
         }
 
-//        for(var i :investments){
-//            if((i.getDate().isBefore(end) && i.getDate().isAfter(start)) || i.getDate().isEqual(start) || i.getDate().isEqual(end)){
-//                personalBalance-=i.getAmount();
-//            }
-//        }
+
         for (Investment investment : investments) {
-//            System.out.println("halo pomocy2");
-//            System.out.println("its done");
+
             if((investment.getDate().isBefore(end) && investment.getDate().isAfter(start)) || investment.getDate().isEqual(start) || investment.getDate().isEqual(end))
                 personalBalance += investment.getAmount();
         }

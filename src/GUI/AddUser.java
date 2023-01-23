@@ -16,7 +16,6 @@ public class AddUser extends JFrame {
     private JLabel labelUsername, labelPassword, labelErrorText,labelFirstName,labelSurname;
     private JLabel errorUsername,errorPassword,errorFirstName,errorSurname;
     private JTextField textFieldUsername, textFieldPassword, textFieldFirstName,textFieldSurname;
-    private JPasswordField passwordFieldPassword;
     private Insets insets;
     private HomeAccount homeAccount;
     private JLabel title;
@@ -41,7 +40,7 @@ public class AddUser extends JFrame {
     }
 
     private void AddUserGUI(){
-        this.setTitle("Creating home account");
+        this.setTitle("Creating new account");
         contentPaneFL = new JPanel();
 
         GroupLayout layout = new GroupLayout(contentPaneFL);
@@ -85,7 +84,7 @@ public class AddUser extends JFrame {
         errorPassword.setSize(70,20);
         errorPassword.setForeground(Color.RED);
 
-        title = new JLabel("Create new home account to control your budget");
+        title = new JLabel("Add new user to your home account");
         title.setFont(new Font("Helvetica", Font.PLAIN, 18));
         title.setSize(70,20);
 
